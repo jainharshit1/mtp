@@ -1972,3 +1972,14 @@ Starting fold 0
 2026-10-08 14:55:47 | INFO  | src.training.trainer |   [23][2650/2905] loss=11.8532 mem=15.8GB
 2026-10-08 14:56:55 | INFO  | src.training.trainer |   [23][2700/2905] loss=16.5750 mem=15.8GB
 2026-10-08 14:58:05 | INFO  | src.training.trainer |   [23][2750/2905] loss=17.4560 mem=15.8GB
+2026-10-08 14:59:14 | INFO  | src.training.trainer |   [23][2800/2905] loss=12.0664 mem=15.8GB
+2026-10-08 15:00:22 | INFO  | src.training.trainer |   [23][2850/2905] loss=23.4011 mem=15.8GB
+2026-10-08 15:01:30 | INFO  | src.training.trainer |   [23][2900/2905] loss=16.8875 mem=15.8GB
+2026-10-08 15:02:14 | INFO  | src.training.trainer | Epoch 23: train_loss=15.6787 val_loss=18.3636 lr=6.49e-06
+2026-10-08 15:02:15 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=23, is_best=True)
+2026-10-08 15:02:15 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=23, is_best=True)
+2026-10-08 15:02:17 | INFO  | src.training.trainer |   [24][0/2905] loss=17.3576 mem=15.8GB
+2026-10-08 15:03:26 | INFO  | src.training.trainer |   [24][50/2905] loss=15.7083 mem=15.8GB
+2026-10-08 15:04:34 | INFO  | src.training.trainer |   [24][100/2905] loss=13.8987 mem=15.8GB
+2026-10-08 15:05:42 | INFO  | src.training.trainer |   [24][150/2905] loss=13.7754 mem=15.8GB
+2026-10-08 15:06:51 | INFO  | src.training.trainer |   [24][200/2905] loss=16.2461 mem=15.8GB
