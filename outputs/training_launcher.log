@@ -864,3 +864,407 @@ trainable params: 1,479,684 || all params: 174,319,366 || trainable%: 0.8488
 2026-10-08 10:19:49 | INFO  | src.training.trainer |   [19][2100/2905] loss=15.6951 mem=20.1GB
 2026-10-08 10:20:01 | Another instance is already running. Exiting.
 2026-10-08 10:20:47 | INFO  | src.training.trainer |   [19][2150/2905] loss=15.7222 mem=20.1GB
+2026-10-08 10:21:46 | INFO  | src.training.trainer |   [19][2200/2905] loss=14.7164 mem=20.1GB
+2026-10-08 10:22:45 | INFO  | src.training.trainer |   [19][2250/2905] loss=15.6768 mem=20.1GB
+2026-10-08 10:23:44 | INFO  | src.training.trainer |   [19][2300/2905] loss=15.2884 mem=20.1GB
+2026-10-08 10:24:43 | INFO  | src.training.trainer |   [19][2350/2905] loss=17.7791 mem=20.1GB
+2026-10-08 10:25:01 | Another instance is already running. Exiting.
+2026-10-08 10:25:41 | INFO  | src.training.trainer |   [19][2400/2905] loss=15.3955 mem=20.1GB
+2026-10-08 10:26:40 | INFO  | src.training.trainer |   [19][2450/2905] loss=16.7626 mem=20.1GB
+2026-10-08 10:27:40 | INFO  | src.training.trainer |   [19][2500/2905] loss=13.0188 mem=20.1GB
+2026-10-08 10:28:38 | INFO  | src.training.trainer |   [19][2550/2905] loss=20.2988 mem=20.1GB
+2026-10-08 10:29:36 | INFO  | src.training.trainer |   [19][2600/2905] loss=13.6507 mem=20.1GB
+2026-10-08 10:30:01 | Another instance is already running. Exiting.
+2026-10-08 10:30:35 | INFO  | src.training.trainer |   [19][2650/2905] loss=12.4753 mem=20.1GB
+2026-10-08 10:31:34 | INFO  | src.training.trainer |   [19][2700/2905] loss=13.8520 mem=20.1GB
+2026-10-08 10:32:33 | INFO  | src.training.trainer |   [19][2750/2905] loss=16.4253 mem=20.1GB
+2026-10-08 10:33:31 | INFO  | src.training.trainer |   [19][2800/2905] loss=18.8303 mem=20.1GB
+2026-10-08 10:34:29 | INFO  | src.training.trainer |   [19][2850/2905] loss=15.9905 mem=20.1GB
+2026-10-08 10:35:01 | Another instance is already running. Exiting.
+2026-10-08 10:35:27 | INFO  | src.training.trainer |   [19][2900/2905] loss=13.9828 mem=20.1GB
+2026-10-08 10:38:24 | INFO  | src.training.trainer | Epoch 19: train_loss=15.9038 val_loss=15.6751 lr=1.60e-05
+2026-10-08 10:38:24 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=19, is_best=True)
+2026-10-08 10:38:24 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=19, is_best=True)
+2026-10-08 10:38:24 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/epoch_19.pt (epoch=19, is_best=False)
+2026-10-08 10:38:26 | INFO  | src.training.trainer |   [20][0/2905] loss=20.4981 mem=20.1GB
+2026-10-08 10:39:24 | INFO  | src.training.trainer |   [20][50/2905] loss=21.1605 mem=20.1GB
+2026-10-08 10:40:01 | Another instance is already running. Exiting.
+2026-10-08 10:40:23 | INFO  | src.training.trainer |   [20][100/2905] loss=11.9668 mem=20.1GB
+2026-10-08 10:41:21 | INFO  | src.training.trainer |   [20][150/2905] loss=15.9669 mem=20.1GB
+2026-10-08 10:42:20 | INFO  | src.training.trainer |   [20][200/2905] loss=19.0092 mem=20.1GB
+2026-10-08 10:43:18 | INFO  | src.training.trainer |   [20][250/2905] loss=14.1673 mem=11.2GB
+2026-10-08 10:44:18 | INFO  | src.training.trainer |   [20][300/2905] loss=14.9043 mem=12.6GB
+2026-10-08 10:45:01 | Another instance is already running. Exiting.
+2026-10-08 10:45:17 | INFO  | src.training.trainer |   [20][350/2905] loss=16.6098 mem=12.6GB
+2026-10-08 10:46:16 | INFO  | src.training.trainer |   [20][400/2905] loss=18.1206 mem=12.6GB
+2026-10-08 10:47:15 | INFO  | src.training.trainer |   [20][450/2905] loss=15.6430 mem=12.6GB
+2026-10-08 10:48:15 | INFO  | src.training.trainer |   [20][500/2905] loss=12.1981 mem=15.9GB
+2026-10-08 10:49:13 | INFO  | src.training.trainer |   [20][550/2905] loss=14.0710 mem=15.9GB
+2026-10-08 10:50:01 | Another instance is already running. Exiting.
+2026-10-08 10:50:11 | INFO  | src.training.trainer |   [20][600/2905] loss=14.2311 mem=15.9GB
+2026-10-08 10:51:10 | INFO  | src.training.trainer |   [20][650/2905] loss=15.1309 mem=15.9GB
+/DATA/air_force_object_detection/scripts/train_resilient.sh: line 107: 17008 Killed                  python3 scripts/run_training.py
+2026-10-08 10:55:01 | Starting resilient training launcher
+2026-10-08 10:55:01 | GPU: NVIDIA RTX A5000
+2026-10-08 10:55:01 | Launched training with PID 37337
+2026-10-08 10:55:01 | INFO  | run_training | ======================================================================
+2026-10-08 10:55:01 | INFO  | run_training | LODO TRAINING STARTED
+2026-10-08 10:55:01 | INFO  | run_training | ======================================================================
+2026-10-08 10:55:01 | INFO  | run_training | Config: configs/base_config.yaml
+2026-10-08 10:55:01 | INFO  | run_training | Log file: outputs/training.log
+2026-10-08 10:55:01 | INFO  | run_training | Status file: outputs/status.json
+2026-10-08 10:55:03 | INFO  | run_training | GPU: NVIDIA RTX A5000
+2026-10-08 10:55:03 | INFO  | run_training | Free VRAM: 24.9 GB
+2026-10-08 10:55:03 | INFO  | run_training | Folds to train: [0, 1, 2, 3, 4, 5, 6, 7]
+2026-10-08 10:55:03 | INFO  | run_training | 
+######################################################################
+2026-10-08 10:55:03 | INFO  | run_training | FOLD 0 (1/8)
+2026-10-08 10:55:03 | INFO  | run_training | ######################################################################
+2026-10-08 10:55:03 | INFO  | src.training.lodo_runner | 
+============================================================
+Starting fold 0
+============================================================
+2026-10-08 10:55:03 | INFO  | src.training.odvg_dataset | Loaded 23241 samples from data/odvg/fold_0/train.jsonl
+2026-10-08 10:55:03 | INFO  | src.training.odvg_dataset | Loaded 436 samples from data/odvg/fold_0/val.jsonl
+2026-10-08 10:55:04 | INFO  | src.training.loss_masking | Token spans for 8 classes:
+2026-10-08 10:55:04 | INFO  | src.training.loss_masking |   0 (crack): [1,2) = 'crack'
+2026-10-08 10:55:04 | INFO  | src.training.loss_masking |   1 (dent): [3,4) = 'dent'
+2026-10-08 10:55:04 | INFO  | src.training.loss_masking |   2 (corrosion): [5,6) = 'corrosion'
+2026-10-08 10:55:04 | INFO  | src.training.loss_masking |   3 (scratch): [7,8) = 'scratch'
+2026-10-08 10:55:04 | INFO  | src.training.loss_masking |   4 (paint-off): [9,12) = 'paint - off'
+2026-10-08 10:55:04 | INFO  | src.training.loss_masking |   5 (missing-head): [13,16) = 'missing - head'
+2026-10-08 10:55:04 | INFO  | src.training.loss_masking |   6 (rupture): [17,20) = 'rupture'
+2026-10-08 10:55:04 | INFO  | src.training.loss_masking |   7 (fastener-damage): [21,25) = 'fastener - damage'
+/DATA/air_force_object_detection/.venv/lib/python3.10/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/DATA/air_force_object_detection/.venv/lib/python3.10/site-packages/torch/functional.py:539: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /pytorch/aten/src/ATen/native/TensorShape.cpp:3637.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+final text_encoder_type: bert-base-uncased
+load tokenizer done.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 5483.43it/s]
+[transformers] [1mBertModel LOAD REPORT[0m from: bert-base-uncased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+final text_encoder_type: bert-base-uncased
+load tokenizer done.
+2026-10-08 10:55:06 | INFO  | src.training.model_builder | Loaded pretrained weights: 0 missing, 2 unexpected
+trainable params: 1,479,684 || all params: 174,319,366 || trainable%: 0.8488
+2026-10-08 10:55:07 | INFO  | src.training.model_builder | Model params: 174,319,366 total, 1,479,684 trainable (0.85%)
+2026-10-08 10:55:07 | INFO  | src.training.model_builder | Optimizer: 0 backbone params (lr=1e-05), 162 other params (lr=5e-05)
+/DATA/air_force_object_detection/src/training/trainer.py:63: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  self.scaler = GradScaler(enabled=self.use_amp)
+2026-10-08 10:55:07 | WARNING | src.training.trainer | Validation set differs from the one in the checkpoint (None -> 6496bc7fe0fa): resetting best_metric and early-stopping counter.
+2026-10-08 10:55:07 | INFO  | src.training.trainer | Resumed from outputs/fold_0/latest.pt: epoch=19, resuming at 20
+2026-10-08 10:55:07 | INFO  | src.training.trainer | Starting training for 30 epochs
+2026-10-08 10:55:07 | INFO  | src.training.trainer | Output: outputs/fold_0
+/DATA/air_force_object_detection/src/training/trainer.py:200: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=self.use_amp):
+[transformers] `use_return_dict` is deprecated! Use `return_dict` instead!
+/DATA/air_force_object_detection/.venv/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py:745: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. In version 2.5 we will raise an exception if use_reentrant is not passed. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  return fn(*args, **kwargs)
+/DATA/air_force_object_detection/.venv/lib/python3.10/site-packages/torch/utils/checkpoint.py:87: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+/DATA/air_force_object_detection/vendor/Open-GroundingDino/models/GroundingDINO/transformer.py:870: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=False):
+2026-10-08 10:55:10 | INFO  | src.training.trainer |   [20][0/2905] loss=11.6675 mem=8.0GB
+2026-10-08 10:56:12 | INFO  | src.training.trainer |   [20][50/2905] loss=13.0884 mem=9.5GB
+2026-10-08 10:57:12 | INFO  | src.training.trainer |   [20][100/2905] loss=17.5962 mem=11.7GB
+2026-10-08 10:58:12 | INFO  | src.training.trainer |   [20][150/2905] loss=16.3924 mem=10.8GB
+2026-10-08 10:59:12 | INFO  | src.training.trainer |   [20][200/2905] loss=16.7373 mem=10.5GB
+2026-10-08 11:00:01 | Another instance is already running. Exiting.
+2026-10-08 11:00:11 | INFO  | src.training.trainer |   [20][250/2905] loss=16.1644 mem=10.0GB
+2026-10-08 11:01:10 | INFO  | src.training.trainer |   [20][300/2905] loss=20.8226 mem=10.0GB
+2026-10-08 11:02:08 | INFO  | src.training.trainer |   [20][350/2905] loss=11.5504 mem=10.0GB
+2026-10-08 11:03:08 | INFO  | src.training.trainer |   [20][400/2905] loss=16.5807 mem=10.7GB
+2026-10-08 11:04:06 | INFO  | src.training.trainer |   [20][450/2905] loss=17.0462 mem=13.3GB
+2026-10-08 11:05:01 | Another instance is already running. Exiting.
+2026-10-08 11:05:05 | INFO  | src.training.trainer |   [20][500/2905] loss=18.3815 mem=11.3GB
+2026-10-08 11:06:03 | INFO  | src.training.trainer |   [20][550/2905] loss=12.9458 mem=10.7GB
+2026-10-08 11:07:02 | INFO  | src.training.trainer |   [20][600/2905] loss=15.3280 mem=13.5GB
+2026-10-08 11:08:00 | INFO  | src.training.trainer |   [20][650/2905] loss=18.2882 mem=16.5GB
+2026-10-08 11:08:59 | INFO  | src.training.trainer |   [20][700/2905] loss=17.3422 mem=9.3GB
+2026-10-08 11:10:00 | INFO  | src.training.trainer |   [20][750/2905] loss=16.2576 mem=12.5GB
+2026-10-08 11:10:01 | Another instance is already running. Exiting.
+2026-10-08 11:11:04 | INFO  | src.training.trainer |   [20][800/2905] loss=12.1635 mem=15.4GB
+2026-10-08 11:12:07 | INFO  | src.training.trainer |   [20][850/2905] loss=12.2446 mem=15.4GB
+2026-10-08 11:13:34 | INFO  | src.training.trainer |   [20][900/2905] loss=20.6014 mem=15.4GB
+2026-10-08 11:14:58 | INFO  | src.training.trainer |   [20][950/2905] loss=17.8842 mem=15.4GB
+2026-10-08 11:15:01 | Another instance is already running. Exiting.
+2026-10-08 11:16:16 | INFO  | src.training.trainer |   [20][1000/2905] loss=17.7898 mem=15.4GB
+2026-10-08 11:17:42 | INFO  | src.training.trainer |   [20][1050/2905] loss=14.1945 mem=18.9GB
+2026-10-08 11:18:51 | INFO  | src.training.trainer |   [20][1100/2905] loss=13.4263 mem=18.9GB
+2026-10-08 11:20:01 | Another instance is already running. Exiting.
+2026-10-08 11:20:15 | INFO  | src.training.trainer |   [20][1150/2905] loss=16.5438 mem=14.0GB
+2026-10-08 11:21:19 | INFO  | src.training.trainer |   [20][1200/2905] loss=16.1915 mem=14.0GB
+2026-10-08 11:22:18 | INFO  | src.training.trainer |   [20][1250/2905] loss=15.4673 mem=14.0GB
+2026-10-08 11:23:17 | INFO  | src.training.trainer |   [20][1300/2905] loss=13.5778 mem=14.0GB
+2026-10-08 11:24:15 | INFO  | src.training.trainer |   [20][1350/2905] loss=14.1636 mem=14.0GB
+2026-10-08 11:25:01 | Another instance is already running. Exiting.
+2026-10-08 11:25:14 | INFO  | src.training.trainer |   [20][1400/2905] loss=16.6970 mem=14.0GB
+2026-10-08 11:26:14 | INFO  | src.training.trainer |   [20][1450/2905] loss=12.9976 mem=14.0GB
+2026-10-08 11:27:14 | INFO  | src.training.trainer |   [20][1500/2905] loss=10.7722 mem=14.0GB
+2026-10-08 11:28:13 | INFO  | src.training.trainer |   [20][1550/2905] loss=12.1220 mem=14.0GB
+2026-10-08 11:29:11 | INFO  | src.training.trainer |   [20][1600/2905] loss=15.0644 mem=14.0GB
+2026-10-08 11:30:01 | Another instance is already running. Exiting.
+2026-10-08 11:30:09 | INFO  | src.training.trainer |   [20][1650/2905] loss=19.9540 mem=14.0GB
+2026-10-08 11:31:12 | INFO  | src.training.trainer |   [20][1700/2905] loss=20.1031 mem=14.0GB
+2026-10-08 11:32:38 | INFO  | src.training.trainer |   [20][1750/2905] loss=18.0028 mem=14.0GB
+2026-10-08 11:34:01 | INFO  | src.training.trainer |   [20][1800/2905] loss=21.3357 mem=14.0GB
+2026-10-08 11:35:01 | Another instance is already running. Exiting.
+2026-10-08 11:35:22 | INFO  | src.training.trainer |   [20][1850/2905] loss=17.0120 mem=14.0GB
+2026-10-08 11:36:40 | INFO  | src.training.trainer |   [20][1900/2905] loss=15.2349 mem=10.9GB
+2026-10-08 11:38:06 | INFO  | src.training.trainer |   [20][1950/2905] loss=14.2072 mem=10.5GB
+2026-10-08 11:39:25 | INFO  | src.training.trainer |   [20][2000/2905] loss=18.2938 mem=10.5GB
+2026-10-08 11:40:01 | Another instance is already running. Exiting.
+2026-10-08 11:40:48 | INFO  | src.training.trainer |   [20][2050/2905] loss=16.6414 mem=10.5GB
+2026-10-08 11:42:04 | INFO  | src.training.trainer |   [20][2100/2905] loss=16.7743 mem=9.5GB
+2026-10-08 11:43:30 | INFO  | src.training.trainer |   [20][2150/2905] loss=13.8976 mem=9.0GB
+2026-10-08 11:44:49 | INFO  | src.training.trainer |   [20][2200/2905] loss=11.3917 mem=11.5GB
+2026-10-08 11:45:01 | Another instance is already running. Exiting.
+2026-10-08 11:46:11 | INFO  | src.training.trainer |   [20][2250/2905] loss=14.9196 mem=11.5GB
+2026-10-08 11:47:31 | INFO  | src.training.trainer |   [20][2300/2905] loss=15.5085 mem=12.3GB
+2026-10-08 11:48:57 | INFO  | src.training.trainer |   [20][2350/2905] loss=12.1816 mem=12.3GB
+2026-10-08 11:50:01 | Another instance is already running. Exiting.
+2026-10-08 11:50:14 | INFO  | src.training.trainer |   [20][2400/2905] loss=22.1965 mem=10.3GB
+2026-10-08 11:51:38 | INFO  | src.training.trainer |   [20][2450/2905] loss=21.3217 mem=13.9GB
+2026-10-08 11:52:57 | INFO  | src.training.trainer |   [20][2500/2905] loss=14.9308 mem=13.9GB
+2026-10-08 11:54:22 | INFO  | src.training.trainer |   [20][2550/2905] loss=13.9340 mem=11.5GB
+2026-10-08 11:55:01 | Another instance is already running. Exiting.
+2026-10-08 11:55:40 | INFO  | src.training.trainer |   [20][2600/2905] loss=15.3103 mem=11.5GB
+2026-10-08 11:57:06 | INFO  | src.training.trainer |   [20][2650/2905] loss=15.6564 mem=11.5GB
+2026-10-08 11:58:13 | INFO  | src.training.trainer |   [20][2700/2905] loss=12.8642 mem=11.2GB
+2026-10-08 11:59:13 | INFO  | src.training.trainer |   [20][2750/2905] loss=12.9740 mem=10.8GB
+2026-10-08 12:00:01 | Another instance is already running. Exiting.
+2026-10-08 12:00:11 | INFO  | src.training.trainer |   [20][2800/2905] loss=10.6862 mem=10.8GB
+2026-10-08 12:01:11 | INFO  | src.training.trainer |   [20][2850/2905] loss=15.4492 mem=14.2GB
+2026-10-08 12:02:10 | INFO  | src.training.trainer |   [20][2900/2905] loss=18.3727 mem=14.2GB
+/DATA/air_force_object_detection/src/training/trainer.py:277: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=self.use_amp):
+2026-10-08 12:02:45 | INFO  | src.training.trainer | Epoch 20: train_loss=15.8515 val_loss=18.5892 lr=1.33e-05
+2026-10-08 12:02:45 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=20, is_best=True)
+2026-10-08 12:02:45 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=20, is_best=True)
+2026-10-08 12:02:47 | INFO  | src.training.trainer |   [21][0/2905] loss=15.0309 mem=8.5GB
+2026-10-08 12:03:45 | INFO  | src.training.trainer |   [21][50/2905] loss=12.3769 mem=13.5GB
+2026-10-08 12:04:45 | INFO  | src.training.trainer |   [21][100/2905] loss=13.7206 mem=17.0GB
+2026-10-08 12:05:01 | Another instance is already running. Exiting.
+2026-10-08 12:05:44 | INFO  | src.training.trainer |   [21][150/2905] loss=11.9856 mem=17.0GB
+2026-10-08 12:06:41 | INFO  | src.training.trainer |   [21][200/2905] loss=12.0791 mem=17.0GB
+2026-10-08 12:07:40 | INFO  | src.training.trainer |   [21][250/2905] loss=13.6721 mem=17.0GB
+2026-10-08 12:08:39 | INFO  | src.training.trainer |   [21][300/2905] loss=18.2756 mem=17.0GB
+2026-10-08 12:09:37 | INFO  | src.training.trainer |   [21][350/2905] loss=11.6475 mem=17.0GB
+2026-10-08 12:10:01 | Another instance is already running. Exiting.
+2026-10-08 12:10:36 | INFO  | src.training.trainer |   [21][400/2905] loss=21.3802 mem=17.0GB
+2026-10-08 12:11:36 | INFO  | src.training.trainer |   [21][450/2905] loss=13.3834 mem=17.0GB
+2026-10-08 12:12:36 | INFO  | src.training.trainer |   [21][500/2905] loss=14.9344 mem=17.0GB
+2026-10-08 12:13:34 | INFO  | src.training.trainer |   [21][550/2905] loss=14.1307 mem=17.0GB
+2026-10-08 12:14:33 | INFO  | src.training.trainer |   [21][600/2905] loss=12.2142 mem=17.0GB
+2026-10-08 12:15:01 | Another instance is already running. Exiting.
+2026-10-08 12:15:31 | INFO  | src.training.trainer |   [21][650/2905] loss=15.4852 mem=17.0GB
+2026-10-08 12:16:31 | INFO  | src.training.trainer |   [21][700/2905] loss=17.0247 mem=17.0GB
+2026-10-08 12:17:30 | INFO  | src.training.trainer |   [21][750/2905] loss=17.0349 mem=17.0GB
+2026-10-08 12:18:29 | INFO  | src.training.trainer |   [21][800/2905] loss=17.9516 mem=17.0GB
+2026-10-08 12:19:28 | INFO  | src.training.trainer |   [21][850/2905] loss=12.5347 mem=17.0GB
+2026-10-08 12:20:01 | Another instance is already running. Exiting.
+2026-10-08 12:20:27 | INFO  | src.training.trainer |   [21][900/2905] loss=12.7240 mem=17.0GB
+2026-10-08 12:21:26 | INFO  | src.training.trainer |   [21][950/2905] loss=13.8570 mem=17.0GB
+2026-10-08 12:22:25 | INFO  | src.training.trainer |   [21][1000/2905] loss=18.8828 mem=17.0GB
+2026-10-08 12:23:24 | INFO  | src.training.trainer |   [21][1050/2905] loss=13.4616 mem=17.0GB
+2026-10-08 12:24:22 | INFO  | src.training.trainer |   [21][1100/2905] loss=15.6532 mem=17.0GB
+2026-10-08 12:25:01 | Another instance is already running. Exiting.
+2026-10-08 12:25:21 | INFO  | src.training.trainer |   [21][1150/2905] loss=15.1948 mem=17.0GB
+2026-10-08 12:26:20 | INFO  | src.training.trainer |   [21][1200/2905] loss=12.7515 mem=17.0GB
+2026-10-08 12:27:17 | INFO  | src.training.trainer |   [21][1250/2905] loss=14.2956 mem=17.0GB
+2026-10-08 12:28:15 | INFO  | src.training.trainer |   [21][1300/2905] loss=13.4768 mem=17.0GB
+2026-10-08 12:29:15 | INFO  | src.training.trainer |   [21][1350/2905] loss=13.6514 mem=17.0GB
+2026-10-08 12:30:01 | Another instance is already running. Exiting.
+2026-10-08 12:30:14 | INFO  | src.training.trainer |   [21][1400/2905] loss=20.8223 mem=17.0GB
+2026-10-08 12:31:13 | INFO  | src.training.trainer |   [21][1450/2905] loss=13.1954 mem=17.0GB
+2026-10-08 12:32:13 | INFO  | src.training.trainer |   [21][1500/2905] loss=16.6378 mem=17.0GB
+2026-10-08 12:33:13 | INFO  | src.training.trainer |   [21][1550/2905] loss=16.4615 mem=17.0GB
+2026-10-08 12:34:13 | INFO  | src.training.trainer |   [21][1600/2905] loss=18.0665 mem=17.0GB
+2026-10-08 12:35:01 | Another instance is already running. Exiting.
+2026-10-08 12:35:10 | INFO  | src.training.trainer |   [21][1650/2905] loss=14.0969 mem=17.0GB
+2026-10-08 12:36:10 | INFO  | src.training.trainer |   [21][1700/2905] loss=19.9855 mem=17.0GB
+2026-10-08 12:37:08 | INFO  | src.training.trainer |   [21][1750/2905] loss=18.2468 mem=17.0GB
+2026-10-08 12:38:05 | INFO  | src.training.trainer |   [21][1800/2905] loss=14.0337 mem=17.0GB
+2026-10-08 12:39:05 | INFO  | src.training.trainer |   [21][1850/2905] loss=14.9068 mem=17.0GB
+2026-10-08 12:40:01 | Another instance is already running. Exiting.
+2026-10-08 12:40:04 | INFO  | src.training.trainer |   [21][1900/2905] loss=15.3467 mem=17.0GB
+2026-10-08 12:41:03 | INFO  | src.training.trainer |   [21][1950/2905] loss=12.7905 mem=18.0GB
+2026-10-08 12:42:03 | INFO  | src.training.trainer |   [21][2000/2905] loss=20.6066 mem=13.1GB
+2026-10-08 12:43:01 | INFO  | src.training.trainer |   [21][2050/2905] loss=15.3691 mem=16.6GB
+2026-10-08 12:44:02 | INFO  | src.training.trainer |   [21][2100/2905] loss=15.6015 mem=16.6GB
+2026-10-08 12:45:01 | INFO  | src.training.trainer |   [21][2150/2905] loss=15.3254 mem=12.6GB
+2026-10-08 12:45:01 | Another instance is already running. Exiting.
+2026-10-08 12:45:59 | INFO  | src.training.trainer |   [21][2200/2905] loss=13.9291 mem=12.6GB
+2026-10-08 12:47:00 | INFO  | src.training.trainer |   [21][2250/2905] loss=16.6980 mem=13.1GB
+2026-10-08 12:47:58 | INFO  | src.training.trainer |   [21][2300/2905] loss=11.2682 mem=13.1GB
+2026-10-08 12:48:56 | INFO  | src.training.trainer |   [21][2350/2905] loss=18.2088 mem=13.1GB
+2026-10-08 12:49:55 | INFO  | src.training.trainer |   [21][2400/2905] loss=14.1267 mem=13.1GB
+2026-10-08 12:50:01 | Another instance is already running. Exiting.
+2026-10-08 12:50:55 | INFO  | src.training.trainer |   [21][2450/2905] loss=14.8997 mem=13.1GB
+2026-10-08 12:51:53 | INFO  | src.training.trainer |   [21][2500/2905] loss=11.5066 mem=13.1GB
+2026-10-08 12:52:53 | INFO  | src.training.trainer |   [21][2550/2905] loss=12.0550 mem=13.1GB
+2026-10-08 12:53:52 | INFO  | src.training.trainer |   [21][2600/2905] loss=13.4341 mem=13.1GB
+2026-10-08 12:54:52 | INFO  | src.training.trainer |   [21][2650/2905] loss=16.7126 mem=12.8GB
+2026-10-08 12:55:01 | Another instance is already running. Exiting.
+2026-10-08 12:55:50 | INFO  | src.training.trainer |   [21][2700/2905] loss=12.0727 mem=12.8GB
+2026-10-08 12:56:49 | INFO  | src.training.trainer |   [21][2750/2905] loss=12.8213 mem=12.8GB
+2026-10-08 12:57:50 | INFO  | src.training.trainer |   [21][2800/2905] loss=12.6553 mem=12.8GB
+2026-10-08 12:58:49 | INFO  | src.training.trainer |   [21][2850/2905] loss=18.3747 mem=12.8GB
+2026-10-08 12:59:47 | INFO  | src.training.trainer |   [21][2900/2905] loss=12.7786 mem=12.8GB
+2026-10-08 13:00:01 | Another instance is already running. Exiting.
+2026-10-08 13:00:21 | INFO  | src.training.trainer | Epoch 21: train_loss=15.7408 val_loss=18.5272 lr=1.09e-05
+2026-10-08 13:00:21 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=21, is_best=True)
+2026-10-08 13:00:21 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=21, is_best=True)
+2026-10-08 13:00:23 | INFO  | src.training.trainer |   [22][0/2905] loss=14.9880 mem=12.8GB
+2026-10-08 13:01:21 | INFO  | src.training.trainer |   [22][50/2905] loss=17.2932 mem=12.8GB
+2026-10-08 13:02:20 | INFO  | src.training.trainer |   [22][100/2905] loss=13.8571 mem=12.8GB
+2026-10-08 13:03:18 | INFO  | src.training.trainer |   [22][150/2905] loss=12.6679 mem=12.8GB
+2026-10-08 13:04:17 | INFO  | src.training.trainer |   [22][200/2905] loss=16.1345 mem=12.8GB
+2026-10-08 13:05:01 | Another instance is already running. Exiting.
+2026-10-08 13:05:16 | INFO  | src.training.trainer |   [22][250/2905] loss=12.1498 mem=12.8GB
+2026-10-08 13:06:16 | INFO  | src.training.trainer |   [22][300/2905] loss=16.4353 mem=11.6GB
+2026-10-08 13:07:15 | INFO  | src.training.trainer |   [22][350/2905] loss=9.8032 mem=11.6GB
+2026-10-08 13:08:13 | INFO  | src.training.trainer |   [22][400/2905] loss=15.4722 mem=11.6GB
+2026-10-08 13:09:11 | INFO  | src.training.trainer |   [22][450/2905] loss=11.9251 mem=11.6GB
+2026-10-08 13:10:01 | Another instance is already running. Exiting.
+2026-10-08 13:10:11 | INFO  | src.training.trainer |   [22][500/2905] loss=13.2704 mem=11.6GB
+2026-10-08 13:11:09 | INFO  | src.training.trainer |   [22][550/2905] loss=10.9495 mem=11.6GB
+2026-10-08 13:12:08 | INFO  | src.training.trainer |   [22][600/2905] loss=14.8349 mem=11.6GB
+2026-10-08 13:13:06 | INFO  | src.training.trainer |   [22][650/2905] loss=15.8712 mem=11.6GB
+2026-10-08 13:14:04 | INFO  | src.training.trainer |   [22][700/2905] loss=15.0139 mem=11.6GB
+2026-10-08 13:15:01 | Another instance is already running. Exiting.
+2026-10-08 13:15:02 | INFO  | src.training.trainer |   [22][750/2905] loss=12.7834 mem=11.6GB
+2026-10-08 13:16:01 | INFO  | src.training.trainer |   [22][800/2905] loss=13.6042 mem=11.6GB
+2026-10-08 13:17:02 | INFO  | src.training.trainer |   [22][850/2905] loss=16.5823 mem=11.6GB
+2026-10-08 13:18:02 | INFO  | src.training.trainer |   [22][900/2905] loss=16.5057 mem=11.6GB
+2026-10-08 13:19:01 | INFO  | src.training.trainer |   [22][950/2905] loss=11.7506 mem=11.6GB
+2026-10-08 13:20:00 | INFO  | src.training.trainer |   [22][1000/2905] loss=16.2012 mem=11.6GB
+2026-10-08 13:20:01 | Another instance is already running. Exiting.
+2026-10-08 13:20:58 | INFO  | src.training.trainer |   [22][1050/2905] loss=13.2508 mem=11.6GB
+2026-10-08 13:22:00 | INFO  | src.training.trainer |   [22][1100/2905] loss=18.0549 mem=15.8GB
+2026-10-08 13:22:58 | INFO  | src.training.trainer |   [22][1150/2905] loss=14.7215 mem=15.8GB
+2026-10-08 13:23:58 | INFO  | src.training.trainer |   [22][1200/2905] loss=13.5782 mem=15.8GB
+2026-10-08 13:24:55 | INFO  | src.training.trainer |   [22][1250/2905] loss=21.1374 mem=15.8GB
+2026-10-08 13:25:01 | Another instance is already running. Exiting.
+2026-10-08 13:25:53 | INFO  | src.training.trainer |   [22][1300/2905] loss=19.0393 mem=15.8GB
+2026-10-08 13:26:52 | INFO  | src.training.trainer |   [22][1350/2905] loss=17.5243 mem=15.8GB
+2026-10-08 13:27:51 | INFO  | src.training.trainer |   [22][1400/2905] loss=15.6879 mem=15.8GB
+2026-10-08 13:28:50 | INFO  | src.training.trainer |   [22][1450/2905] loss=15.8369 mem=15.8GB
+2026-10-08 13:29:48 | INFO  | src.training.trainer |   [22][1500/2905] loss=18.3774 mem=15.8GB
+2026-10-08 13:30:01 | Another instance is already running. Exiting.
+2026-10-08 13:30:48 | INFO  | src.training.trainer |   [22][1550/2905] loss=19.9914 mem=15.8GB
+2026-10-08 13:31:46 | INFO  | src.training.trainer |   [22][1600/2905] loss=12.8066 mem=15.8GB
+2026-10-08 13:32:42 | INFO  | src.training.trainer |   [22][1650/2905] loss=15.1050 mem=15.8GB
+2026-10-08 13:33:42 | INFO  | src.training.trainer |   [22][1700/2905] loss=11.3451 mem=15.8GB
+2026-10-08 13:34:41 | INFO  | src.training.trainer |   [22][1750/2905] loss=16.8471 mem=15.8GB
+2026-10-08 13:35:01 | Another instance is already running. Exiting.
+2026-10-08 13:35:39 | INFO  | src.training.trainer |   [22][1800/2905] loss=22.9663 mem=15.8GB
+2026-10-08 13:36:39 | INFO  | src.training.trainer |   [22][1850/2905] loss=10.2260 mem=15.8GB
+2026-10-08 13:37:38 | INFO  | src.training.trainer |   [22][1900/2905] loss=19.6261 mem=15.8GB
+2026-10-08 13:38:36 | INFO  | src.training.trainer |   [22][1950/2905] loss=14.1275 mem=15.8GB
+2026-10-08 13:39:34 | INFO  | src.training.trainer |   [22][2000/2905] loss=12.3500 mem=15.8GB
+2026-10-08 13:40:01 | Another instance is already running. Exiting.
+2026-10-08 13:40:33 | INFO  | src.training.trainer |   [22][2050/2905] loss=13.0084 mem=15.8GB
+2026-10-08 13:41:31 | INFO  | src.training.trainer |   [22][2100/2905] loss=13.5089 mem=15.8GB
+2026-10-08 13:42:30 | INFO  | src.training.trainer |   [22][2150/2905] loss=13.9284 mem=15.8GB
+2026-10-08 13:43:29 | INFO  | src.training.trainer |   [22][2200/2905] loss=23.1094 mem=15.8GB
+2026-10-08 13:44:30 | INFO  | src.training.trainer |   [22][2250/2905] loss=13.4773 mem=15.8GB
+2026-10-08 13:45:01 | Another instance is already running. Exiting.
+2026-10-08 13:45:30 | INFO  | src.training.trainer |   [22][2300/2905] loss=14.4388 mem=15.8GB
+2026-10-08 13:46:28 | INFO  | src.training.trainer |   [22][2350/2905] loss=10.2865 mem=15.8GB
+2026-10-08 13:47:27 | INFO  | src.training.trainer |   [22][2400/2905] loss=16.7355 mem=15.8GB
+2026-10-08 13:48:25 | INFO  | src.training.trainer |   [22][2450/2905] loss=22.1287 mem=15.8GB
+2026-10-08 13:49:25 | INFO  | src.training.trainer |   [22][2500/2905] loss=21.2343 mem=15.8GB
+2026-10-08 13:50:01 | Another instance is already running. Exiting.
+2026-10-08 13:50:25 | INFO  | src.training.trainer |   [22][2550/2905] loss=17.6223 mem=15.8GB
+2026-10-08 13:51:24 | INFO  | src.training.trainer |   [22][2600/2905] loss=19.2733 mem=15.8GB
+2026-10-08 13:52:23 | INFO  | src.training.trainer |   [22][2650/2905] loss=12.0998 mem=15.8GB
+2026-10-08 13:53:24 | INFO  | src.training.trainer |   [22][2700/2905] loss=14.2973 mem=15.8GB
+2026-10-08 13:54:23 | INFO  | src.training.trainer |   [22][2750/2905] loss=14.1290 mem=15.8GB
+2026-10-08 13:55:01 | Another instance is already running. Exiting.
+2026-10-08 13:55:22 | INFO  | src.training.trainer |   [22][2800/2905] loss=17.6315 mem=15.8GB
+2026-10-08 13:56:20 | INFO  | src.training.trainer |   [22][2850/2905] loss=11.2202 mem=15.8GB
+2026-10-08 13:57:18 | INFO  | src.training.trainer |   [22][2900/2905] loss=13.5520 mem=15.8GB
+2026-10-08 13:57:53 | INFO  | src.training.trainer | Epoch 22: train_loss=15.6835 val_loss=18.4121 lr=8.56e-06
+2026-10-08 13:57:53 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=22, is_best=True)
+2026-10-08 13:57:53 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=22, is_best=True)
+2026-10-08 13:57:55 | INFO  | src.training.trainer |   [23][0/2905] loss=19.4270 mem=15.8GB
+2026-10-08 13:58:53 | INFO  | src.training.trainer |   [23][50/2905] loss=14.7070 mem=15.8GB
+2026-10-08 13:59:52 | INFO  | src.training.trainer |   [23][100/2905] loss=14.8035 mem=15.8GB
+2026-10-08 14:00:01 | Another instance is already running. Exiting.
+2026-10-08 14:00:51 | INFO  | src.training.trainer |   [23][150/2905] loss=15.1845 mem=15.8GB
+2026-10-08 14:01:51 | INFO  | src.training.trainer |   [23][200/2905] loss=11.5113 mem=15.8GB
+2026-10-08 14:02:51 | INFO  | src.training.trainer |   [23][250/2905] loss=11.2309 mem=15.8GB
+2026-10-08 14:03:50 | INFO  | src.training.trainer |   [23][300/2905] loss=16.8357 mem=15.8GB
+2026-10-08 14:04:49 | INFO  | src.training.trainer |   [23][350/2905] loss=15.2097 mem=15.8GB
+2026-10-08 14:05:01 | Another instance is already running. Exiting.
+2026-10-08 14:05:49 | INFO  | src.training.trainer |   [23][400/2905] loss=15.5450 mem=15.8GB
+2026-10-08 14:06:48 | INFO  | src.training.trainer |   [23][450/2905] loss=13.2336 mem=15.8GB
+2026-10-08 14:07:48 | INFO  | src.training.trainer |   [23][500/2905] loss=15.0906 mem=15.8GB
+2026-10-08 14:08:47 | INFO  | src.training.trainer |   [23][550/2905] loss=13.4954 mem=15.8GB
+2026-10-08 14:09:45 | INFO  | src.training.trainer |   [23][600/2905] loss=17.5349 mem=15.8GB
+2026-10-08 14:10:01 | Another instance is already running. Exiting.
+2026-10-08 14:10:44 | INFO  | src.training.trainer |   [23][650/2905] loss=12.5525 mem=15.8GB
+2026-10-08 14:11:43 | INFO  | src.training.trainer |   [23][700/2905] loss=14.6444 mem=15.8GB
+2026-10-08 14:12:41 | INFO  | src.training.trainer |   [23][750/2905] loss=18.5941 mem=15.8GB
+2026-10-08 14:13:40 | INFO  | src.training.trainer |   [23][800/2905] loss=12.1188 mem=15.8GB
+2026-10-08 14:14:45 | INFO  | src.training.trainer |   [23][850/2905] loss=12.0017 mem=15.8GB
+2026-10-08 14:15:01 | Another instance is already running. Exiting.
+2026-10-08 14:15:51 | INFO  | src.training.trainer |   [23][900/2905] loss=13.0577 mem=15.8GB
+2026-10-08 14:16:58 | INFO  | src.training.trainer |   [23][950/2905] loss=13.4149 mem=15.8GB
+2026-10-08 14:18:05 | INFO  | src.training.trainer |   [23][1000/2905] loss=11.8215 mem=15.8GB
+2026-10-08 14:19:11 | INFO  | src.training.trainer |   [23][1050/2905] loss=18.1842 mem=15.8GB
+2026-10-08 14:20:01 | Another instance is already running. Exiting.
+2026-10-08 14:20:20 | INFO  | src.training.trainer |   [23][1100/2905] loss=21.1809 mem=15.8GB
+2026-10-08 14:21:29 | INFO  | src.training.trainer |   [23][1150/2905] loss=11.6190 mem=15.8GB
+2026-10-08 14:22:38 | INFO  | src.training.trainer |   [23][1200/2905] loss=15.4755 mem=15.8GB
+2026-10-08 14:23:46 | INFO  | src.training.trainer |   [23][1250/2905] loss=13.1397 mem=15.8GB
+2026-10-08 14:24:56 | INFO  | src.training.trainer |   [23][1300/2905] loss=13.3266 mem=15.8GB
+2026-10-08 14:25:01 | Another instance is already running. Exiting.
+2026-10-08 14:26:04 | INFO  | src.training.trainer |   [23][1350/2905] loss=12.6088 mem=15.8GB
+2026-10-08 14:27:12 | INFO  | src.training.trainer |   [23][1400/2905] loss=19.9672 mem=15.8GB
+2026-10-08 14:28:20 | INFO  | src.training.trainer |   [23][1450/2905] loss=14.5381 mem=15.8GB
+2026-10-08 14:29:28 | INFO  | src.training.trainer |   [23][1500/2905] loss=14.3880 mem=15.8GB
+2026-10-08 14:30:01 | Another instance is already running. Exiting.
+2026-10-08 14:30:37 | INFO  | src.training.trainer |   [23][1550/2905] loss=15.3298 mem=15.8GB
+2026-10-08 14:31:45 | INFO  | src.training.trainer |   [23][1600/2905] loss=13.3202 mem=15.8GB
+2026-10-08 14:32:54 | INFO  | src.training.trainer |   [23][1650/2905] loss=16.5857 mem=15.8GB
+2026-10-08 14:34:01 | INFO  | src.training.trainer |   [23][1700/2905] loss=18.5338 mem=15.8GB
+2026-10-08 14:35:01 | Another instance is already running. Exiting.
+2026-10-08 14:35:09 | INFO  | src.training.trainer |   [23][1750/2905] loss=13.0525 mem=15.8GB
+2026-10-08 14:36:16 | INFO  | src.training.trainer |   [23][1800/2905] loss=12.9811 mem=15.8GB
+2026-10-08 14:37:25 | INFO  | src.training.trainer |   [23][1850/2905] loss=12.1053 mem=15.8GB
+2026-10-08 14:38:34 | INFO  | src.training.trainer |   [23][1900/2905] loss=15.1666 mem=15.8GB
+2026-10-08 14:39:43 | INFO  | src.training.trainer |   [23][1950/2905] loss=23.4197 mem=15.8GB
+2026-10-08 14:40:01 | Another instance is already running. Exiting.
+2026-10-08 14:40:52 | INFO  | src.training.trainer |   [23][2000/2905] loss=10.2879 mem=15.8GB
+2026-10-08 14:42:00 | INFO  | src.training.trainer |   [23][2050/2905] loss=11.9975 mem=15.8GB
+2026-10-08 14:43:10 | INFO  | src.training.trainer |   [23][2100/2905] loss=14.7130 mem=15.8GB
+2026-10-08 14:44:18 | INFO  | src.training.trainer |   [23][2150/2905] loss=18.9036 mem=15.8GB
+2026-10-08 14:45:01 | Another instance is already running. Exiting.
+2026-10-08 14:45:26 | INFO  | src.training.trainer |   [23][2200/2905] loss=18.1801 mem=15.8GB
+2026-10-08 14:46:35 | INFO  | src.training.trainer |   [23][2250/2905] loss=14.7267 mem=15.8GB
+2026-10-08 14:47:44 | INFO  | src.training.trainer |   [23][2300/2905] loss=10.2923 mem=15.8GB
+2026-10-08 14:48:53 | INFO  | src.training.trainer |   [23][2350/2905] loss=21.8321 mem=15.8GB
+2026-10-08 14:50:01 | Another instance is already running. Exiting.
+2026-10-08 14:50:03 | INFO  | src.training.trainer |   [23][2400/2905] loss=17.9510 mem=15.8GB
+2026-10-08 14:51:11 | INFO  | src.training.trainer |   [23][2450/2905] loss=18.9960 mem=15.8GB
+2026-10-08 14:52:20 | INFO  | src.training.trainer |   [23][2500/2905] loss=10.3226 mem=15.8GB
+2026-10-08 14:53:31 | INFO  | src.training.trainer |   [23][2550/2905] loss=10.8411 mem=15.8GB
+2026-10-08 14:54:39 | INFO  | src.training.trainer |   [23][2600/2905] loss=10.9715 mem=15.8GB
+2026-10-08 14:55:01 | Another instance is already running. Exiting.
+2026-10-08 14:55:47 | INFO  | src.training.trainer |   [23][2650/2905] loss=11.8532 mem=15.8GB
+2026-10-08 14:56:55 | INFO  | src.training.trainer |   [23][2700/2905] loss=16.5750 mem=15.8GB
+2026-10-08 14:58:05 | INFO  | src.training.trainer |   [23][2750/2905] loss=17.4560 mem=15.8GB
