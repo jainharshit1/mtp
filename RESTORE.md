@@ -81,6 +81,14 @@ git add outputs && git commit -m "checkpoints after fold N" && git push   # afte
 Every commit of a changed `.pt` adds ~22 MB to the git history permanently, so commit checkpoints
 per fold, not per epoch. Back up `latest.pt`/`best.pt`; the `epoch_*.pt` snapshots are optional.
 
+## Data changes after the first backup
+
+`data/odvg` was regenerated on 2026-10-08: train/val are now split by perceptual-hash group
+(no scene in both), and images without boxes are kept as negatives. Fold 0 training began on
+the older split and was switched to a clean val (436 images) at epoch 20; `data/odvg_leaky_backup/`
+holds the original files. Re-run `python scripts/hf_backup.py --repo jainsaabb/mtp --only data`
+so the Hugging Face copy matches, and use `scripts/eval_checkpoint.py` to evaluate checkpoints.
+
 ## Not backed up on purpose
 
 `pre_processing/gpt.py` and `install_datasets.ipynb` (hardcoded Roboflow API key, kept out of git),

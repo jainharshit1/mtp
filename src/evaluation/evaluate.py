@@ -20,8 +20,17 @@ def evaluate_fold(
     prompt_builder,
     config: dict,
     device: torch.device = None,
+    annotated_classes_path: str = None,
+    max_images: int = None,
 ) -> dict:
     """Run evaluation on a COCO-format test set.
+
+    Matches the training setup: images are resized exactly like the val transform
+    (short side = data.image_size), scores are kept down to `score_threshold`
+    (default 0.001, top `max_dets` per image) so the PR curve isn't truncated, and
+    predictions for classes the held-out dataset does not annotate are dropped
+    (training masks those classes too), using annotated_classes.json next to the
+    test file.
 
     Returns dict with mAP, mAP_50, mAP_75, per-class AP.
     """
@@ -29,15 +38,30 @@ def evaluate_fold(
     from pycocotools.cocoeval import COCOeval
     from PIL import Image
     import torchvision.transforms.functional as F
+    from src.training.odvg_dataset import resize
 
     if device is None:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     eval_cfg = config.get("evaluation", {})
-    box_threshold = eval_cfg.get("box_threshold", 0.3)
+    score_threshold = eval_cfg.get("score_threshold", 0.001)
+    max_dets = eval_cfg.get("max_dets_per_image", 100)
+    image_size = config.get("data", {}).get("image_size", 800)
+
+    if annotated_classes_path is None:
+        annotated_classes_path = str(Path(test_annotations_path).parent / "annotated_classes.json")
+    annotated = None
+    if Path(annotated_classes_path).exists():
+        with open(annotated_classes_path) as f:
+            annotated = {int(k): set(v) for k, v in json.load(f).items()}
+    else:
+        logger.warning(f"{annotated_classes_path} not found: not masking unannotated classes")
 
     coco_gt = COCO(test_annotations_path)
     image_ids = coco_gt.getImgIds()
+    if max_images and max_images < len(image_ids):
+        import random
+        image_ids = random.Random(0).sample(image_ids, max_images)  # fixed seed: comparable across checkpoints
 
     caption, cat_list = prompt_builder.build_caption_and_cat_list()
 
@@ -50,47 +74,51 @@ def evaluate_fold(
         config.get("model", {}).get("bert_model", "bert-base-uncased")
     )
     class_to_spans = compute_class_token_spans(caption, cat_list, tokenizer)
+    class_ids = sorted(class_to_spans)
 
     for img_id in image_ids:
         img_info = coco_gt.loadImgs(img_id)[0]
-        img_path = img_info["file_name"]
-        img = Image.open(img_path).convert("RGB")
+        img = Image.open(img_info["file_name"]).convert("RGB")
         w_orig, h_orig = img.size
 
-        # Preprocess
-        img_tensor = F.to_tensor(img)
-        img_tensor = F.normalize(img_tensor, [0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        # Same preprocessing as training/val: resize short side to image_size, then normalise.
+        img, _ = resize(img, {}, image_size, 1333)
+        img_tensor = F.normalize(F.to_tensor(img), [0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         img_tensor = img_tensor.unsqueeze(0).to(device)
 
         with torch.no_grad(), torch.cuda.amp.autocast(enabled=True):
             outputs = model(img_tensor, captions=[caption])
 
-        pred_logits = outputs["pred_logits"].sigmoid()[0]  # [num_queries, max_text_len]
-        pred_boxes = outputs["pred_boxes"][0]  # [num_queries, 4] cxcywh normalized
+        pred_logits = outputs["pred_logits"].sigmoid()[0].float()  # [Q, max_text_len]
+        pred_boxes = outputs["pred_boxes"][0].float()              # [Q, 4] cxcywh normalised
 
-        # Map predictions to classes via token spans
-        for query_idx in range(pred_logits.shape[0]):
-            for class_id, (tok_start, tok_end) in class_to_spans.items():
-                score = pred_logits[query_idx, tok_start:tok_end].max().item()
-                if score < box_threshold:
-                    continue
+        # Score of a class for a query = max over that class's tokens.
+        scores = torch.stack(
+            [pred_logits[:, class_to_spans[c][0]:class_to_spans[c][1]].max(dim=1).values
+             for c in class_ids], dim=1)                            # [Q, C]
 
-                # Convert box: normalized cxcywh -> absolute xyxy -> COCO xywh
-                box = pred_boxes[query_idx]
-                box_abs = box_cxcywh_to_xyxy(box.unsqueeze(0))[0]
-                box_abs = box_abs * torch.tensor(
-                    [w_orig, h_orig, w_orig, h_orig],
-                    device=box_abs.device, dtype=box_abs.dtype,
-                )
-                x1, y1, x2, y2 = box_abs.tolist()
-                coco_box = [x1, y1, x2 - x1, y2 - y1]
+        if annotated is not None and img_id in annotated:
+            keep = torch.tensor([c in annotated[img_id] for c in class_ids], device=scores.device)
+            scores = scores.masked_fill(~keep.unsqueeze(0), 0.0)
 
-                results.append({
-                    "image_id": img_id,
-                    "category_id": class_id,
-                    "bbox": coco_box,
-                    "score": score,
-                })
+        top_scores, top_idx = scores.flatten().topk(min(max_dets, scores.numel()))
+        sel = top_scores >= score_threshold
+        top_scores, top_idx = top_scores[sel], top_idx[sel]
+        if top_idx.numel() == 0:
+            continue
+        q_idx = top_idx // len(class_ids)
+        c_idx = top_idx % len(class_ids)
+
+        boxes = box_cxcywh_to_xyxy(pred_boxes[q_idx]) * torch.tensor(
+            [w_orig, h_orig, w_orig, h_orig], device=pred_boxes.device)
+        for box, c, sc in zip(boxes.tolist(), c_idx.tolist(), top_scores.tolist()):
+            x1, y1, x2, y2 = box
+            results.append({
+                "image_id": img_id,
+                "category_id": class_ids[c],
+                "bbox": [x1, y1, x2 - x1, y2 - y1],
+                "score": sc,
+            })
 
     if not results:
         logger.warning("No predictions generated")

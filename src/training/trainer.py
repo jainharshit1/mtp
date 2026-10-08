@@ -76,6 +76,12 @@ class Trainer:
         self._interrupted = False
         self._current_epoch = 0
 
+        # Fingerprint of the validation set, so a changed val split on resume
+        # resets best-checkpoint tracking (val losses on different sets aren't comparable).
+        self.val_fingerprint = hashlib.md5(
+            "\n".join(getattr(getattr(val_loader, "dataset", None), "lines", [])).encode()
+        ).hexdigest()[:12]
+
         # Config hash for resume verification
         self.config_hash = hashlib.md5(
             json.dumps(config, sort_keys=True).encode()
@@ -354,6 +360,7 @@ class Trainer:
             "best_metric": self.best_metric,
             "epochs_without_improvement": self.epochs_without_improvement,
             "config_hash": self.config_hash,
+            "val_fingerprint": self.val_fingerprint,
             "metrics": metrics,
             "rng_state": rng_state,
         }
@@ -409,6 +416,15 @@ class Trainer:
         self.best_metric = checkpoint.get("best_metric", -1.0)
         self.epochs_without_improvement = checkpoint.get("epochs_without_improvement", 0)
         self.global_step = checkpoint.get("global_step", 0)
+
+        if checkpoint.get("val_fingerprint") != self.val_fingerprint:
+            logger.warning(
+                "Validation set differs from the one in the checkpoint "
+                f"({checkpoint.get('val_fingerprint')} -> {self.val_fingerprint}): "
+                "resetting best_metric and early-stopping counter."
+            )
+            self.best_metric = -1.0
+            self.epochs_without_improvement = 0
 
         if self.ema is not None and "ema_state_dict" in checkpoint:
             self.ema.load_state_dict(checkpoint["ema_state_dict"])
