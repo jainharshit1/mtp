@@ -7,11 +7,14 @@ __pycache__/
 
 # large / generated artifacts
 data/
-outputs/
+outputs/.training.lock
+outputs/.training.pid
+outputs/crontab.backup
 weights/
 wheels/
 *.zip
-*.pt
+/*.pt
+!outputs/**/*.pt
 *.pth
 *.whl
 

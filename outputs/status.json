@@ -1,0 +1,27 @@
+{
+  "state": "training",
+  "folds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "started_at": "2026-10-08T01:35:03.401841",
+  "pid": 17008,
+  "updated_at": "2026-10-08T09:38:22.163559",
+  "fold_progress": "1/8",
+  "current_epoch": 19,
+  "fold_started_at": "2026-10-08T01:35:04.156069",
+  "max_epochs": 30,
+  "last_train_loss": 15.958575900040067,
+  "last_cls_loss": 1.4526892490723458,
+  "last_box_loss": 0.19980187494814294,
+  "vram_gb": 20.07,
+  "last_val_loss": 15.710790294611787,
+  "completed_folds": [],
+  "current_fold": 0
+}

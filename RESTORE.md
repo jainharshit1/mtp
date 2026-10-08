@@ -1,6 +1,6 @@
 # Restoring the project on a fresh machine
 
-Code lives in GitHub (`jainharshit1/mtp`). Everything heavy lives in a **private** Hugging Face
+Code **and `outputs/`** (checkpoints + logs) live in GitHub (`jainharshit1/mtp`). The heavy data lives in a **private** Hugging Face
 dataset repo (created by `scripts/hf_backup.py`), referred to below as `HF_REPO` (e.g. `USER/mtp-backup`).
 
 ## What is where
@@ -12,7 +12,7 @@ dataset repo (created by `scripts/hf_backup.py`), referred to below as `HF_REPO`
 | 8 raw image datasets (~2 GB) | HF `raw/*.tar` | yes (jsonl files point at the images) |
 | `data/` (ODVG folds, metadata) | HF `data.tar` | yes (or regenerate with scripts 01/02) |
 | `weights/groundingdino_swint_ogc.pth` | HF `weights/` | yes |
-| `outputs/` (checkpoints, logs) | HF `outputs/` | yes, for resume |
+| `outputs/` (checkpoints, logs) | GitHub (comes with the clone) | yes, for resume |
 | `bert-base-uncased` | auto-downloaded from the public HF hub | yes (needs internet once) |
 | `.venv`, `wheels/` | not backed up | rebuild from `requirements_portable.txt` |
 
@@ -44,7 +44,7 @@ pip install -r requirements_portable.txt
 #   optional: build deformable-attention CUDA ops (the pure-Python fallback is what ran so far)
 #   cd vendor/Open-GroundingDino/models/GroundingDINO/ops && python setup.py build install
 
-# 4. pull the backup from Hugging Face (private repo -> log in first)
+# 4. pull the data from Hugging Face (private repo -> log in first)
 hf auth login
 hf download HF_REPO --repo-type dataset --local-dir /DATA/hf_download
 
@@ -52,7 +52,6 @@ hf download HF_REPO --repo-type dataset --local-dir /DATA/hf_download
 cd /DATA/air_force_object_detection
 for t in /DATA/hf_download/raw/*.tar /DATA/hf_download/data.tar; do tar -xf "$t" -C .; done
 mkdir -p weights && cp /DATA/hf_download/weights/groundingdino_swint_ogc.pth weights/
-cp -r /DATA/hf_download/outputs ./outputs
 
 # 6. sanity checks
 python -c "import torch; print(torch.cuda.is_available())"
@@ -76,9 +75,11 @@ Optional: re-install the watchdog cron (see `docs/training_operations.md`):
 ## Keeping the backup fresh
 
 ```bash
-python scripts/hf_backup.py --repo HF_REPO --only checkpoints   # small (~100 MB), run after each fold
-python scripts/hf_backup.py --repo HF_REPO                      # full backup (first time)
+python scripts/hf_backup.py --repo HF_REPO     # data/raw/weights - only needed once, they don't change
+git add outputs && git commit -m "checkpoints after fold N" && git push   # after each fold
 ```
+Every commit of a changed `.pt` adds ~22 MB to the git history permanently, so commit checkpoints
+per fold, not per epoch. Back up `latest.pt`/`best.pt`; the `epoch_*.pt` snapshots are optional.
 
 ## Not backed up on purpose
 

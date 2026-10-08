@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-"""Back up everything that is NOT in git to a private Hugging Face dataset repo.
+"""Back up the heavy data that is NOT in git to a private Hugging Face dataset repo.
+
+(outputs/ - checkpoints and logs - is committed to GitHub instead.)
 
 Usage:
     hf auth login                                   # once, token needs write access
     python scripts/hf_backup.py --repo USER/mtp-backup            # everything
-    python scripts/hf_backup.py --repo USER/mtp-backup --only checkpoints   # re-run during training
+    python scripts/hf_backup.py --repo USER/mtp-backup --only data         # one group only
 
-Groups: raw (8 image datasets), data (data/ folds + metadata), weights, checkpoints (outputs/).
+Groups: raw (8 image datasets), data (data/ folds + metadata), weights.
 See RESTORE.md for how to put the files back.
 """
 import argparse
@@ -40,7 +42,7 @@ def tar_dir(src: Path, dst: Path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", required=True, help="e.g. USER/mtp-backup (created private)")
-    ap.add_argument("--only", choices=["raw", "data", "weights", "checkpoints"])
+    ap.add_argument("--only", choices=["raw", "data", "weights"])
     args = ap.parse_args()
     want = lambda g: args.only in (None, g)
 
@@ -55,11 +57,6 @@ def main():
     if want("weights"):
         (STAGE / "weights").mkdir()
         shutil.copy2(ROOT / "weights/groundingdino_swint_ogc.pth", STAGE / "weights")
-    if want("checkpoints"):
-        # a plain copy is fine; the trainer writes checkpoints atomically (tmp + rename)
-        shutil.copytree(ROOT / "outputs", STAGE / "outputs",
-                        ignore=shutil.ignore_patterns(".training.lock", ".training.pid"))
-
     api = HfApi()
     api.create_repo(args.repo, repo_type="dataset", private=True, exist_ok=True)
     api.upload_folder(folder_path=str(STAGE), repo_id=args.repo, repo_type="dataset",

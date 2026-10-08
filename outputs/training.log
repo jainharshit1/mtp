@@ -1,0 +1,1664 @@
+2026-10-07 00:22:31 | INFO  | run_training | ======================================================================
+2026-10-07 00:22:31 | INFO  | run_training | LODO TRAINING STARTED
+2026-10-07 00:22:31 | INFO  | run_training | ======================================================================
+2026-10-07 00:22:31 | INFO  | run_training | Config: configs/base_config.yaml
+2026-10-07 00:22:31 | INFO  | run_training | Log file: outputs/training.log
+2026-10-07 00:22:31 | INFO  | run_training | Status file: outputs/status.json
+2026-10-07 00:22:33 | INFO  | run_training | GPU: NVIDIA RTX A5000
+2026-10-07 00:22:33 | INFO  | run_training | Free VRAM: 24.3 GB
+2026-10-07 00:22:33 | INFO  | run_training | Folds to train: [0]
+2026-10-07 00:22:35 | INFO  | run_training | 
+######################################################################
+2026-10-07 00:22:35 | INFO  | run_training | FOLD 0 (1/1)
+2026-10-07 00:22:35 | INFO  | run_training | ######################################################################
+2026-10-07 00:22:35 | INFO  | src.training.lodo_runner | 
+============================================================
+Starting fold 0
+============================================================
+2026-10-07 00:22:35 | INFO  | src.training.odvg_dataset | Loaded 23241 samples from data/odvg/fold_0/train.jsonl
+2026-10-07 00:22:35 | INFO  | src.training.odvg_dataset | Loaded 2577 samples from data/odvg/fold_0/val.jsonl
+2026-10-07 00:22:36 | INFO  | src.training.loss_masking | Token spans for 8 classes:
+2026-10-07 00:22:36 | INFO  | src.training.loss_masking |   0 (crack): [1,2) = 'crack'
+2026-10-07 00:22:36 | INFO  | src.training.loss_masking |   1 (dent): [3,4) = 'dent'
+2026-10-07 00:22:36 | INFO  | src.training.loss_masking |   2 (corrosion): [5,6) = 'corrosion'
+2026-10-07 00:22:36 | INFO  | src.training.loss_masking |   3 (scratch): [7,8) = 'scratch'
+2026-10-07 00:22:36 | INFO  | src.training.loss_masking |   4 (paint-off): [9,12) = 'paint - off'
+2026-10-07 00:22:36 | INFO  | src.training.loss_masking |   5 (missing-head): [13,16) = 'missing - head'
+2026-10-07 00:22:36 | INFO  | src.training.loss_masking |   6 (rupture): [17,20) = 'rupture'
+2026-10-07 00:22:36 | INFO  | src.training.loss_masking |   7 (fastener-damage): [21,25) = 'fastener - damage'
+2026-10-07 00:22:41 | INFO  | src.training.model_builder | Loaded pretrained weights: 0 missing, 2 unexpected
+2026-10-07 00:22:42 | INFO  | src.training.model_builder | Model params: 174,319,366 total, 1,479,684 trainable (0.85%)
+2026-10-07 00:22:42 | INFO  | src.training.model_builder | Optimizer: 0 backbone params (lr=1e-05), 162 other params (lr=5e-05)
+2026-10-07 00:22:42 | INFO  | src.training.trainer | Starting training for 30 epochs
+2026-10-07 00:22:42 | INFO  | src.training.trainer | Output: outputs/fold_0
+2026-10-07 00:22:47 | INFO  | src.training.trainer |   [0][0/2905] loss=26.5133 mem=0.9GB
+2026-10-07 00:23:55 | INFO  | src.training.trainer |   [0][50/2905] loss=30.4747 mem=0.9GB
+2026-10-07 00:25:02 | INFO  | src.training.trainer |   [0][100/2905] loss=25.1131 mem=0.9GB
+2026-10-07 00:26:09 | INFO  | src.training.trainer |   [0][150/2905] loss=29.2715 mem=0.9GB
+2026-10-07 00:27:17 | INFO  | src.training.trainer |   [0][200/2905] loss=25.8393 mem=0.9GB
+2026-10-07 00:28:26 | INFO  | src.training.trainer |   [0][250/2905] loss=34.0500 mem=0.9GB
+2026-10-07 00:29:34 | INFO  | src.training.trainer |   [0][300/2905] loss=36.0192 mem=0.9GB
+2026-10-07 00:30:41 | INFO  | src.training.trainer |   [0][350/2905] loss=29.4991 mem=0.9GB
+2026-10-07 00:31:51 | INFO  | src.training.trainer |   [0][400/2905] loss=32.6531 mem=0.9GB
+2026-10-07 00:33:00 | INFO  | src.training.trainer |   [0][450/2905] loss=20.1368 mem=0.9GB
+2026-10-07 00:34:08 | INFO  | src.training.trainer |   [0][500/2905] loss=30.7781 mem=0.9GB
+2026-10-07 00:36:51 | INFO  | src.training.trainer |   [0][550/2905] loss=36.7615 mem=0.9GB
+2026-10-07 00:39:51 | INFO  | src.training.trainer |   [0][600/2905] loss=21.8912 mem=0.9GB
+2026-10-07 00:42:47 | INFO  | src.training.trainer |   [0][650/2905] loss=28.3657 mem=0.9GB
+2026-10-07 00:44:00 | INFO  | src.training.trainer |   [0][700/2905] loss=27.4547 mem=0.9GB
+2026-10-07 00:45:11 | INFO  | src.training.trainer |   [0][750/2905] loss=26.3453 mem=0.9GB
+2026-10-07 00:47:17 | INFO  | src.training.trainer |   [0][800/2905] loss=38.4493 mem=0.9GB
+2026-10-07 00:50:13 | INFO  | src.training.trainer |   [0][850/2905] loss=32.1270 mem=0.9GB
+2026-10-07 00:53:15 | INFO  | src.training.trainer |   [0][900/2905] loss=24.0662 mem=0.9GB
+2026-10-07 00:56:14 | INFO  | src.training.trainer |   [0][950/2905] loss=24.6171 mem=0.9GB
+2026-10-07 00:57:34 | INFO  | src.training.trainer |   [0][1000/2905] loss=29.5600 mem=0.9GB
+2026-10-07 00:58:45 | INFO  | src.training.trainer |   [0][1050/2905] loss=24.6233 mem=0.9GB
+2026-10-07 01:00:40 | INFO  | src.training.trainer |   [0][1100/2905] loss=20.8760 mem=0.9GB
+2026-10-07 01:02:26 | INFO  | src.training.trainer |   [0][1150/2905] loss=44.8672 mem=0.9GB
+2026-10-07 01:03:33 | INFO  | src.training.trainer |   [0][1200/2905] loss=20.3644 mem=0.9GB
+2026-10-07 01:04:41 | INFO  | src.training.trainer |   [0][1250/2905] loss=28.4314 mem=0.9GB
+2026-10-07 01:05:49 | INFO  | src.training.trainer |   [0][1300/2905] loss=22.8151 mem=0.9GB
+2026-10-07 01:06:58 | INFO  | src.training.trainer |   [0][1350/2905] loss=19.8805 mem=0.9GB
+2026-10-07 01:08:06 | INFO  | src.training.trainer |   [0][1400/2905] loss=25.4106 mem=0.9GB
+2026-10-07 01:09:41 | INFO  | src.training.trainer |   [0][1450/2905] loss=23.0728 mem=0.9GB
+2026-10-07 01:11:19 | INFO  | src.training.trainer |   [0][1500/2905] loss=20.9968 mem=0.9GB
+2026-10-07 01:12:57 | INFO  | src.training.trainer |   [0][1550/2905] loss=16.1679 mem=0.9GB
+2026-10-07 01:14:33 | INFO  | src.training.trainer |   [0][1600/2905] loss=22.1815 mem=0.9GB
+2026-10-07 01:16:08 | INFO  | src.training.trainer |   [0][1650/2905] loss=20.5841 mem=0.9GB
+2026-10-07 01:17:47 | INFO  | src.training.trainer |   [0][1700/2905] loss=18.3230 mem=0.9GB
+2026-10-07 01:19:23 | INFO  | src.training.trainer |   [0][1750/2905] loss=24.8797 mem=0.9GB
+2026-10-07 01:20:58 | INFO  | src.training.trainer |   [0][1800/2905] loss=20.0288 mem=0.9GB
+2026-10-07 01:22:33 | INFO  | src.training.trainer |   [0][1850/2905] loss=19.4779 mem=0.9GB
+2026-10-07 01:24:09 | INFO  | src.training.trainer |   [0][1900/2905] loss=21.2882 mem=0.9GB
+2026-10-07 01:25:46 | INFO  | src.training.trainer |   [0][1950/2905] loss=36.5555 mem=0.9GB
+2026-10-07 01:27:24 | INFO  | src.training.trainer |   [0][2000/2905] loss=21.2853 mem=0.9GB
+2026-10-07 01:29:01 | INFO  | src.training.trainer |   [0][2050/2905] loss=19.0175 mem=1.0GB
+2026-10-07 01:30:38 | INFO  | src.training.trainer |   [0][2100/2905] loss=19.9963 mem=0.9GB
+2026-10-07 01:32:12 | INFO  | src.training.trainer |   [0][2150/2905] loss=33.2910 mem=0.9GB
+2026-10-07 01:33:48 | INFO  | src.training.trainer |   [0][2200/2905] loss=22.3820 mem=0.9GB
+2026-10-07 01:35:25 | INFO  | src.training.trainer |   [0][2250/2905] loss=28.7444 mem=0.9GB
+2026-10-07 01:36:59 | INFO  | src.training.trainer |   [0][2300/2905] loss=23.3741 mem=0.9GB
+2026-10-07 01:38:36 | INFO  | src.training.trainer |   [0][2350/2905] loss=26.3912 mem=0.9GB
+2026-10-07 01:40:11 | INFO  | src.training.trainer |   [0][2400/2905] loss=22.4541 mem=1.0GB
+2026-10-07 01:41:48 | INFO  | src.training.trainer |   [0][2450/2905] loss=18.0047 mem=0.9GB
+2026-10-07 01:43:24 | INFO  | src.training.trainer |   [0][2500/2905] loss=21.4608 mem=0.9GB
+2026-10-07 01:45:00 | INFO  | src.training.trainer |   [0][2550/2905] loss=25.9611 mem=0.9GB
+2026-10-07 01:46:35 | INFO  | src.training.trainer |   [0][2600/2905] loss=19.6980 mem=0.9GB
+2026-10-07 01:48:09 | INFO  | src.training.trainer |   [0][2650/2905] loss=26.9961 mem=0.9GB
+2026-10-07 01:49:45 | INFO  | src.training.trainer |   [0][2700/2905] loss=28.5775 mem=0.9GB
+2026-10-07 01:51:23 | INFO  | src.training.trainer |   [0][2750/2905] loss=32.9476 mem=0.9GB
+2026-10-07 01:52:58 | INFO  | src.training.trainer |   [0][2800/2905] loss=16.0183 mem=0.9GB
+2026-10-07 01:54:34 | INFO  | src.training.trainer |   [0][2850/2905] loss=23.5506 mem=0.9GB
+2026-10-07 01:56:11 | INFO  | src.training.trainer |   [0][2900/2905] loss=21.4867 mem=0.9GB
+2026-10-07 02:01:43 | INFO  | src.training.trainer | Epoch 0: train_loss=25.9475 val_loss=27.9725 lr=1.67e-05
+2026-10-07 02:01:44 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=0, is_best=True)
+2026-10-07 02:01:44 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=0, is_best=True)
+2026-10-07 02:01:47 | INFO  | src.training.trainer |   [1][0/2905] loss=18.4483 mem=0.9GB
+2026-10-07 02:03:24 | INFO  | src.training.trainer |   [1][50/2905] loss=19.0534 mem=0.9GB
+2026-10-07 02:05:03 | INFO  | src.training.trainer |   [1][100/2905] loss=17.0574 mem=0.9GB
+2026-10-07 02:06:43 | INFO  | src.training.trainer |   [1][150/2905] loss=30.9410 mem=0.9GB
+2026-10-07 02:08:20 | INFO  | src.training.trainer |   [1][200/2905] loss=24.4867 mem=0.9GB
+2026-10-07 02:10:01 | INFO  | src.training.trainer |   [1][250/2905] loss=20.0816 mem=0.9GB
+2026-10-07 02:11:42 | INFO  | src.training.trainer |   [1][300/2905] loss=21.9611 mem=0.9GB
+2026-10-07 02:13:21 | INFO  | src.training.trainer |   [1][350/2905] loss=20.3501 mem=0.9GB
+2026-10-07 02:14:58 | INFO  | src.training.trainer |   [1][400/2905] loss=17.6401 mem=0.9GB
+2026-10-07 02:16:39 | INFO  | src.training.trainer |   [1][450/2905] loss=17.5813 mem=0.9GB
+2026-10-07 02:18:17 | INFO  | src.training.trainer |   [1][500/2905] loss=19.1152 mem=0.9GB
+2026-10-07 02:19:54 | INFO  | src.training.trainer |   [1][550/2905] loss=19.7487 mem=0.9GB
+2026-10-07 02:21:34 | INFO  | src.training.trainer |   [1][600/2905] loss=32.3847 mem=0.9GB
+2026-10-07 02:23:12 | INFO  | src.training.trainer |   [1][650/2905] loss=21.4234 mem=0.9GB
+2026-10-07 02:24:51 | INFO  | src.training.trainer |   [1][700/2905] loss=22.8634 mem=0.9GB
+2026-10-07 02:26:30 | INFO  | src.training.trainer |   [1][750/2905] loss=17.8992 mem=0.9GB
+2026-10-07 02:28:10 | INFO  | src.training.trainer |   [1][800/2905] loss=21.4974 mem=0.9GB
+2026-10-07 02:29:50 | INFO  | src.training.trainer |   [1][850/2905] loss=30.8509 mem=0.9GB
+2026-10-07 02:31:30 | INFO  | src.training.trainer |   [1][900/2905] loss=24.1983 mem=0.9GB
+2026-10-07 02:33:11 | INFO  | src.training.trainer |   [1][950/2905] loss=22.1603 mem=0.9GB
+2026-10-07 02:34:51 | INFO  | src.training.trainer |   [1][1000/2905] loss=23.4501 mem=0.9GB
+2026-10-07 02:36:33 | INFO  | src.training.trainer |   [1][1050/2905] loss=15.9425 mem=0.9GB
+2026-10-07 02:38:12 | INFO  | src.training.trainer |   [1][1100/2905] loss=19.1050 mem=0.9GB
+2026-10-07 02:39:54 | INFO  | src.training.trainer |   [1][1150/2905] loss=21.9332 mem=0.9GB
+2026-10-07 02:41:37 | INFO  | src.training.trainer |   [1][1200/2905] loss=17.3975 mem=0.9GB
+2026-10-07 02:43:18 | INFO  | src.training.trainer |   [1][1250/2905] loss=21.8066 mem=0.9GB
+2026-10-07 02:44:59 | INFO  | src.training.trainer |   [1][1300/2905] loss=28.6287 mem=0.9GB
+2026-10-07 02:46:39 | INFO  | src.training.trainer |   [1][1350/2905] loss=19.7043 mem=0.9GB
+2026-10-07 02:48:21 | INFO  | src.training.trainer |   [1][1400/2905] loss=23.4488 mem=0.9GB
+2026-10-07 02:50:04 | INFO  | src.training.trainer |   [1][1450/2905] loss=23.7603 mem=0.9GB
+2026-10-07 02:51:45 | INFO  | src.training.trainer |   [1][1500/2905] loss=20.5688 mem=0.9GB
+2026-10-07 02:53:27 | INFO  | src.training.trainer |   [1][1550/2905] loss=21.8007 mem=0.9GB
+2026-10-07 02:55:05 | INFO  | src.training.trainer |   [1][1600/2905] loss=22.4930 mem=0.9GB
+2026-10-07 02:56:47 | INFO  | src.training.trainer |   [1][1650/2905] loss=19.4544 mem=0.9GB
+2026-10-07 02:58:30 | INFO  | src.training.trainer |   [1][1700/2905] loss=17.7866 mem=1.0GB
+2026-10-07 03:00:10 | INFO  | src.training.trainer |   [1][1750/2905] loss=21.5024 mem=0.9GB
+2026-10-07 03:01:49 | INFO  | src.training.trainer |   [1][1800/2905] loss=33.7746 mem=0.9GB
+2026-10-07 03:03:30 | INFO  | src.training.trainer |   [1][1850/2905] loss=32.5991 mem=0.9GB
+2026-10-07 03:05:10 | INFO  | src.training.trainer |   [1][1900/2905] loss=37.8728 mem=0.9GB
+2026-10-07 03:06:52 | INFO  | src.training.trainer |   [1][1950/2905] loss=37.9823 mem=0.9GB
+2026-10-07 03:08:35 | INFO  | src.training.trainer |   [1][2000/2905] loss=20.5925 mem=0.9GB
+2026-10-07 03:10:14 | INFO  | src.training.trainer |   [1][2050/2905] loss=23.6844 mem=0.9GB
+2026-10-07 03:11:57 | INFO  | src.training.trainer |   [1][2100/2905] loss=18.2894 mem=0.9GB
+2026-10-07 03:13:38 | INFO  | src.training.trainer |   [1][2150/2905] loss=26.3333 mem=0.9GB
+2026-10-07 03:15:21 | INFO  | src.training.trainer |   [1][2200/2905] loss=24.8231 mem=0.9GB
+2026-10-07 03:17:04 | INFO  | src.training.trainer |   [1][2250/2905] loss=21.1786 mem=0.9GB
+2026-10-07 03:18:45 | INFO  | src.training.trainer |   [1][2300/2905] loss=15.2029 mem=0.9GB
+2026-10-07 03:20:28 | INFO  | src.training.trainer |   [1][2350/2905] loss=20.7963 mem=0.9GB
+2026-10-07 03:22:09 | INFO  | src.training.trainer |   [1][2400/2905] loss=17.5698 mem=0.9GB
+2026-10-07 03:23:54 | INFO  | src.training.trainer |   [1][2450/2905] loss=23.7378 mem=0.9GB
+2026-10-07 03:25:38 | INFO  | src.training.trainer |   [1][2500/2905] loss=23.9281 mem=0.9GB
+2026-10-07 03:27:21 | INFO  | src.training.trainer |   [1][2550/2905] loss=18.5239 mem=0.9GB
+2026-10-07 03:29:03 | INFO  | src.training.trainer |   [1][2600/2905] loss=21.5086 mem=0.9GB
+2026-10-07 03:30:46 | INFO  | src.training.trainer |   [1][2650/2905] loss=20.6246 mem=0.9GB
+2026-10-07 03:32:28 | INFO  | src.training.trainer |   [1][2700/2905] loss=17.4921 mem=0.9GB
+2026-10-07 03:34:12 | INFO  | src.training.trainer |   [1][2750/2905] loss=17.2911 mem=0.9GB
+2026-10-07 03:35:58 | INFO  | src.training.trainer |   [1][2800/2905] loss=19.6494 mem=0.9GB
+2026-10-07 03:37:40 | INFO  | src.training.trainer |   [1][2850/2905] loss=28.9916 mem=0.9GB
+2026-10-07 03:39:21 | INFO  | src.training.trainer |   [1][2900/2905] loss=17.3573 mem=0.9GB
+2026-10-07 03:45:12 | INFO  | src.training.trainer | Epoch 1: train_loss=22.2301 val_loss=25.6884 lr=3.33e-05
+2026-10-07 03:45:13 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=1, is_best=True)
+2026-10-07 03:45:13 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=1, is_best=True)
+2026-10-07 03:45:17 | INFO  | src.training.trainer |   [2][0/2905] loss=21.3976 mem=0.9GB
+2026-10-07 03:47:03 | INFO  | src.training.trainer |   [2][50/2905] loss=24.2929 mem=0.9GB
+2026-10-07 03:48:50 | INFO  | src.training.trainer |   [2][100/2905] loss=20.1769 mem=0.9GB
+2026-10-07 03:50:34 | INFO  | src.training.trainer |   [2][150/2905] loss=17.4935 mem=0.9GB
+2026-10-07 03:52:17 | INFO  | src.training.trainer |   [2][200/2905] loss=23.3191 mem=0.9GB
+2026-10-07 03:54:03 | INFO  | src.training.trainer |   [2][250/2905] loss=33.8384 mem=0.9GB
+2026-10-07 03:55:46 | INFO  | src.training.trainer |   [2][300/2905] loss=20.0137 mem=0.9GB
+2026-10-07 03:57:30 | INFO  | src.training.trainer |   [2][350/2905] loss=17.1647 mem=0.9GB
+2026-10-07 03:59:20 | INFO  | src.training.trainer |   [2][400/2905] loss=18.2163 mem=1.0GB
+2026-10-07 04:01:07 | INFO  | src.training.trainer |   [2][450/2905] loss=26.9579 mem=0.9GB
+2026-10-07 04:02:52 | INFO  | src.training.trainer |   [2][500/2905] loss=18.3299 mem=0.9GB
+2026-10-07 04:04:36 | INFO  | src.training.trainer |   [2][550/2905] loss=20.4229 mem=0.9GB
+2026-10-07 04:06:25 | INFO  | src.training.trainer |   [2][600/2905] loss=22.8474 mem=0.9GB
+2026-10-07 04:08:14 | INFO  | src.training.trainer |   [2][650/2905] loss=25.8684 mem=1.0GB
+2026-10-07 04:10:02 | INFO  | src.training.trainer |   [2][700/2905] loss=14.9855 mem=0.9GB
+2026-10-07 04:11:51 | INFO  | src.training.trainer |   [2][750/2905] loss=15.1909 mem=0.9GB
+2026-10-07 04:13:39 | INFO  | src.training.trainer |   [2][800/2905] loss=17.0092 mem=0.9GB
+2026-10-07 04:15:27 | INFO  | src.training.trainer |   [2][850/2905] loss=21.7508 mem=0.9GB
+2026-10-07 04:17:16 | INFO  | src.training.trainer |   [2][900/2905] loss=30.3206 mem=0.9GB
+2026-10-07 04:19:04 | INFO  | src.training.trainer |   [2][950/2905] loss=14.7319 mem=0.9GB
+2026-10-07 04:20:53 | INFO  | src.training.trainer |   [2][1000/2905] loss=23.7102 mem=0.9GB
+2026-10-07 04:22:44 | INFO  | src.training.trainer |   [2][1050/2905] loss=18.8553 mem=0.9GB
+2026-10-07 04:24:35 | INFO  | src.training.trainer |   [2][1100/2905] loss=34.4972 mem=0.9GB
+2026-10-07 04:26:23 | INFO  | src.training.trainer |   [2][1150/2905] loss=16.6176 mem=0.9GB
+2026-10-07 04:28:13 | INFO  | src.training.trainer |   [2][1200/2905] loss=21.2668 mem=0.9GB
+2026-10-07 04:30:04 | INFO  | src.training.trainer |   [2][1250/2905] loss=21.7641 mem=0.9GB
+2026-10-07 04:31:52 | INFO  | src.training.trainer |   [2][1300/2905] loss=17.3096 mem=0.9GB
+2026-10-07 04:33:41 | INFO  | src.training.trainer |   [2][1350/2905] loss=17.6758 mem=0.9GB
+2026-10-07 04:35:28 | INFO  | src.training.trainer |   [2][1400/2905] loss=14.9645 mem=0.9GB
+2026-10-07 04:37:16 | INFO  | src.training.trainer |   [2][1450/2905] loss=17.8292 mem=0.9GB
+2026-10-07 04:39:08 | INFO  | src.training.trainer |   [2][1500/2905] loss=20.8926 mem=0.9GB
+2026-10-07 04:40:57 | INFO  | src.training.trainer |   [2][1550/2905] loss=16.1718 mem=0.9GB
+2026-10-07 04:42:46 | INFO  | src.training.trainer |   [2][1600/2905] loss=20.7584 mem=0.9GB
+2026-10-07 04:44:39 | INFO  | src.training.trainer |   [2][1650/2905] loss=15.0909 mem=0.9GB
+2026-10-07 04:46:29 | INFO  | src.training.trainer |   [2][1700/2905] loss=18.3289 mem=0.9GB
+2026-10-07 04:48:18 | INFO  | src.training.trainer |   [2][1750/2905] loss=22.9653 mem=0.9GB
+2026-10-07 04:50:08 | INFO  | src.training.trainer |   [2][1800/2905] loss=17.0369 mem=0.9GB
+2026-10-07 04:52:00 | INFO  | src.training.trainer |   [2][1850/2905] loss=20.4314 mem=0.9GB
+2026-10-07 04:53:54 | INFO  | src.training.trainer |   [2][1900/2905] loss=21.9259 mem=1.0GB
+2026-10-07 04:55:48 | INFO  | src.training.trainer |   [2][1950/2905] loss=18.2453 mem=0.9GB
+2026-10-07 04:57:40 | INFO  | src.training.trainer |   [2][2000/2905] loss=17.0956 mem=0.9GB
+2026-10-07 04:59:31 | INFO  | src.training.trainer |   [2][2050/2905] loss=19.8277 mem=0.9GB
+2026-10-07 05:01:20 | INFO  | src.training.trainer |   [2][2100/2905] loss=16.1054 mem=0.9GB
+2026-10-07 05:03:18 | INFO  | src.training.trainer |   [2][2150/2905] loss=20.0271 mem=0.9GB
+2026-10-07 05:05:39 | INFO  | src.training.trainer |   [2][2200/2905] loss=14.4811 mem=0.9GB
+2026-10-07 05:08:31 | INFO  | src.training.trainer |   [2][2250/2905] loss=19.7883 mem=0.9GB
+2026-10-07 05:11:22 | INFO  | src.training.trainer |   [2][2300/2905] loss=18.1088 mem=0.9GB
+2026-10-07 05:14:10 | INFO  | src.training.trainer |   [2][2350/2905] loss=23.4367 mem=0.9GB
+2026-10-07 05:16:59 | INFO  | src.training.trainer |   [2][2400/2905] loss=17.0962 mem=0.9GB
+2026-10-07 05:19:49 | INFO  | src.training.trainer |   [2][2450/2905] loss=27.5727 mem=0.9GB
+2026-10-07 05:22:38 | INFO  | src.training.trainer |   [2][2500/2905] loss=27.8930 mem=0.9GB
+2026-10-07 05:25:30 | INFO  | src.training.trainer |   [2][2550/2905] loss=20.6416 mem=0.9GB
+2026-10-07 05:28:22 | INFO  | src.training.trainer |   [2][2600/2905] loss=19.6705 mem=0.9GB
+2026-10-07 05:31:14 | INFO  | src.training.trainer |   [2][2650/2905] loss=26.9647 mem=0.9GB
+2026-10-07 05:34:06 | INFO  | src.training.trainer |   [2][2700/2905] loss=16.2092 mem=0.9GB
+2026-10-07 05:36:58 | INFO  | src.training.trainer |   [2][2750/2905] loss=19.9994 mem=0.9GB
+2026-10-07 05:39:53 | INFO  | src.training.trainer |   [2][2800/2905] loss=15.0441 mem=0.9GB
+2026-10-07 05:42:45 | INFO  | src.training.trainer |   [2][2850/2905] loss=13.9028 mem=0.9GB
+2026-10-07 05:45:38 | INFO  | src.training.trainer |   [2][2900/2905] loss=16.6162 mem=0.9GB
+2026-10-07 05:56:59 | INFO  | src.training.trainer | Epoch 2: train_loss=20.3603 val_loss=23.2832 lr=5.00e-05
+2026-10-07 05:57:00 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=2, is_best=True)
+2026-10-07 05:57:00 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=2, is_best=True)
+2026-10-07 05:57:05 | INFO  | src.training.trainer |   [3][0/2905] loss=16.1849 mem=0.9GB
+2026-10-07 05:59:55 | INFO  | src.training.trainer |   [3][50/2905] loss=15.4513 mem=0.9GB
+2026-10-07 06:02:47 | INFO  | src.training.trainer |   [3][100/2905] loss=16.6346 mem=0.9GB
+2026-10-07 06:05:41 | INFO  | src.training.trainer |   [3][150/2905] loss=17.3726 mem=0.9GB
+2026-10-07 06:08:31 | INFO  | src.training.trainer |   [3][200/2905] loss=16.0799 mem=0.9GB
+2026-10-07 06:11:24 | INFO  | src.training.trainer |   [3][250/2905] loss=16.2725 mem=0.9GB
+2026-10-07 06:14:20 | INFO  | src.training.trainer |   [3][300/2905] loss=14.2209 mem=0.9GB
+2026-10-07 06:17:15 | INFO  | src.training.trainer |   [3][350/2905] loss=18.9600 mem=0.9GB
+2026-10-07 06:20:08 | INFO  | src.training.trainer |   [3][400/2905] loss=16.6262 mem=0.9GB
+2026-10-07 06:22:57 | INFO  | src.training.trainer |   [3][450/2905] loss=14.6938 mem=0.9GB
+2026-10-07 06:25:50 | INFO  | src.training.trainer |   [3][500/2905] loss=16.7775 mem=0.9GB
+2026-10-07 06:28:43 | INFO  | src.training.trainer |   [3][550/2905] loss=16.0898 mem=0.9GB
+2026-10-07 06:31:36 | INFO  | src.training.trainer |   [3][600/2905] loss=19.2029 mem=0.9GB
+2026-10-07 06:34:31 | INFO  | src.training.trainer |   [3][650/2905] loss=12.9120 mem=0.9GB
+2026-10-07 06:37:27 | INFO  | src.training.trainer |   [3][700/2905] loss=18.1489 mem=1.0GB
+2026-10-07 06:40:21 | INFO  | src.training.trainer |   [3][750/2905] loss=16.4592 mem=0.9GB
+2026-10-07 06:43:14 | INFO  | src.training.trainer |   [3][800/2905] loss=15.1063 mem=0.9GB
+2026-10-07 06:46:05 | INFO  | src.training.trainer |   [3][850/2905] loss=16.5467 mem=0.9GB
+2026-10-07 06:48:55 | INFO  | src.training.trainer |   [3][900/2905] loss=15.2598 mem=0.9GB
+2026-10-07 06:51:49 | INFO  | src.training.trainer |   [3][950/2905] loss=14.4644 mem=0.9GB
+2026-10-07 06:54:39 | INFO  | src.training.trainer |   [3][1000/2905] loss=20.9985 mem=0.9GB
+2026-10-07 06:57:34 | INFO  | src.training.trainer |   [3][1050/2905] loss=21.8645 mem=0.9GB
+2026-10-07 07:00:25 | INFO  | src.training.trainer |   [3][1100/2905] loss=16.2220 mem=0.9GB
+2026-10-07 07:03:14 | INFO  | src.training.trainer |   [3][1150/2905] loss=21.1766 mem=0.9GB
+2026-10-07 07:06:07 | INFO  | src.training.trainer |   [3][1200/2905] loss=15.9591 mem=0.9GB
+2026-10-07 07:08:59 | INFO  | src.training.trainer |   [3][1250/2905] loss=17.6933 mem=0.9GB
+2026-10-07 07:11:50 | INFO  | src.training.trainer |   [3][1300/2905] loss=18.3399 mem=0.9GB
+2026-10-07 07:14:41 | INFO  | src.training.trainer |   [3][1350/2905] loss=15.7411 mem=0.9GB
+2026-10-07 07:17:32 | INFO  | src.training.trainer |   [3][1400/2905] loss=14.6140 mem=0.9GB
+2026-10-07 07:20:23 | INFO  | src.training.trainer |   [3][1450/2905] loss=22.8656 mem=0.9GB
+2026-10-07 07:23:15 | INFO  | src.training.trainer |   [3][1500/2905] loss=16.2318 mem=0.9GB
+2026-10-07 07:26:09 | INFO  | src.training.trainer |   [3][1550/2905] loss=15.1158 mem=0.9GB
+2026-10-07 07:28:59 | INFO  | src.training.trainer |   [3][1600/2905] loss=16.1251 mem=0.9GB
+2026-10-07 07:31:54 | INFO  | src.training.trainer |   [3][1650/2905] loss=16.8733 mem=0.9GB
+2026-10-07 07:34:46 | INFO  | src.training.trainer |   [3][1700/2905] loss=14.6273 mem=1.0GB
+2026-10-07 07:37:39 | INFO  | src.training.trainer |   [3][1750/2905] loss=18.4236 mem=0.9GB
+2026-10-07 07:40:33 | INFO  | src.training.trainer |   [3][1800/2905] loss=29.8531 mem=0.9GB
+2026-10-07 07:43:24 | INFO  | src.training.trainer |   [3][1850/2905] loss=15.0379 mem=0.9GB
+2026-10-07 07:46:18 | INFO  | src.training.trainer |   [3][1900/2905] loss=23.9009 mem=0.9GB
+2026-10-07 07:49:08 | INFO  | src.training.trainer |   [3][1950/2905] loss=16.9343 mem=0.9GB
+2026-10-07 07:51:56 | INFO  | src.training.trainer |   [3][2000/2905] loss=21.0329 mem=0.9GB
+2026-10-07 07:54:50 | INFO  | src.training.trainer |   [3][2050/2905] loss=22.2954 mem=0.9GB
+2026-10-07 07:57:44 | INFO  | src.training.trainer |   [3][2100/2905] loss=16.7936 mem=0.9GB
+2026-10-07 08:00:36 | INFO  | src.training.trainer |   [3][2150/2905] loss=19.9426 mem=0.9GB
+2026-10-07 08:03:30 | INFO  | src.training.trainer |   [3][2200/2905] loss=18.9451 mem=0.9GB
+2026-10-07 08:06:21 | INFO  | src.training.trainer |   [3][2250/2905] loss=18.5279 mem=0.9GB
+2026-10-07 08:09:13 | INFO  | src.training.trainer |   [3][2300/2905] loss=19.6225 mem=0.9GB
+2026-10-07 08:12:07 | INFO  | src.training.trainer |   [3][2350/2905] loss=23.5033 mem=0.9GB
+2026-10-07 08:14:56 | INFO  | src.training.trainer |   [3][2400/2905] loss=16.2572 mem=0.9GB
+2026-10-07 08:17:52 | INFO  | src.training.trainer |   [3][2450/2905] loss=15.0465 mem=0.9GB
+2026-10-07 08:20:43 | INFO  | src.training.trainer |   [3][2500/2905] loss=22.0172 mem=0.9GB
+2026-10-07 08:23:32 | INFO  | src.training.trainer |   [3][2550/2905] loss=16.4883 mem=0.9GB
+2026-10-07 08:26:23 | INFO  | src.training.trainer |   [3][2600/2905] loss=17.1670 mem=0.9GB
+2026-10-07 08:29:15 | INFO  | src.training.trainer |   [3][2650/2905] loss=17.4477 mem=0.9GB
+2026-10-07 08:32:05 | INFO  | src.training.trainer |   [3][2700/2905] loss=17.7740 mem=0.9GB
+2026-10-07 08:34:57 | INFO  | src.training.trainer |   [3][2750/2905] loss=24.1271 mem=0.9GB
+2026-10-07 08:37:49 | INFO  | src.training.trainer |   [3][2800/2905] loss=23.2842 mem=1.0GB
+2026-10-07 08:40:41 | INFO  | src.training.trainer |   [3][2850/2905] loss=14.7487 mem=0.9GB
+2026-10-07 08:43:34 | INFO  | src.training.trainer |   [3][2900/2905] loss=17.9128 mem=0.9GB
+2026-10-07 08:54:53 | INFO  | src.training.trainer | Epoch 3: train_loss=19.0072 val_loss=21.4525 lr=4.98e-05
+2026-10-07 08:54:54 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=3, is_best=True)
+2026-10-07 08:54:54 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=3, is_best=True)
+2026-10-07 08:54:58 | INFO  | src.training.trainer |   [4][0/2905] loss=21.2501 mem=0.9GB
+2026-10-07 08:57:49 | INFO  | src.training.trainer |   [4][50/2905] loss=22.1666 mem=0.9GB
+2026-10-07 09:00:37 | INFO  | src.training.trainer |   [4][100/2905] loss=17.3072 mem=0.9GB
+2026-10-07 09:03:30 | INFO  | src.training.trainer |   [4][150/2905] loss=13.5067 mem=0.9GB
+2026-10-07 09:06:19 | INFO  | src.training.trainer |   [4][200/2905] loss=17.7580 mem=0.9GB
+2026-10-07 09:09:12 | INFO  | src.training.trainer |   [4][250/2905] loss=20.6523 mem=0.9GB
+2026-10-07 09:12:03 | INFO  | src.training.trainer |   [4][300/2905] loss=21.0566 mem=0.9GB
+2026-10-07 09:14:56 | INFO  | src.training.trainer |   [4][350/2905] loss=27.6570 mem=0.9GB
+2026-10-07 09:17:49 | INFO  | src.training.trainer |   [4][400/2905] loss=18.6413 mem=0.9GB
+2026-10-07 09:20:42 | INFO  | src.training.trainer |   [4][450/2905] loss=19.9808 mem=0.9GB
+2026-10-07 09:23:33 | INFO  | src.training.trainer |   [4][500/2905] loss=17.6856 mem=0.9GB
+2026-10-07 09:26:23 | INFO  | src.training.trainer |   [4][550/2905] loss=17.5755 mem=0.9GB
+2026-10-07 09:29:14 | INFO  | src.training.trainer |   [4][600/2905] loss=22.8212 mem=0.9GB
+2026-10-07 09:32:11 | INFO  | src.training.trainer |   [4][650/2905] loss=18.1771 mem=0.9GB
+2026-10-07 09:35:02 | INFO  | src.training.trainer |   [4][700/2905] loss=21.8268 mem=0.9GB
+2026-10-07 09:37:54 | INFO  | src.training.trainer |   [4][750/2905] loss=15.1992 mem=0.9GB
+2026-10-07 09:38:43 | INFO  | run_training | ======================================================================
+2026-10-07 09:38:43 | INFO  | run_training | LODO TRAINING STARTED
+2026-10-07 09:38:43 | INFO  | run_training | ======================================================================
+2026-10-07 09:38:43 | INFO  | run_training | Config: configs/base_config.yaml
+2026-10-07 09:38:43 | INFO  | run_training | Log file: outputs/training.log
+2026-10-07 09:38:43 | INFO  | run_training | Status file: outputs/status.json
+2026-10-07 09:38:45 | INFO  | run_training | GPU: NVIDIA RTX A5000
+2026-10-07 09:38:45 | INFO  | run_training | Free VRAM: 18.9 GB
+2026-10-07 09:38:45 | INFO  | run_training | Folds to train: [0]
+2026-10-07 09:38:47 | INFO  | run_training | 
+######################################################################
+2026-10-07 09:38:47 | INFO  | run_training | FOLD 0 (1/1)
+2026-10-07 09:38:47 | INFO  | run_training | ######################################################################
+2026-10-07 09:38:47 | INFO  | src.training.lodo_runner | 
+============================================================
+Starting fold 0
+============================================================
+2026-10-07 09:38:47 | INFO  | src.training.odvg_dataset | Loaded 23241 samples from data/odvg/fold_0/train.jsonl
+2026-10-07 09:38:47 | INFO  | src.training.odvg_dataset | Loaded 2577 samples from data/odvg/fold_0/val.jsonl
+2026-10-07 09:38:49 | INFO  | src.training.loss_masking | Token spans for 8 classes:
+2026-10-07 09:38:49 | INFO  | src.training.loss_masking |   0 (crack): [1,2) = 'crack'
+2026-10-07 09:38:49 | INFO  | src.training.loss_masking |   1 (dent): [3,4) = 'dent'
+2026-10-07 09:38:49 | INFO  | src.training.loss_masking |   2 (corrosion): [5,6) = 'corrosion'
+2026-10-07 09:38:49 | INFO  | src.training.loss_masking |   3 (scratch): [7,8) = 'scratch'
+2026-10-07 09:38:49 | INFO  | src.training.loss_masking |   4 (paint-off): [9,12) = 'paint - off'
+2026-10-07 09:38:49 | INFO  | src.training.loss_masking |   5 (missing-head): [13,16) = 'missing - head'
+2026-10-07 09:38:49 | INFO  | src.training.loss_masking |   6 (rupture): [17,20) = 'rupture'
+2026-10-07 09:38:49 | INFO  | src.training.loss_masking |   7 (fastener-damage): [21,25) = 'fastener - damage'
+2026-10-07 09:38:55 | INFO  | src.training.model_builder | Loaded pretrained weights: 0 missing, 2 unexpected
+2026-10-07 09:38:56 | INFO  | src.training.model_builder | Model params: 174,319,366 total, 1,479,684 trainable (0.85%)
+2026-10-07 09:38:56 | INFO  | src.training.model_builder | Optimizer: 0 backbone params (lr=1e-05), 162 other params (lr=5e-05)
+2026-10-07 09:38:56 | ERROR | run_training | Fold 0 FAILED: Weights only load failed. This file can still be loaded, to do so you have two options, [1mdo those steps only if you trust the source of the checkpoint[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL numpy._core.multiarray._reconstruct was not an allowed global by default. Please use `torch.serialization.add_safe_globals([_reconstruct])` or the `torch.serialization.safe_globals([_reconstruct])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+Traceback (most recent call last):
+  File "/DATA/air_force_object_detection/scripts/run_training.py", line 150, in main
+    result = runner.run_fold(fold_id, resume=not args.no_resume)
+  File "/DATA/air_force_object_detection/src/training/lodo_runner.py", line 115, in run_fold
+    trainer.load_checkpoint(str(checkpoint_path))
+  File "/DATA/air_force_object_detection/src/training/trainer.py", line 328, in load_checkpoint
+    checkpoint = torch.load(path, map_location=self.device)
+  File "/DATA/air_force_object_detection/.venv/lib/python3.10/site-packages/torch/serialization.py", line 1470, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, [1mdo those steps only if you trust the source of the checkpoint[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL numpy._core.multiarray._reconstruct was not an allowed global by default. Please use `torch.serialization.add_safe_globals([_reconstruct])` or the `torch.serialization.safe_globals([_reconstruct])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+2026-10-07 09:38:56 | INFO  | run_training | 
+======================================================================
+2026-10-07 09:38:56 | INFO  | run_training | LODO TRAINING COMPLETE
+2026-10-07 09:38:56 | INFO  | run_training | ======================================================================
+2026-10-07 09:38:56 | INFO  | run_training | Total time: 0:00:09
+2026-10-07 09:38:56 | INFO  | run_training | Completed folds: []
+2026-10-07 09:40:54 | INFO  | run_training | ======================================================================
+2026-10-07 09:40:54 | INFO  | run_training | LODO TRAINING STARTED
+2026-10-07 09:40:54 | INFO  | run_training | ======================================================================
+2026-10-07 09:40:54 | INFO  | run_training | Config: configs/base_config.yaml
+2026-10-07 09:40:54 | INFO  | run_training | Log file: outputs/training.log
+2026-10-07 09:40:54 | INFO  | run_training | Status file: outputs/status.json
+2026-10-07 09:40:56 | INFO  | run_training | GPU: NVIDIA RTX A5000
+2026-10-07 09:40:57 | INFO  | run_training | Free VRAM: 18.9 GB
+2026-10-07 09:40:57 | INFO  | run_training | Folds to train: [0]
+2026-10-07 09:40:58 | INFO  | run_training | 
+######################################################################
+2026-10-07 09:40:58 | INFO  | run_training | FOLD 0 (1/1)
+2026-10-07 09:40:58 | INFO  | run_training | ######################################################################
+2026-10-07 09:40:58 | INFO  | src.training.lodo_runner | 
+============================================================
+Starting fold 0
+============================================================
+2026-10-07 09:40:58 | INFO  | src.training.odvg_dataset | Loaded 23241 samples from data/odvg/fold_0/train.jsonl
+2026-10-07 09:40:58 | INFO  | src.training.odvg_dataset | Loaded 2577 samples from data/odvg/fold_0/val.jsonl
+2026-10-07 09:41:00 | INFO  | src.training.loss_masking | Token spans for 8 classes:
+2026-10-07 09:41:00 | INFO  | src.training.loss_masking |   0 (crack): [1,2) = 'crack'
+2026-10-07 09:41:00 | INFO  | src.training.loss_masking |   1 (dent): [3,4) = 'dent'
+2026-10-07 09:41:00 | INFO  | src.training.loss_masking |   2 (corrosion): [5,6) = 'corrosion'
+2026-10-07 09:41:00 | INFO  | src.training.loss_masking |   3 (scratch): [7,8) = 'scratch'
+2026-10-07 09:41:00 | INFO  | src.training.loss_masking |   4 (paint-off): [9,12) = 'paint - off'
+2026-10-07 09:41:00 | INFO  | src.training.loss_masking |   5 (missing-head): [13,16) = 'missing - head'
+2026-10-07 09:41:00 | INFO  | src.training.loss_masking |   6 (rupture): [17,20) = 'rupture'
+2026-10-07 09:41:00 | INFO  | src.training.loss_masking |   7 (fastener-damage): [21,25) = 'fastener - damage'
+2026-10-07 09:41:05 | INFO  | src.training.model_builder | Loaded pretrained weights: 0 missing, 2 unexpected
+2026-10-07 09:41:06 | INFO  | src.training.model_builder | Model params: 174,319,366 total, 1,479,684 trainable (0.85%)
+2026-10-07 09:41:06 | INFO  | src.training.model_builder | Optimizer: 0 backbone params (lr=1e-05), 162 other params (lr=5e-05)
+2026-10-07 09:41:07 | WARNING | src.training.trainer | Config hash mismatch: checkpoint=95a722f1c2c4, current=5f6c9e3c929f. Proceeding anyway.
+2026-10-07 09:41:07 | ERROR | run_training | Fold 0 FAILED: RNG state must be a torch.ByteTensor
+Traceback (most recent call last):
+  File "/DATA/air_force_object_detection/scripts/run_training.py", line 150, in main
+    result = runner.run_fold(fold_id, resume=not args.no_resume)
+  File "/DATA/air_force_object_detection/src/training/lodo_runner.py", line 115, in run_fold
+    trainer.load_checkpoint(str(checkpoint_path))
+  File "/DATA/air_force_object_detection/src/training/trainer.py", line 362, in load_checkpoint
+    torch.random.set_rng_state(rng["torch"])
+  File "/DATA/air_force_object_detection/.venv/lib/python3.10/site-packages/torch/random.py", line 19, in set_rng_state
+    default_generator.set_state(new_state)
+TypeError: RNG state must be a torch.ByteTensor
+2026-10-07 09:41:07 | INFO  | run_training | 
+======================================================================
+2026-10-07 09:41:07 | INFO  | run_training | LODO TRAINING COMPLETE
+2026-10-07 09:41:07 | INFO  | run_training | ======================================================================
+2026-10-07 09:41:07 | INFO  | run_training | Total time: 0:00:09
+2026-10-07 09:41:07 | INFO  | run_training | Completed folds: []
+2026-10-07 09:42:00 | INFO  | run_training | ======================================================================
+2026-10-07 09:42:00 | INFO  | run_training | LODO TRAINING STARTED
+2026-10-07 09:42:00 | INFO  | run_training | ======================================================================
+2026-10-07 09:42:00 | INFO  | run_training | Config: configs/base_config.yaml
+2026-10-07 09:42:00 | INFO  | run_training | Log file: outputs/training.log
+2026-10-07 09:42:00 | INFO  | run_training | Status file: outputs/status.json
+2026-10-07 09:42:02 | INFO  | run_training | GPU: NVIDIA RTX A5000
+2026-10-07 09:42:02 | INFO  | run_training | Free VRAM: 18.9 GB
+2026-10-07 09:42:02 | INFO  | run_training | Folds to train: [0]
+2026-10-07 09:42:03 | INFO  | run_training | 
+######################################################################
+2026-10-07 09:42:03 | INFO  | run_training | FOLD 0 (1/1)
+2026-10-07 09:42:03 | INFO  | run_training | ######################################################################
+2026-10-07 09:42:03 | INFO  | src.training.lodo_runner | 
+============================================================
+Starting fold 0
+============================================================
+2026-10-07 09:42:04 | INFO  | src.training.odvg_dataset | Loaded 23241 samples from data/odvg/fold_0/train.jsonl
+2026-10-07 09:42:04 | INFO  | src.training.odvg_dataset | Loaded 2577 samples from data/odvg/fold_0/val.jsonl
+2026-10-07 09:42:05 | INFO  | src.training.loss_masking | Token spans for 8 classes:
+2026-10-07 09:42:05 | INFO  | src.training.loss_masking |   0 (crack): [1,2) = 'crack'
+2026-10-07 09:42:05 | INFO  | src.training.loss_masking |   1 (dent): [3,4) = 'dent'
+2026-10-07 09:42:05 | INFO  | src.training.loss_masking |   2 (corrosion): [5,6) = 'corrosion'
+2026-10-07 09:42:05 | INFO  | src.training.loss_masking |   3 (scratch): [7,8) = 'scratch'
+2026-10-07 09:42:05 | INFO  | src.training.loss_masking |   4 (paint-off): [9,12) = 'paint - off'
+2026-10-07 09:42:05 | INFO  | src.training.loss_masking |   5 (missing-head): [13,16) = 'missing - head'
+2026-10-07 09:42:05 | INFO  | src.training.loss_masking |   6 (rupture): [17,20) = 'rupture'
+2026-10-07 09:42:05 | INFO  | src.training.loss_masking |   7 (fastener-damage): [21,25) = 'fastener - damage'
+2026-10-07 09:42:10 | INFO  | src.training.model_builder | Loaded pretrained weights: 0 missing, 2 unexpected
+2026-10-07 09:42:11 | INFO  | src.training.model_builder | Model params: 174,319,366 total, 1,479,684 trainable (0.85%)
+2026-10-07 09:42:12 | INFO  | src.training.model_builder | Optimizer: 0 backbone params (lr=1e-05), 162 other params (lr=5e-05)
+2026-10-07 09:42:12 | WARNING | src.training.trainer | Config hash mismatch: checkpoint=95a722f1c2c4, current=5f6c9e3c929f. Proceeding anyway.
+2026-10-07 09:42:12 | INFO  | src.training.trainer | Resumed from outputs/fold_0/latest.pt: epoch=3, resuming at 4
+2026-10-07 09:42:12 | INFO  | src.training.trainer | Starting training for 30 epochs
+2026-10-07 09:42:12 | INFO  | src.training.trainer | Output: outputs/fold_0
+2026-10-07 09:42:23 | INFO  | src.training.trainer |   [4][0/1936] loss=23.3423 mem=11.7GB
+2026-10-07 09:46:41 | INFO  | src.training.trainer |   [4][50/1936] loss=21.8013 mem=13.8GB
+2026-10-07 09:49:52 | INFO  | run_training | ======================================================================
+2026-10-07 09:49:52 | INFO  | run_training | LODO TRAINING STARTED
+2026-10-07 09:49:52 | INFO  | run_training | ======================================================================
+2026-10-07 09:49:52 | INFO  | run_training | Config: configs/base_config.yaml
+2026-10-07 09:49:52 | INFO  | run_training | Log file: outputs/training.log
+2026-10-07 09:49:52 | INFO  | run_training | Status file: outputs/status.json
+2026-10-07 09:49:54 | INFO  | run_training | GPU: NVIDIA RTX A5000
+2026-10-07 09:49:54 | INFO  | run_training | Free VRAM: 18.9 GB
+2026-10-07 09:49:54 | INFO  | run_training | Folds to train: [0]
+2026-10-07 09:49:56 | INFO  | run_training | 
+######################################################################
+2026-10-07 09:49:56 | INFO  | run_training | FOLD 0 (1/1)
+2026-10-07 09:49:56 | INFO  | run_training | ######################################################################
+2026-10-07 09:49:56 | INFO  | src.training.lodo_runner | 
+============================================================
+Starting fold 0
+============================================================
+2026-10-07 09:49:56 | INFO  | src.training.odvg_dataset | Loaded 23241 samples from data/odvg/fold_0/train.jsonl
+2026-10-07 09:49:56 | INFO  | src.training.odvg_dataset | Loaded 2577 samples from data/odvg/fold_0/val.jsonl
+2026-10-07 09:49:57 | INFO  | src.training.loss_masking | Token spans for 8 classes:
+2026-10-07 09:49:57 | INFO  | src.training.loss_masking |   0 (crack): [1,2) = 'crack'
+2026-10-07 09:49:57 | INFO  | src.training.loss_masking |   1 (dent): [3,4) = 'dent'
+2026-10-07 09:49:57 | INFO  | src.training.loss_masking |   2 (corrosion): [5,6) = 'corrosion'
+2026-10-07 09:49:57 | INFO  | src.training.loss_masking |   3 (scratch): [7,8) = 'scratch'
+2026-10-07 09:49:57 | INFO  | src.training.loss_masking |   4 (paint-off): [9,12) = 'paint - off'
+2026-10-07 09:49:57 | INFO  | src.training.loss_masking |   5 (missing-head): [13,16) = 'missing - head'
+2026-10-07 09:49:57 | INFO  | src.training.loss_masking |   6 (rupture): [17,20) = 'rupture'
+2026-10-07 09:49:57 | INFO  | src.training.loss_masking |   7 (fastener-damage): [21,25) = 'fastener - damage'
+2026-10-07 09:50:05 | INFO  | src.training.model_builder | Loaded pretrained weights: 0 missing, 2 unexpected
+2026-10-07 09:50:06 | INFO  | src.training.model_builder | Model params: 174,319,366 total, 1,479,684 trainable (0.85%)
+2026-10-07 09:50:06 | INFO  | src.training.model_builder | Optimizer: 0 backbone params (lr=1e-05), 162 other params (lr=5e-05)
+2026-10-07 09:50:07 | INFO  | src.training.trainer | Resumed from outputs/fold_0/latest.pt: epoch=3, resuming at 4
+2026-10-07 09:50:07 | INFO  | src.training.trainer | Starting training for 30 epochs
+2026-10-07 09:50:07 | INFO  | src.training.trainer | Output: outputs/fold_0
+2026-10-07 09:50:15 | INFO  | src.training.trainer |   [4][0/2905] loss=20.8100 mem=8.0GB
+2026-10-07 09:53:10 | INFO  | src.training.trainer |   [4][50/2905] loss=21.9691 mem=11.1GB
+2026-10-07 09:56:02 | INFO  | src.training.trainer |   [4][100/2905] loss=17.4553 mem=11.1GB
+2026-10-07 09:58:56 | INFO  | src.training.trainer |   [4][150/2905] loss=13.3941 mem=9.6GB
+2026-10-07 10:01:47 | INFO  | src.training.trainer |   [4][200/2905] loss=17.3042 mem=10.3GB
+2026-10-07 10:04:39 | INFO  | src.training.trainer |   [4][250/2905] loss=20.0483 mem=10.8GB
+2026-10-07 10:07:30 | INFO  | src.training.trainer |   [4][300/2905] loss=20.8395 mem=10.8GB
+2026-10-07 10:10:23 | INFO  | src.training.trainer |   [4][350/2905] loss=27.6665 mem=10.9GB
+2026-10-07 10:13:18 | INFO  | src.training.trainer |   [4][400/2905] loss=18.5536 mem=10.8GB
+2026-10-07 10:16:10 | INFO  | src.training.trainer |   [4][450/2905] loss=20.0690 mem=10.7GB
+2026-10-07 10:18:59 | INFO  | src.training.trainer |   [4][500/2905] loss=17.7939 mem=11.5GB
+2026-10-07 10:21:47 | INFO  | src.training.trainer |   [4][550/2905] loss=17.2831 mem=11.5GB
+2026-10-07 14:38:33 | INFO  | run_training | ======================================================================
+2026-10-07 14:38:33 | INFO  | run_training | LODO TRAINING STARTED
+2026-10-07 14:38:33 | INFO  | run_training | ======================================================================
+2026-10-07 14:38:33 | INFO  | run_training | Config: configs/base_config.yaml
+2026-10-07 14:38:33 | INFO  | run_training | Log file: outputs/training.log
+2026-10-07 14:38:33 | INFO  | run_training | Status file: outputs/status.json
+2026-10-07 14:38:36 | INFO  | run_training | GPU: NVIDIA RTX A5000
+2026-10-07 14:38:36 | INFO  | run_training | Free VRAM: 24.9 GB
+2026-10-07 14:38:36 | INFO  | run_training | Folds to train: [0, 1, 2, 3, 4, 5, 6, 7]
+2026-10-07 14:38:37 | INFO  | run_training | 
+######################################################################
+2026-10-07 14:38:37 | INFO  | run_training | FOLD 0 (1/8)
+2026-10-07 14:38:37 | INFO  | run_training | ######################################################################
+2026-10-07 14:38:37 | INFO  | src.training.lodo_runner | 
+============================================================
+Starting fold 0
+============================================================
+2026-10-07 14:38:37 | INFO  | src.training.odvg_dataset | Loaded 23241 samples from data/odvg/fold_0/train.jsonl
+2026-10-07 14:38:37 | INFO  | src.training.odvg_dataset | Loaded 2577 samples from data/odvg/fold_0/val.jsonl
+2026-10-07 14:38:45 | INFO  | src.training.loss_masking | Token spans for 8 classes:
+2026-10-07 14:38:45 | INFO  | src.training.loss_masking |   0 (crack): [1,2) = 'crack'
+2026-10-07 14:38:45 | INFO  | src.training.loss_masking |   1 (dent): [3,4) = 'dent'
+2026-10-07 14:38:45 | INFO  | src.training.loss_masking |   2 (corrosion): [5,6) = 'corrosion'
+2026-10-07 14:38:45 | INFO  | src.training.loss_masking |   3 (scratch): [7,8) = 'scratch'
+2026-10-07 14:38:45 | INFO  | src.training.loss_masking |   4 (paint-off): [9,12) = 'paint - off'
+2026-10-07 14:38:45 | INFO  | src.training.loss_masking |   5 (missing-head): [13,16) = 'missing - head'
+2026-10-07 14:38:45 | INFO  | src.training.loss_masking |   6 (rupture): [17,20) = 'rupture'
+2026-10-07 14:38:45 | INFO  | src.training.loss_masking |   7 (fastener-damage): [21,25) = 'fastener - damage'
+2026-10-07 14:38:56 | INFO  | src.training.model_builder | Loaded pretrained weights: 0 missing, 2 unexpected
+2026-10-07 14:38:57 | INFO  | src.training.model_builder | Model params: 174,319,366 total, 1,479,684 trainable (0.85%)
+2026-10-07 14:38:57 | INFO  | src.training.model_builder | Optimizer: 0 backbone params (lr=1e-05), 162 other params (lr=5e-05)
+2026-10-07 14:38:57 | INFO  | src.training.trainer | Resumed from outputs/fold_0/latest.pt: epoch=3, resuming at 4
+2026-10-07 14:38:57 | INFO  | src.training.trainer | Starting training for 30 epochs
+2026-10-07 14:38:57 | INFO  | src.training.trainer | Output: outputs/fold_0
+2026-10-07 14:39:08 | INFO  | src.training.trainer |   [4][0/2905] loss=20.8100 mem=8.0GB
+2026-10-07 14:40:15 | INFO  | src.training.trainer |   [4][50/2905] loss=22.2348 mem=11.1GB
+2026-10-07 14:41:22 | INFO  | src.training.trainer |   [4][100/2905] loss=17.5144 mem=11.1GB
+2026-10-07 14:42:31 | INFO  | src.training.trainer |   [4][150/2905] loss=13.4256 mem=9.4GB
+2026-10-07 14:43:38 | INFO  | src.training.trainer |   [4][200/2905] loss=17.4950 mem=10.3GB
+2026-10-07 14:44:48 | INFO  | src.training.trainer |   [4][250/2905] loss=20.4016 mem=10.9GB
+2026-10-07 14:45:56 | INFO  | src.training.trainer |   [4][300/2905] loss=20.3790 mem=10.9GB
+2026-10-07 14:47:06 | INFO  | src.training.trainer |   [4][350/2905] loss=27.8161 mem=10.2GB
+2026-10-07 14:48:16 | INFO  | src.training.trainer |   [4][400/2905] loss=18.5240 mem=10.0GB
+2026-10-07 14:49:25 | INFO  | src.training.trainer |   [4][450/2905] loss=19.9905 mem=10.6GB
+2026-10-07 14:50:34 | INFO  | src.training.trainer |   [4][500/2905] loss=17.9874 mem=11.6GB
+2026-10-07 14:51:41 | INFO  | src.training.trainer |   [4][550/2905] loss=17.7565 mem=11.6GB
+2026-10-07 14:52:49 | INFO  | src.training.trainer |   [4][600/2905] loss=23.1986 mem=8.0GB
+2026-10-07 14:53:59 | INFO  | src.training.trainer |   [4][650/2905] loss=17.2189 mem=10.0GB
+2026-10-07 14:55:07 | INFO  | src.training.trainer |   [4][700/2905] loss=21.4813 mem=10.0GB
+2026-10-07 14:56:17 | INFO  | src.training.trainer |   [4][750/2905] loss=15.2434 mem=11.3GB
+2026-10-07 14:57:26 | INFO  | src.training.trainer |   [4][800/2905] loss=19.0969 mem=11.3GB
+2026-10-07 14:58:35 | INFO  | src.training.trainer |   [4][850/2905] loss=19.8174 mem=12.1GB
+2026-10-07 14:59:45 | INFO  | src.training.trainer |   [4][900/2905] loss=22.4997 mem=12.9GB
+2026-10-07 15:00:53 | INFO  | src.training.trainer |   [4][950/2905] loss=17.3110 mem=12.9GB
+2026-10-07 15:02:02 | INFO  | src.training.trainer |   [4][1000/2905] loss=20.9116 mem=12.9GB
+2026-10-07 15:03:09 | INFO  | src.training.trainer |   [4][1050/2905] loss=15.7618 mem=12.9GB
+2026-10-07 15:04:17 | INFO  | src.training.trainer |   [4][1100/2905] loss=19.8612 mem=10.4GB
+2026-10-07 15:05:25 | INFO  | src.training.trainer |   [4][1150/2905] loss=16.0079 mem=10.4GB
+2026-10-07 15:06:35 | INFO  | src.training.trainer |   [4][1200/2905] loss=27.6508 mem=10.4GB
+2026-10-07 15:07:44 | INFO  | src.training.trainer |   [4][1250/2905] loss=17.2496 mem=13.4GB
+2026-10-07 15:08:54 | INFO  | src.training.trainer |   [4][1300/2905] loss=18.6266 mem=10.2GB
+2026-10-07 15:10:02 | INFO  | src.training.trainer |   [4][1350/2905] loss=20.7915 mem=10.2GB
+2026-10-07 15:11:11 | INFO  | src.training.trainer |   [4][1400/2905] loss=17.1928 mem=10.2GB
+2026-10-07 15:12:19 | INFO  | src.training.trainer |   [4][1450/2905] loss=25.0042 mem=13.2GB
+2026-10-07 15:13:29 | INFO  | src.training.trainer |   [4][1500/2905] loss=20.0972 mem=9.7GB
+2026-10-07 15:14:36 | INFO  | src.training.trainer |   [4][1550/2905] loss=20.0446 mem=9.7GB
+2026-10-07 15:15:43 | INFO  | src.training.trainer |   [4][1600/2905] loss=15.6354 mem=13.4GB
+2026-10-07 15:16:51 | INFO  | src.training.trainer |   [4][1650/2905] loss=16.4047 mem=13.4GB
+2026-10-07 15:17:59 | INFO  | src.training.trainer |   [4][1700/2905] loss=21.1249 mem=13.4GB
+2026-10-07 15:19:08 | INFO  | src.training.trainer |   [4][1750/2905] loss=16.4888 mem=11.3GB
+2026-10-07 15:20:17 | INFO  | src.training.trainer |   [4][1800/2905] loss=18.3377 mem=11.3GB
+2026-10-07 15:21:26 | INFO  | src.training.trainer |   [4][1850/2905] loss=18.2517 mem=11.3GB
+2026-10-07 15:22:34 | INFO  | src.training.trainer |   [4][1900/2905] loss=21.1352 mem=14.2GB
+2026-10-07 15:23:41 | INFO  | src.training.trainer |   [4][1950/2905] loss=22.3215 mem=14.2GB
+2026-10-07 15:24:52 | INFO  | src.training.trainer |   [4][2000/2905] loss=15.6700 mem=14.0GB
+2026-10-07 15:26:00 | INFO  | src.training.trainer |   [4][2050/2905] loss=19.8273 mem=12.7GB
+2026-10-07 15:27:09 | INFO  | src.training.trainer |   [4][2100/2905] loss=18.0869 mem=11.6GB
+2026-10-07 15:28:17 | INFO  | src.training.trainer |   [4][2150/2905] loss=16.3382 mem=11.6GB
+2026-10-07 15:29:27 | INFO  | src.training.trainer |   [4][2200/2905] loss=21.9474 mem=11.6GB
+2026-10-07 15:30:35 | INFO  | src.training.trainer |   [4][2250/2905] loss=18.1630 mem=11.6GB
+2026-10-07 15:31:44 | INFO  | src.training.trainer |   [4][2300/2905] loss=17.0094 mem=11.6GB
+2026-10-07 15:32:52 | INFO  | src.training.trainer |   [4][2350/2905] loss=16.7220 mem=11.6GB
+2026-10-07 15:34:00 | INFO  | src.training.trainer |   [4][2400/2905] loss=16.4520 mem=15.2GB
+2026-10-07 15:35:08 | INFO  | src.training.trainer |   [4][2450/2905] loss=23.9432 mem=15.2GB
+2026-10-07 15:36:16 | INFO  | src.training.trainer |   [4][2500/2905] loss=17.8324 mem=15.2GB
+2026-10-07 15:37:24 | INFO  | src.training.trainer |   [4][2550/2905] loss=15.9782 mem=15.2GB
+2026-10-07 15:38:32 | INFO  | src.training.trainer |   [4][2600/2905] loss=15.4340 mem=15.2GB
+2026-10-07 15:39:41 | INFO  | src.training.trainer |   [4][2650/2905] loss=15.8993 mem=15.2GB
+2026-10-07 15:40:49 | INFO  | src.training.trainer |   [4][2700/2905] loss=16.4489 mem=15.2GB
+2026-10-07 15:42:00 | INFO  | src.training.trainer |   [4][2750/2905] loss=17.6959 mem=15.2GB
+2026-10-07 15:43:08 | INFO  | src.training.trainer |   [4][2800/2905] loss=14.9446 mem=11.2GB
+2026-10-07 15:44:19 | INFO  | src.training.trainer |   [4][2850/2905] loss=19.6274 mem=13.4GB
+2026-10-07 15:45:26 | INFO  | src.training.trainer |   [4][2900/2905] loss=15.8455 mem=13.4GB
+2026-10-07 15:49:18 | INFO  | src.training.trainer | Epoch 4: train_loss=18.3644 val_loss=20.2556 lr=4.93e-05
+2026-10-07 15:49:18 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=4, is_best=True)
+2026-10-07 15:49:19 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=4, is_best=True)
+2026-10-07 15:49:19 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/epoch_4.pt (epoch=4, is_best=False)
+2026-10-07 15:49:21 | INFO  | src.training.trainer |   [5][0/2905] loss=32.7071 mem=7.8GB
+2026-10-07 15:50:30 | INFO  | src.training.trainer |   [5][50/2905] loss=17.9288 mem=13.3GB
+2026-10-07 15:51:39 | INFO  | src.training.trainer |   [5][100/2905] loss=13.3444 mem=18.9GB
+2026-10-07 15:52:48 | INFO  | src.training.trainer |   [5][150/2905] loss=19.2009 mem=18.9GB
+2026-10-07 15:53:58 | INFO  | src.training.trainer |   [5][200/2905] loss=17.4262 mem=18.9GB
+2026-10-07 15:55:05 | INFO  | src.training.trainer |   [5][250/2905] loss=16.1597 mem=18.9GB
+2026-10-07 15:56:15 | INFO  | src.training.trainer |   [5][300/2905] loss=16.7330 mem=18.9GB
+2026-10-07 15:57:25 | INFO  | src.training.trainer |   [5][350/2905] loss=12.3539 mem=8.6GB
+2026-10-07 15:58:33 | INFO  | src.training.trainer |   [5][400/2905] loss=14.0827 mem=11.7GB
+2026-10-07 15:59:41 | INFO  | src.training.trainer |   [5][450/2905] loss=29.4428 mem=11.7GB
+2026-10-07 16:00:50 | INFO  | src.training.trainer |   [5][500/2905] loss=19.3900 mem=11.7GB
+2026-10-07 16:01:58 | INFO  | src.training.trainer |   [5][550/2905] loss=14.9103 mem=14.6GB
+2026-10-07 16:03:07 | INFO  | src.training.trainer |   [5][600/2905] loss=20.8322 mem=14.6GB
+2026-10-07 16:04:16 | INFO  | src.training.trainer |   [5][650/2905] loss=16.0733 mem=14.6GB
+2026-10-07 16:05:25 | INFO  | src.training.trainer |   [5][700/2905] loss=14.9862 mem=14.6GB
+2026-10-07 16:06:35 | INFO  | src.training.trainer |   [5][750/2905] loss=20.3563 mem=14.6GB
+2026-10-07 16:07:43 | INFO  | src.training.trainer |   [5][800/2905] loss=14.5954 mem=14.6GB
+2026-10-07 16:08:50 | INFO  | src.training.trainer |   [5][850/2905] loss=14.8074 mem=14.6GB
+2026-10-07 16:09:59 | INFO  | src.training.trainer |   [5][900/2905] loss=29.8096 mem=14.6GB
+2026-10-07 16:11:08 | INFO  | src.training.trainer |   [5][950/2905] loss=14.9347 mem=14.6GB
+2026-10-07 16:12:17 | INFO  | src.training.trainer |   [5][1000/2905] loss=17.6372 mem=14.6GB
+2026-10-07 16:13:25 | INFO  | src.training.trainer |   [5][1050/2905] loss=13.9659 mem=14.6GB
+2026-10-07 16:14:34 | INFO  | src.training.trainer |   [5][1100/2905] loss=17.3573 mem=14.6GB
+2026-10-07 16:15:43 | INFO  | src.training.trainer |   [5][1150/2905] loss=18.1802 mem=14.6GB
+2026-10-07 16:16:52 | INFO  | src.training.trainer |   [5][1200/2905] loss=15.8665 mem=14.6GB
+2026-10-07 16:18:01 | INFO  | src.training.trainer |   [5][1250/2905] loss=18.1474 mem=11.9GB
+2026-10-07 16:19:09 | INFO  | src.training.trainer |   [5][1300/2905] loss=14.8367 mem=11.9GB
+2026-10-07 16:20:18 | INFO  | src.training.trainer |   [5][1350/2905] loss=19.1569 mem=11.9GB
+2026-10-07 16:21:27 | INFO  | src.training.trainer |   [5][1400/2905] loss=14.6589 mem=11.9GB
+2026-10-07 16:22:35 | INFO  | src.training.trainer |   [5][1450/2905] loss=17.9875 mem=15.2GB
+2026-10-07 16:23:46 | INFO  | src.training.trainer |   [5][1500/2905] loss=14.6366 mem=15.2GB
+2026-10-07 16:24:55 | INFO  | src.training.trainer |   [5][1550/2905] loss=13.3860 mem=15.2GB
+2026-10-07 16:26:02 | INFO  | src.training.trainer |   [5][1600/2905] loss=21.0428 mem=15.2GB
+2026-10-07 16:27:09 | INFO  | src.training.trainer |   [5][1650/2905] loss=19.6981 mem=15.2GB
+2026-10-07 16:30:26 | INFO  | run_training | ======================================================================
+2026-10-07 16:30:26 | INFO  | run_training | LODO TRAINING STARTED
+2026-10-07 16:30:26 | INFO  | run_training | ======================================================================
+2026-10-07 16:30:26 | INFO  | run_training | Config: configs/base_config.yaml
+2026-10-07 16:30:26 | INFO  | run_training | Log file: outputs/training.log
+2026-10-07 16:30:26 | INFO  | run_training | Status file: outputs/status.json
+2026-10-07 16:31:02 | INFO  | run_training | GPU: NVIDIA RTX A5000
+2026-10-07 16:31:02 | INFO  | run_training | Free VRAM: 24.9 GB
+2026-10-07 16:31:02 | INFO  | run_training | Folds to train: [0, 1, 2, 3, 4, 5, 6, 7]
+2026-10-07 16:31:08 | INFO  | run_training | 
+######################################################################
+2026-10-07 16:31:08 | INFO  | run_training | FOLD 0 (1/8)
+2026-10-07 16:31:08 | INFO  | run_training | ######################################################################
+2026-10-07 16:31:08 | INFO  | src.training.lodo_runner | 
+============================================================
+Starting fold 0
+============================================================
+2026-10-07 16:31:08 | INFO  | src.training.odvg_dataset | Loaded 23241 samples from data/odvg/fold_0/train.jsonl
+2026-10-07 16:31:08 | INFO  | src.training.odvg_dataset | Loaded 2577 samples from data/odvg/fold_0/val.jsonl
+2026-10-07 16:31:16 | INFO  | src.training.loss_masking | Token spans for 8 classes:
+2026-10-07 16:31:16 | INFO  | src.training.loss_masking |   0 (crack): [1,2) = 'crack'
+2026-10-07 16:31:16 | INFO  | src.training.loss_masking |   1 (dent): [3,4) = 'dent'
+2026-10-07 16:31:16 | INFO  | src.training.loss_masking |   2 (corrosion): [5,6) = 'corrosion'
+2026-10-07 16:31:16 | INFO  | src.training.loss_masking |   3 (scratch): [7,8) = 'scratch'
+2026-10-07 16:31:16 | INFO  | src.training.loss_masking |   4 (paint-off): [9,12) = 'paint - off'
+2026-10-07 16:31:16 | INFO  | src.training.loss_masking |   5 (missing-head): [13,16) = 'missing - head'
+2026-10-07 16:31:16 | INFO  | src.training.loss_masking |   6 (rupture): [17,20) = 'rupture'
+2026-10-07 16:31:16 | INFO  | src.training.loss_masking |   7 (fastener-damage): [21,25) = 'fastener - damage'
+2026-10-07 16:31:28 | INFO  | src.training.model_builder | Loaded pretrained weights: 0 missing, 2 unexpected
+2026-10-07 16:31:29 | INFO  | src.training.model_builder | Model params: 174,319,366 total, 1,479,684 trainable (0.85%)
+2026-10-07 16:31:29 | INFO  | src.training.model_builder | Optimizer: 0 backbone params (lr=1e-05), 162 other params (lr=5e-05)
+2026-10-07 16:31:29 | INFO  | src.training.trainer | Resumed from outputs/fold_0/latest.pt: epoch=4, resuming at 5
+2026-10-07 16:31:29 | INFO  | src.training.trainer | Starting training for 30 epochs
+2026-10-07 16:31:29 | INFO  | src.training.trainer | Output: outputs/fold_0
+2026-10-07 16:31:40 | INFO  | src.training.trainer |   [5][0/2905] loss=15.4330 mem=8.0GB
+2026-10-07 16:32:49 | INFO  | src.training.trainer |   [5][50/2905] loss=16.9214 mem=10.0GB
+2026-10-07 16:33:55 | INFO  | src.training.trainer |   [5][100/2905] loss=14.9932 mem=10.0GB
+2026-10-07 16:35:02 | INFO  | src.training.trainer |   [5][150/2905] loss=19.5258 mem=10.0GB
+2026-10-07 16:36:10 | INFO  | src.training.trainer |   [5][200/2905] loss=24.6269 mem=10.0GB
+2026-10-07 16:37:20 | INFO  | src.training.trainer |   [5][250/2905] loss=16.5842 mem=9.8GB
+2026-10-07 16:38:28 | INFO  | src.training.trainer |   [5][300/2905] loss=17.4339 mem=10.1GB
+2026-10-07 16:39:36 | INFO  | src.training.trainer |   [5][350/2905] loss=17.9645 mem=10.5GB
+2026-10-07 16:40:45 | INFO  | src.training.trainer |   [5][400/2905] loss=23.4131 mem=10.5GB
+2026-10-07 16:41:54 | INFO  | src.training.trainer |   [5][450/2905] loss=12.8360 mem=13.0GB
+2026-10-07 16:43:02 | INFO  | src.training.trainer |   [5][500/2905] loss=14.9363 mem=12.4GB
+2026-10-07 16:44:10 | INFO  | src.training.trainer |   [5][550/2905] loss=20.2123 mem=10.5GB
+2026-10-07 16:45:20 | INFO  | src.training.trainer |   [5][600/2905] loss=15.0954 mem=11.5GB
+2026-10-07 16:46:28 | INFO  | src.training.trainer |   [5][650/2905] loss=19.0155 mem=10.1GB
+2026-10-07 16:47:38 | INFO  | src.training.trainer |   [5][700/2905] loss=15.8326 mem=13.7GB
+2026-10-07 16:48:48 | INFO  | src.training.trainer |   [5][750/2905] loss=23.4856 mem=12.6GB
+2026-10-07 16:49:57 | INFO  | src.training.trainer |   [5][800/2905] loss=18.6972 mem=12.6GB
+2026-10-07 16:51:05 | INFO  | src.training.trainer |   [5][850/2905] loss=19.6985 mem=10.4GB
+2026-10-07 16:52:12 | INFO  | src.training.trainer |   [5][900/2905] loss=13.0571 mem=10.4GB
+2026-10-07 16:53:19 | INFO  | src.training.trainer |   [5][950/2905] loss=17.6527 mem=10.4GB
+2026-10-07 16:54:28 | INFO  | src.training.trainer |   [5][1000/2905] loss=24.0811 mem=9.9GB
+2026-10-07 16:55:36 | INFO  | src.training.trainer |   [5][1050/2905] loss=14.8974 mem=9.9GB
+2026-10-07 16:56:45 | INFO  | src.training.trainer |   [5][1100/2905] loss=16.6096 mem=14.3GB
+2026-10-07 16:57:55 | INFO  | src.training.trainer |   [5][1150/2905] loss=16.4513 mem=17.7GB
+2026-10-07 16:59:04 | INFO  | src.training.trainer |   [5][1200/2905] loss=15.9374 mem=21.3GB
+2026-10-07 17:00:12 | INFO  | src.training.trainer |   [5][1250/2905] loss=19.8955 mem=21.3GB
+2026-10-07 17:01:21 | INFO  | src.training.trainer |   [5][1300/2905] loss=17.1071 mem=21.3GB
+2026-10-07 17:02:30 | INFO  | src.training.trainer |   [5][1350/2905] loss=15.2989 mem=16.5GB
+2026-10-07 17:03:39 | INFO  | src.training.trainer |   [5][1400/2905] loss=15.3864 mem=16.5GB
+2026-10-07 17:04:47 | INFO  | src.training.trainer |   [5][1450/2905] loss=19.4703 mem=16.5GB
+2026-10-07 17:05:55 | INFO  | src.training.trainer |   [5][1500/2905] loss=17.9089 mem=16.5GB
+2026-10-07 17:07:05 | INFO  | src.training.trainer |   [5][1550/2905] loss=14.8067 mem=10.5GB
+2026-10-07 17:08:15 | INFO  | src.training.trainer |   [5][1600/2905] loss=15.2276 mem=11.9GB
+2026-10-07 17:09:24 | INFO  | src.training.trainer |   [5][1650/2905] loss=22.5777 mem=14.1GB
+2026-10-07 17:10:33 | INFO  | src.training.trainer |   [5][1700/2905] loss=13.2495 mem=14.1GB
+2026-10-07 17:11:41 | INFO  | src.training.trainer |   [5][1750/2905] loss=14.8908 mem=14.1GB
+2026-10-07 17:12:49 | INFO  | src.training.trainer |   [5][1800/2905] loss=15.8701 mem=14.1GB
+2026-10-07 17:13:58 | INFO  | src.training.trainer |   [5][1850/2905] loss=20.0624 mem=14.1GB
+2026-10-07 17:15:06 | INFO  | src.training.trainer |   [5][1900/2905] loss=17.3301 mem=14.1GB
+2026-10-07 17:16:16 | INFO  | src.training.trainer |   [5][1950/2905] loss=15.9235 mem=9.8GB
+2026-10-07 17:17:23 | INFO  | src.training.trainer |   [5][2000/2905] loss=19.4247 mem=15.5GB
+2026-10-07 17:18:32 | INFO  | src.training.trainer |   [5][2050/2905] loss=22.4717 mem=15.5GB
+2026-10-07 17:19:39 | INFO  | src.training.trainer |   [5][2100/2905] loss=17.2790 mem=15.5GB
+2026-10-07 17:20:47 | INFO  | src.training.trainer |   [5][2150/2905] loss=15.9732 mem=15.5GB
+2026-10-07 17:21:56 | INFO  | src.training.trainer |   [5][2200/2905] loss=18.0762 mem=10.1GB
+2026-10-07 17:23:06 | INFO  | src.training.trainer |   [5][2250/2905] loss=17.1483 mem=11.1GB
+2026-10-07 17:24:18 | INFO  | src.training.trainer |   [5][2300/2905] loss=19.8013 mem=12.6GB
+2026-10-07 17:25:26 | INFO  | src.training.trainer |   [5][2350/2905] loss=23.8112 mem=12.6GB
+2026-10-07 17:26:36 | INFO  | src.training.trainer |   [5][2400/2905] loss=23.4265 mem=12.6GB
+2026-10-07 17:27:44 | INFO  | src.training.trainer |   [5][2450/2905] loss=15.0748 mem=12.6GB
+2026-10-07 17:28:55 | INFO  | src.training.trainer |   [5][2500/2905] loss=17.2828 mem=12.6GB
+2026-10-07 17:30:03 | INFO  | src.training.trainer |   [5][2550/2905] loss=17.0872 mem=12.6GB
+2026-10-07 17:31:10 | INFO  | src.training.trainer |   [5][2600/2905] loss=13.6994 mem=12.6GB
+2026-10-07 17:32:20 | INFO  | src.training.trainer |   [5][2650/2905] loss=16.9624 mem=9.5GB
+2026-10-07 17:33:30 | INFO  | src.training.trainer |   [5][2700/2905] loss=19.8254 mem=13.2GB
+2026-10-07 17:34:37 | INFO  | src.training.trainer |   [5][2750/2905] loss=13.9445 mem=13.2GB
+2026-10-07 17:35:46 | INFO  | src.training.trainer |   [5][2800/2905] loss=16.4456 mem=11.6GB
+2026-10-07 17:36:54 | INFO  | src.training.trainer |   [5][2850/2905] loss=22.9615 mem=12.5GB
+2026-10-07 17:38:05 | INFO  | src.training.trainer |   [5][2900/2905] loss=17.5897 mem=12.5GB
+2026-10-07 17:41:58 | INFO  | src.training.trainer | Epoch 5: train_loss=18.0175 val_loss=19.3084 lr=4.85e-05
+2026-10-07 17:41:58 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=5, is_best=True)
+2026-10-07 17:41:59 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=5, is_best=True)
+2026-10-07 17:42:01 | INFO  | src.training.trainer |   [6][0/2905] loss=13.8433 mem=7.8GB
+2026-10-07 17:43:10 | INFO  | src.training.trainer |   [6][50/2905] loss=15.2500 mem=13.3GB
+2026-10-07 17:44:18 | INFO  | src.training.trainer |   [6][100/2905] loss=16.1295 mem=13.3GB
+2026-10-07 17:45:27 | INFO  | src.training.trainer |   [6][150/2905] loss=13.5883 mem=16.2GB
+2026-10-07 17:46:37 | INFO  | src.training.trainer |   [6][200/2905] loss=19.9667 mem=12.6GB
+2026-10-07 17:47:45 | INFO  | src.training.trainer |   [6][250/2905] loss=14.4780 mem=12.6GB
+2026-10-07 17:48:54 | INFO  | src.training.trainer |   [6][300/2905] loss=15.9742 mem=12.6GB
+2026-10-07 17:50:02 | INFO  | src.training.trainer |   [6][350/2905] loss=16.9745 mem=12.6GB
+2026-10-07 17:51:10 | INFO  | src.training.trainer |   [6][400/2905] loss=15.2536 mem=12.6GB
+2026-10-07 17:52:18 | INFO  | src.training.trainer |   [6][450/2905] loss=19.0989 mem=12.6GB
+2026-10-07 17:53:26 | INFO  | src.training.trainer |   [6][500/2905] loss=21.9672 mem=12.6GB
+2026-10-07 17:54:35 | INFO  | src.training.trainer |   [6][550/2905] loss=20.9743 mem=16.1GB
+2026-10-07 17:55:43 | INFO  | src.training.trainer |   [6][600/2905] loss=12.3723 mem=16.1GB
+2026-10-07 17:56:53 | INFO  | src.training.trainer |   [6][650/2905] loss=18.2928 mem=16.1GB
+2026-10-07 17:58:01 | INFO  | src.training.trainer |   [6][700/2905] loss=20.5325 mem=16.1GB
+2026-10-07 17:59:09 | INFO  | src.training.trainer |   [6][750/2905] loss=14.8854 mem=16.1GB
+2026-10-07 18:00:17 | INFO  | src.training.trainer |   [6][800/2905] loss=16.9251 mem=16.1GB
+2026-10-07 18:01:26 | INFO  | src.training.trainer |   [6][850/2905] loss=17.9344 mem=13.7GB
+2026-10-07 18:02:35 | INFO  | src.training.trainer |   [6][900/2905] loss=19.7020 mem=16.5GB
+2026-10-07 18:03:44 | INFO  | src.training.trainer |   [6][950/2905] loss=21.8497 mem=16.5GB
+2026-10-07 18:04:52 | INFO  | src.training.trainer |   [6][1000/2905] loss=21.4229 mem=16.5GB
+2026-10-07 18:06:00 | INFO  | src.training.trainer |   [6][1050/2905] loss=14.5205 mem=19.4GB
+2026-10-07 18:07:09 | INFO  | src.training.trainer |   [6][1100/2905] loss=27.8173 mem=19.4GB
+2026-10-07 18:08:17 | INFO  | src.training.trainer |   [6][1150/2905] loss=15.2553 mem=19.4GB
+2026-10-07 18:09:27 | INFO  | src.training.trainer |   [6][1200/2905] loss=15.0752 mem=19.4GB
+2026-10-07 18:10:36 | INFO  | src.training.trainer |   [6][1250/2905] loss=20.0504 mem=19.4GB
+2026-10-07 18:11:45 | INFO  | src.training.trainer |   [6][1300/2905] loss=18.5866 mem=19.4GB
+2026-10-07 18:12:54 | INFO  | src.training.trainer |   [6][1350/2905] loss=29.2951 mem=22.7GB
+2026-10-07 18:14:03 | INFO  | src.training.trainer |   [6][1400/2905] loss=17.3879 mem=22.7GB
+2026-10-07 18:15:13 | INFO  | src.training.trainer |   [6][1450/2905] loss=15.0119 mem=22.7GB
+2026-10-07 18:16:23 | INFO  | src.training.trainer |   [6][1500/2905] loss=14.4269 mem=13.9GB
+2026-10-07 18:17:31 | INFO  | src.training.trainer |   [6][1550/2905] loss=18.0246 mem=13.9GB
+2026-10-07 18:18:39 | INFO  | src.training.trainer |   [6][1600/2905] loss=15.0392 mem=13.9GB
+2026-10-07 18:19:48 | INFO  | src.training.trainer |   [6][1650/2905] loss=19.7417 mem=13.9GB
+2026-10-07 18:20:56 | INFO  | src.training.trainer |   [6][1700/2905] loss=18.5544 mem=13.9GB
+2026-10-07 18:22:05 | INFO  | src.training.trainer |   [6][1750/2905] loss=21.2037 mem=13.9GB
+2026-10-07 18:23:15 | INFO  | src.training.trainer |   [6][1800/2905] loss=19.5346 mem=13.9GB
+2026-10-07 18:24:22 | INFO  | src.training.trainer |   [6][1850/2905] loss=11.2608 mem=13.9GB
+2026-10-07 18:25:31 | INFO  | src.training.trainer |   [6][1900/2905] loss=16.1397 mem=12.4GB
+2026-10-07 18:26:41 | INFO  | src.training.trainer |   [6][1950/2905] loss=22.7342 mem=16.0GB
+2026-10-07 18:27:48 | INFO  | src.training.trainer |   [6][2000/2905] loss=12.6201 mem=16.0GB
+2026-10-07 18:28:57 | INFO  | src.training.trainer |   [6][2050/2905] loss=22.8036 mem=16.0GB
+2026-10-07 18:30:04 | INFO  | src.training.trainer |   [6][2100/2905] loss=15.0072 mem=16.0GB
+2026-10-07 18:31:13 | INFO  | src.training.trainer |   [6][2150/2905] loss=15.6903 mem=16.0GB
+2026-10-07 18:32:21 | INFO  | src.training.trainer |   [6][2200/2905] loss=15.1288 mem=16.0GB
+2026-10-07 18:33:29 | INFO  | src.training.trainer |   [6][2250/2905] loss=13.5197 mem=16.0GB
+2026-10-07 18:34:35 | INFO  | src.training.trainer |   [6][2300/2905] loss=17.0404 mem=16.0GB
+2026-10-07 18:35:44 | INFO  | src.training.trainer |   [6][2350/2905] loss=16.5335 mem=16.0GB
+2026-10-07 18:36:53 | INFO  | src.training.trainer |   [6][2400/2905] loss=13.1951 mem=16.0GB
+2026-10-07 18:38:00 | INFO  | src.training.trainer |   [6][2450/2905] loss=15.1109 mem=16.0GB
+2026-10-07 18:39:09 | INFO  | src.training.trainer |   [6][2500/2905] loss=19.2466 mem=16.0GB
+2026-10-07 18:40:18 | INFO  | src.training.trainer |   [6][2550/2905] loss=19.6102 mem=16.0GB
+2026-10-07 18:41:27 | INFO  | src.training.trainer |   [6][2600/2905] loss=21.1731 mem=16.0GB
+2026-10-07 18:42:37 | INFO  | src.training.trainer |   [6][2650/2905] loss=17.9291 mem=10.6GB
+2026-10-07 18:43:47 | INFO  | src.training.trainer |   [6][2700/2905] loss=18.6657 mem=17.0GB
+2026-10-07 18:44:55 | INFO  | src.training.trainer |   [6][2750/2905] loss=23.9068 mem=17.0GB
+2026-10-07 18:46:03 | INFO  | src.training.trainer |   [6][2800/2905] loss=22.9702 mem=17.0GB
+2026-10-07 18:47:12 | INFO  | src.training.trainer |   [6][2850/2905] loss=18.8050 mem=17.0GB
+2026-10-07 18:48:19 | INFO  | src.training.trainer |   [6][2900/2905] loss=19.9368 mem=17.0GB
+2026-10-07 18:52:09 | INFO  | src.training.trainer | Epoch 6: train_loss=17.6551 val_loss=18.4830 lr=4.73e-05
+2026-10-07 18:52:09 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=6, is_best=True)
+2026-10-07 18:52:10 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=6, is_best=True)
+2026-10-07 18:52:12 | INFO  | src.training.trainer |   [7][0/2905] loss=15.3604 mem=17.0GB
+2026-10-07 18:53:21 | INFO  | src.training.trainer |   [7][50/2905] loss=20.8068 mem=17.0GB
+2026-10-07 18:54:30 | INFO  | src.training.trainer |   [7][100/2905] loss=21.8751 mem=17.0GB
+2026-10-07 18:55:39 | INFO  | src.training.trainer |   [7][150/2905] loss=15.6871 mem=17.0GB
+2026-10-07 18:56:48 | INFO  | src.training.trainer |   [7][200/2905] loss=18.2045 mem=17.0GB
+2026-10-07 18:57:56 | INFO  | src.training.trainer |   [7][250/2905] loss=18.8738 mem=17.0GB
+2026-10-07 18:59:04 | INFO  | src.training.trainer |   [7][300/2905] loss=13.8783 mem=17.0GB
+2026-10-07 19:00:14 | INFO  | src.training.trainer |   [7][350/2905] loss=16.4555 mem=17.0GB
+2026-10-07 19:01:21 | INFO  | src.training.trainer |   [7][400/2905] loss=15.4155 mem=17.0GB
+2026-10-07 19:02:29 | INFO  | src.training.trainer |   [7][450/2905] loss=15.1599 mem=17.0GB
+2026-10-07 19:03:38 | INFO  | src.training.trainer |   [7][500/2905] loss=13.6220 mem=17.0GB
+2026-10-07 19:04:46 | INFO  | src.training.trainer |   [7][550/2905] loss=18.5645 mem=17.0GB
+2026-10-07 19:05:55 | INFO  | src.training.trainer |   [7][600/2905] loss=17.3998 mem=17.0GB
+2026-10-07 19:07:03 | INFO  | src.training.trainer |   [7][650/2905] loss=19.5707 mem=17.0GB
+2026-10-07 19:08:11 | INFO  | src.training.trainer |   [7][700/2905] loss=18.3498 mem=17.0GB
+2026-10-07 19:09:20 | INFO  | src.training.trainer |   [7][750/2905] loss=17.9305 mem=17.0GB
+2026-10-07 19:10:29 | INFO  | src.training.trainer |   [7][800/2905] loss=18.1678 mem=17.0GB
+2026-10-07 19:11:37 | INFO  | src.training.trainer |   [7][850/2905] loss=18.0844 mem=17.0GB
+2026-10-07 19:12:44 | INFO  | src.training.trainer |   [7][900/2905] loss=21.9712 mem=17.0GB
+2026-10-07 19:13:53 | INFO  | src.training.trainer |   [7][950/2905] loss=18.7186 mem=17.0GB
+2026-10-07 19:15:02 | INFO  | src.training.trainer |   [7][1000/2905] loss=17.2084 mem=17.0GB
+2026-10-07 19:16:12 | INFO  | src.training.trainer |   [7][1050/2905] loss=17.3058 mem=17.0GB
+2026-10-07 19:17:20 | INFO  | src.training.trainer |   [7][1100/2905] loss=12.1161 mem=17.0GB
+2026-10-07 19:18:30 | INFO  | src.training.trainer |   [7][1150/2905] loss=17.2548 mem=17.0GB
+2026-10-07 19:19:38 | INFO  | src.training.trainer |   [7][1200/2905] loss=16.9178 mem=17.0GB
+2026-10-07 19:20:46 | INFO  | src.training.trainer |   [7][1250/2905] loss=15.9293 mem=17.0GB
+2026-10-07 19:21:54 | INFO  | src.training.trainer |   [7][1300/2905] loss=14.7429 mem=17.0GB
+2026-10-07 19:23:03 | INFO  | src.training.trainer |   [7][1350/2905] loss=11.9982 mem=17.0GB
+2026-10-07 19:24:13 | INFO  | src.training.trainer |   [7][1400/2905] loss=24.3901 mem=12.4GB
+2026-10-07 19:25:21 | INFO  | src.training.trainer |   [7][1450/2905] loss=19.2426 mem=12.4GB
+2026-10-07 19:26:30 | INFO  | src.training.trainer |   [7][1500/2905] loss=18.8603 mem=12.4GB
+2026-10-07 19:27:38 | INFO  | src.training.trainer |   [7][1550/2905] loss=15.0928 mem=12.4GB
+2026-10-07 19:28:47 | INFO  | src.training.trainer |   [7][1600/2905] loss=15.6301 mem=12.4GB
+2026-10-07 19:29:54 | INFO  | src.training.trainer |   [7][1650/2905] loss=17.6803 mem=12.4GB
+2026-10-07 19:31:02 | INFO  | src.training.trainer |   [7][1700/2905] loss=18.7643 mem=12.4GB
+2026-10-07 19:32:12 | INFO  | src.training.trainer |   [7][1750/2905] loss=25.4332 mem=12.4GB
+2026-10-07 19:33:21 | INFO  | src.training.trainer |   [7][1800/2905] loss=15.0048 mem=12.4GB
+2026-10-07 19:34:30 | INFO  | src.training.trainer |   [7][1850/2905] loss=17.7097 mem=12.4GB
+2026-10-07 19:35:38 | INFO  | src.training.trainer |   [7][1900/2905] loss=16.7704 mem=12.4GB
+2026-10-07 19:36:46 | INFO  | src.training.trainer |   [7][1950/2905] loss=13.5512 mem=12.4GB
+2026-10-07 19:37:56 | INFO  | src.training.trainer |   [7][2000/2905] loss=17.7178 mem=12.4GB
+2026-10-07 19:39:04 | INFO  | src.training.trainer |   [7][2050/2905] loss=14.5535 mem=12.4GB
+2026-10-07 19:40:12 | INFO  | src.training.trainer |   [7][2100/2905] loss=13.2573 mem=12.4GB
+2026-10-07 19:41:21 | INFO  | src.training.trainer |   [7][2150/2905] loss=14.9283 mem=12.4GB
+2026-10-07 19:42:29 | INFO  | src.training.trainer |   [7][2200/2905] loss=20.1371 mem=12.4GB
+2026-10-07 19:43:36 | INFO  | src.training.trainer |   [7][2250/2905] loss=17.4195 mem=12.4GB
+2026-10-07 19:44:46 | INFO  | src.training.trainer |   [7][2300/2905] loss=15.7338 mem=12.4GB
+2026-10-07 19:45:54 | INFO  | src.training.trainer |   [7][2350/2905] loss=20.5975 mem=12.4GB
+2026-10-07 19:47:01 | INFO  | src.training.trainer |   [7][2400/2905] loss=15.8708 mem=15.9GB
+2026-10-07 19:48:10 | INFO  | src.training.trainer |   [7][2450/2905] loss=14.3276 mem=15.9GB
+2026-10-07 19:49:19 | INFO  | src.training.trainer |   [7][2500/2905] loss=16.4768 mem=15.9GB
+2026-10-07 19:50:26 | INFO  | src.training.trainer |   [7][2550/2905] loss=16.0759 mem=15.9GB
+2026-10-07 19:51:35 | INFO  | src.training.trainer |   [7][2600/2905] loss=14.1077 mem=15.9GB
+2026-10-07 19:52:43 | INFO  | src.training.trainer |   [7][2650/2905] loss=13.7877 mem=15.9GB
+2026-10-07 19:53:52 | INFO  | src.training.trainer |   [7][2700/2905] loss=13.7096 mem=15.9GB
+2026-10-07 19:55:02 | INFO  | src.training.trainer |   [7][2750/2905] loss=24.1973 mem=15.9GB
+2026-10-07 19:56:10 | INFO  | src.training.trainer |   [7][2800/2905] loss=22.6485 mem=15.9GB
+2026-10-07 19:57:18 | INFO  | src.training.trainer |   [7][2850/2905] loss=12.0755 mem=15.9GB
+2026-10-07 19:58:27 | INFO  | src.training.trainer |   [7][2900/2905] loss=19.5175 mem=15.9GB
+2026-10-07 20:02:18 | INFO  | src.training.trainer | Epoch 7: train_loss=17.4321 val_loss=17.8582 lr=4.59e-05
+2026-10-07 20:02:18 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=7, is_best=True)
+2026-10-07 20:02:18 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=7, is_best=True)
+2026-10-07 20:02:20 | INFO  | src.training.trainer |   [8][0/2905] loss=18.7396 mem=15.9GB
+2026-10-07 20:03:29 | INFO  | src.training.trainer |   [8][50/2905] loss=20.7003 mem=15.9GB
+2026-10-07 20:04:37 | INFO  | src.training.trainer |   [8][100/2905] loss=18.3466 mem=15.9GB
+2026-10-07 20:05:47 | INFO  | src.training.trainer |   [8][150/2905] loss=15.8758 mem=15.9GB
+2026-10-07 20:06:55 | INFO  | src.training.trainer |   [8][200/2905] loss=12.9438 mem=15.9GB
+2026-10-07 20:08:03 | INFO  | src.training.trainer |   [8][250/2905] loss=18.2380 mem=15.9GB
+2026-10-07 20:09:11 | INFO  | src.training.trainer |   [8][300/2905] loss=14.4561 mem=15.9GB
+2026-10-07 20:10:20 | INFO  | src.training.trainer |   [8][350/2905] loss=20.6092 mem=15.9GB
+2026-10-07 20:11:28 | INFO  | src.training.trainer |   [8][400/2905] loss=19.6023 mem=15.9GB
+2026-10-07 20:12:36 | INFO  | src.training.trainer |   [8][450/2905] loss=19.2841 mem=15.9GB
+2026-10-07 20:13:45 | INFO  | src.training.trainer |   [8][500/2905] loss=18.2324 mem=15.9GB
+2026-10-07 20:14:54 | INFO  | src.training.trainer |   [8][550/2905] loss=13.1909 mem=15.9GB
+2026-10-07 20:16:03 | INFO  | src.training.trainer |   [8][600/2905] loss=17.0275 mem=15.9GB
+2026-10-07 20:36:34 | INFO  | run_training | ======================================================================
+2026-10-07 20:36:34 | INFO  | run_training | LODO TRAINING STARTED
+2026-10-07 20:36:34 | INFO  | run_training | ======================================================================
+2026-10-07 20:36:34 | INFO  | run_training | Config: configs/base_config.yaml
+2026-10-07 20:36:34 | INFO  | run_training | Log file: outputs/training.log
+2026-10-07 20:36:34 | INFO  | run_training | Status file: outputs/status.json
+2026-10-07 20:37:22 | INFO  | run_training | GPU: NVIDIA RTX A5000
+2026-10-07 20:37:23 | INFO  | run_training | Free VRAM: 24.9 GB
+2026-10-07 20:37:23 | INFO  | run_training | Folds to train: [0, 1, 2, 3, 4, 5, 6, 7]
+2026-10-07 20:37:28 | INFO  | run_training | 
+######################################################################
+2026-10-07 20:37:28 | INFO  | run_training | FOLD 0 (1/8)
+2026-10-07 20:37:28 | INFO  | run_training | ######################################################################
+2026-10-07 20:37:28 | INFO  | src.training.lodo_runner | 
+============================================================
+Starting fold 0
+============================================================
+2026-10-07 20:37:28 | INFO  | src.training.odvg_dataset | Loaded 23241 samples from data/odvg/fold_0/train.jsonl
+2026-10-07 20:37:28 | INFO  | src.training.odvg_dataset | Loaded 2577 samples from data/odvg/fold_0/val.jsonl
+2026-10-07 20:37:36 | INFO  | src.training.loss_masking | Token spans for 8 classes:
+2026-10-07 20:37:36 | INFO  | src.training.loss_masking |   0 (crack): [1,2) = 'crack'
+2026-10-07 20:37:36 | INFO  | src.training.loss_masking |   1 (dent): [3,4) = 'dent'
+2026-10-07 20:37:36 | INFO  | src.training.loss_masking |   2 (corrosion): [5,6) = 'corrosion'
+2026-10-07 20:37:36 | INFO  | src.training.loss_masking |   3 (scratch): [7,8) = 'scratch'
+2026-10-07 20:37:36 | INFO  | src.training.loss_masking |   4 (paint-off): [9,12) = 'paint - off'
+2026-10-07 20:37:36 | INFO  | src.training.loss_masking |   5 (missing-head): [13,16) = 'missing - head'
+2026-10-07 20:37:36 | INFO  | src.training.loss_masking |   6 (rupture): [17,20) = 'rupture'
+2026-10-07 20:37:36 | INFO  | src.training.loss_masking |   7 (fastener-damage): [21,25) = 'fastener - damage'
+2026-10-07 20:37:48 | INFO  | src.training.model_builder | Loaded pretrained weights: 0 missing, 2 unexpected
+2026-10-07 20:37:49 | INFO  | src.training.model_builder | Model params: 174,319,366 total, 1,479,684 trainable (0.85%)
+2026-10-07 20:37:49 | INFO  | src.training.model_builder | Optimizer: 0 backbone params (lr=1e-05), 162 other params (lr=5e-05)
+2026-10-07 20:37:49 | INFO  | src.training.trainer | Resumed from outputs/fold_0/latest.pt: epoch=7, resuming at 8
+2026-10-07 20:37:49 | INFO  | src.training.trainer | Starting training for 30 epochs
+2026-10-07 20:37:49 | INFO  | src.training.trainer | Output: outputs/fold_0
+2026-10-07 20:38:00 | INFO  | src.training.trainer |   [8][0/2905] loss=17.1030 mem=8.6GB
+2026-10-07 20:39:06 | INFO  | src.training.trainer |   [8][50/2905] loss=16.6158 mem=10.9GB
+2026-10-07 20:40:14 | INFO  | src.training.trainer |   [8][100/2905] loss=13.8548 mem=8.8GB
+2026-10-07 20:41:21 | INFO  | src.training.trainer |   [8][150/2905] loss=15.5934 mem=12.2GB
+2026-10-07 20:42:30 | INFO  | src.training.trainer |   [8][200/2905] loss=14.6888 mem=11.5GB
+2026-10-07 20:43:39 | INFO  | src.training.trainer |   [8][250/2905] loss=14.8041 mem=12.1GB
+2026-10-07 20:44:47 | INFO  | src.training.trainer |   [8][300/2905] loss=16.1020 mem=10.9GB
+2026-10-07 20:45:56 | INFO  | src.training.trainer |   [8][350/2905] loss=18.6941 mem=11.9GB
+2026-10-07 20:47:04 | INFO  | src.training.trainer |   [8][400/2905] loss=12.6908 mem=12.5GB
+2026-10-07 20:48:13 | INFO  | src.training.trainer |   [8][450/2905] loss=15.4821 mem=10.7GB
+2026-10-07 20:49:21 | INFO  | src.training.trainer |   [8][500/2905] loss=17.2257 mem=10.7GB
+2026-10-07 20:50:29 | INFO  | src.training.trainer |   [8][550/2905] loss=18.4053 mem=10.7GB
+2026-10-07 20:51:39 | INFO  | src.training.trainer |   [8][600/2905] loss=16.0810 mem=14.1GB
+2026-10-07 20:52:47 | INFO  | src.training.trainer |   [8][650/2905] loss=19.8150 mem=14.1GB
+2026-10-07 20:53:55 | INFO  | src.training.trainer |   [8][700/2905] loss=17.1786 mem=11.0GB
+2026-10-07 20:55:04 | INFO  | src.training.trainer |   [8][750/2905] loss=16.4512 mem=15.8GB
+2026-10-07 20:56:14 | INFO  | src.training.trainer |   [8][800/2905] loss=15.5342 mem=10.5GB
+2026-10-07 20:57:22 | INFO  | src.training.trainer |   [8][850/2905] loss=14.4459 mem=10.5GB
+2026-10-07 20:58:31 | INFO  | src.training.trainer |   [8][900/2905] loss=13.5722 mem=12.2GB
+2026-10-07 20:59:41 | INFO  | src.training.trainer |   [8][950/2905] loss=15.1297 mem=11.7GB
+2026-10-07 21:00:50 | INFO  | src.training.trainer |   [8][1000/2905] loss=16.1681 mem=11.7GB
+2026-10-07 21:02:00 | INFO  | src.training.trainer |   [8][1050/2905] loss=20.1496 mem=11.7GB
+2026-10-07 21:03:09 | INFO  | src.training.trainer |   [8][1100/2905] loss=16.6468 mem=10.0GB
+2026-10-07 21:04:17 | INFO  | src.training.trainer |   [8][1150/2905] loss=14.6624 mem=10.0GB
+2026-10-07 21:05:26 | INFO  | src.training.trainer |   [8][1200/2905] loss=17.0485 mem=11.9GB
+2026-10-07 21:06:34 | INFO  | src.training.trainer |   [8][1250/2905] loss=15.5812 mem=11.9GB
+2026-10-07 21:07:42 | INFO  | src.training.trainer |   [8][1300/2905] loss=15.6504 mem=10.0GB
+2026-10-07 21:08:51 | INFO  | src.training.trainer |   [8][1350/2905] loss=19.8550 mem=12.9GB
+2026-10-07 21:09:59 | INFO  | src.training.trainer |   [8][1400/2905] loss=15.5836 mem=12.5GB
+2026-10-07 21:11:08 | INFO  | src.training.trainer |   [8][1450/2905] loss=14.6013 mem=12.5GB
+2026-10-07 21:12:17 | INFO  | src.training.trainer |   [8][1500/2905] loss=16.0036 mem=12.5GB
+2026-10-07 21:13:26 | INFO  | src.training.trainer |   [8][1550/2905] loss=16.2069 mem=12.5GB
+2026-10-07 21:14:37 | INFO  | src.training.trainer |   [8][1600/2905] loss=19.2272 mem=12.6GB
+2026-10-07 21:15:46 | INFO  | src.training.trainer |   [8][1650/2905] loss=12.8403 mem=10.8GB
+2026-10-07 21:16:56 | INFO  | src.training.trainer |   [8][1700/2905] loss=15.4741 mem=10.8GB
+2026-10-07 21:18:40 | INFO  | src.training.trainer |   [8][1750/2905] loss=12.1142 mem=16.1GB
+2026-10-07 21:20:23 | INFO  | src.training.trainer |   [8][1800/2905] loss=14.8785 mem=9.5GB
+2026-10-07 21:22:01 | INFO  | src.training.trainer |   [8][1850/2905] loss=16.5054 mem=9.5GB
+2026-10-07 21:23:39 | INFO  | src.training.trainer |   [8][1900/2905] loss=15.8411 mem=12.1GB
+2026-10-07 21:25:14 | INFO  | src.training.trainer |   [8][1950/2905] loss=15.3320 mem=14.6GB
+2026-10-07 21:26:46 | INFO  | src.training.trainer |   [8][2000/2905] loss=16.5758 mem=17.5GB
+2026-10-07 21:28:18 | INFO  | src.training.trainer |   [8][2050/2905] loss=14.7294 mem=17.5GB
+2026-10-07 21:29:49 | INFO  | src.training.trainer |   [8][2100/2905] loss=20.0357 mem=17.5GB
+2026-10-07 21:31:25 | INFO  | src.training.trainer |   [8][2150/2905] loss=11.4183 mem=12.7GB
+2026-10-07 21:32:59 | INFO  | src.training.trainer |   [8][2200/2905] loss=18.1413 mem=12.7GB
+2026-10-07 21:34:33 | INFO  | src.training.trainer |   [8][2250/2905] loss=27.5652 mem=11.8GB
+2026-10-07 21:36:07 | INFO  | src.training.trainer |   [8][2300/2905] loss=13.6090 mem=11.8GB
+2026-10-07 21:37:38 | INFO  | src.training.trainer |   [8][2350/2905] loss=14.9771 mem=11.8GB
+2026-10-07 21:39:11 | INFO  | src.training.trainer |   [8][2400/2905] loss=18.5336 mem=11.8GB
+2026-10-07 21:40:43 | INFO  | src.training.trainer |   [8][2450/2905] loss=16.6524 mem=11.8GB
+2026-10-07 21:42:20 | INFO  | src.training.trainer |   [8][2500/2905] loss=15.1706 mem=11.8GB
+2026-10-07 21:43:53 | INFO  | src.training.trainer |   [8][2550/2905] loss=19.4743 mem=11.8GB
+2026-10-07 21:45:30 | INFO  | src.training.trainer |   [8][2600/2905] loss=15.7959 mem=12.8GB
+2026-10-07 21:47:04 | INFO  | src.training.trainer |   [8][2650/2905] loss=15.8237 mem=12.8GB
+2026-10-07 21:48:39 | INFO  | src.training.trainer |   [8][2700/2905] loss=15.7203 mem=11.8GB
+2026-10-07 21:50:13 | INFO  | src.training.trainer |   [8][2750/2905] loss=19.8631 mem=11.8GB
+2026-10-07 21:51:51 | INFO  | src.training.trainer |   [8][2800/2905] loss=19.0493 mem=8.2GB
+2026-10-07 21:53:32 | INFO  | src.training.trainer |   [8][2850/2905] loss=17.3014 mem=13.4GB
+2026-10-07 21:55:15 | INFO  | src.training.trainer |   [8][2900/2905] loss=13.8831 mem=16.8GB
+2026-10-07 22:00:38 | INFO  | src.training.trainer | Epoch 8: train_loss=17.1611 val_loss=17.3867 lr=4.42e-05
+2026-10-07 22:00:38 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=8, is_best=True)
+2026-10-07 22:00:39 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=8, is_best=True)
+2026-10-07 22:00:41 | INFO  | src.training.trainer |   [9][0/2905] loss=19.6906 mem=8.0GB
+2026-10-07 22:02:20 | INFO  | src.training.trainer |   [9][50/2905] loss=16.8193 mem=14.6GB
+2026-10-07 22:03:57 | INFO  | src.training.trainer |   [9][100/2905] loss=14.7577 mem=12.4GB
+2026-10-07 22:05:35 | INFO  | src.training.trainer |   [9][150/2905] loss=12.8664 mem=12.4GB
+2026-10-07 22:07:12 | INFO  | src.training.trainer |   [9][200/2905] loss=14.2004 mem=12.4GB
+2026-10-07 22:08:52 | INFO  | src.training.trainer |   [9][250/2905] loss=16.9201 mem=12.4GB
+2026-10-07 22:10:33 | INFO  | src.training.trainer |   [9][300/2905] loss=15.0365 mem=12.4GB
+2026-10-07 22:12:12 | INFO  | src.training.trainer |   [9][350/2905] loss=16.3153 mem=12.4GB
+2026-10-07 22:13:49 | INFO  | src.training.trainer |   [9][400/2905] loss=13.1296 mem=12.4GB
+2026-10-07 22:15:27 | INFO  | src.training.trainer |   [9][450/2905] loss=27.6085 mem=12.4GB
+2026-10-07 22:17:05 | INFO  | src.training.trainer |   [9][500/2905] loss=14.9965 mem=12.4GB
+2026-10-07 22:18:41 | INFO  | src.training.trainer |   [9][550/2905] loss=17.6433 mem=12.4GB
+2026-10-07 22:20:19 | INFO  | src.training.trainer |   [9][600/2905] loss=14.3880 mem=12.4GB
+2026-10-07 22:21:55 | INFO  | src.training.trainer |   [9][650/2905] loss=15.7295 mem=12.4GB
+2026-10-07 22:23:31 | INFO  | src.training.trainer |   [9][700/2905] loss=15.3374 mem=12.4GB
+2026-10-07 22:25:13 | INFO  | src.training.trainer |   [9][750/2905] loss=18.3857 mem=12.4GB
+2026-10-07 22:26:53 | INFO  | src.training.trainer |   [9][800/2905] loss=16.2690 mem=12.4GB
+2026-10-07 22:28:35 | INFO  | src.training.trainer |   [9][850/2905] loss=21.3680 mem=10.3GB
+2026-10-07 22:30:17 | INFO  | src.training.trainer |   [9][900/2905] loss=16.8660 mem=9.8GB
+2026-10-07 22:31:54 | INFO  | src.training.trainer |   [9][950/2905] loss=15.7013 mem=13.4GB
+2026-10-07 22:33:27 | INFO  | src.training.trainer |   [9][1000/2905] loss=14.0085 mem=13.4GB
+2026-10-07 22:35:01 | INFO  | src.training.trainer |   [9][1050/2905] loss=13.0272 mem=13.4GB
+2026-10-07 22:36:34 | INFO  | src.training.trainer |   [9][1100/2905] loss=15.5086 mem=13.4GB
+2026-10-07 22:38:08 | INFO  | src.training.trainer |   [9][1150/2905] loss=15.7241 mem=13.4GB
+2026-10-07 22:39:43 | INFO  | src.training.trainer |   [9][1200/2905] loss=14.2834 mem=14.0GB
+2026-10-07 22:41:17 | INFO  | src.training.trainer |   [9][1250/2905] loss=15.1649 mem=14.0GB
+2026-10-07 22:42:53 | INFO  | src.training.trainer |   [9][1300/2905] loss=18.2545 mem=11.3GB
+2026-10-07 22:44:28 | INFO  | src.training.trainer |   [9][1350/2905] loss=17.8161 mem=11.3GB
+2026-10-07 22:46:01 | INFO  | src.training.trainer |   [9][1400/2905] loss=14.3855 mem=11.3GB
+2026-10-07 22:47:29 | INFO  | src.training.trainer |   [9][1450/2905] loss=14.5321 mem=10.1GB
+2026-10-07 22:48:59 | INFO  | src.training.trainer |   [9][1500/2905] loss=16.3296 mem=10.1GB
+2026-10-07 22:50:34 | INFO  | src.training.trainer |   [9][1550/2905] loss=16.9147 mem=13.6GB
+2026-10-07 22:52:10 | INFO  | src.training.trainer |   [9][1600/2905] loss=15.1273 mem=13.6GB
+2026-10-07 22:53:46 | INFO  | src.training.trainer |   [9][1650/2905] loss=15.6768 mem=16.6GB
+2026-10-07 22:55:19 | INFO  | src.training.trainer |   [9][1700/2905] loss=16.2782 mem=16.6GB
+2026-10-07 22:56:54 | INFO  | src.training.trainer |   [9][1750/2905] loss=16.0144 mem=16.6GB
+2026-10-07 22:58:28 | INFO  | src.training.trainer |   [9][1800/2905] loss=14.8543 mem=16.6GB
+2026-10-07 23:00:03 | INFO  | src.training.trainer |   [9][1850/2905] loss=17.7032 mem=16.6GB
+2026-10-07 23:01:37 | INFO  | src.training.trainer |   [9][1900/2905] loss=18.3819 mem=16.6GB
+2026-10-07 23:03:10 | INFO  | src.training.trainer |   [9][1950/2905] loss=13.0940 mem=16.6GB
+2026-10-07 23:04:44 | INFO  | src.training.trainer |   [9][2000/2905] loss=23.5232 mem=10.9GB
+2026-10-07 23:06:18 | INFO  | src.training.trainer |   [9][2050/2905] loss=14.1668 mem=10.9GB
+2026-10-07 23:07:52 | INFO  | src.training.trainer |   [9][2100/2905] loss=19.9995 mem=12.2GB
+2026-10-07 23:09:24 | INFO  | src.training.trainer |   [9][2150/2905] loss=18.7502 mem=12.2GB
+2026-10-07 23:10:56 | INFO  | src.training.trainer |   [9][2200/2905] loss=14.0619 mem=15.1GB
+2026-10-07 23:12:32 | INFO  | src.training.trainer |   [9][2250/2905] loss=15.4438 mem=18.6GB
+2026-10-07 23:14:04 | INFO  | src.training.trainer |   [9][2300/2905] loss=14.9776 mem=18.6GB
+2026-10-07 23:15:42 | INFO  | src.training.trainer |   [9][2350/2905] loss=16.4160 mem=18.6GB
+2026-10-07 23:17:20 | INFO  | src.training.trainer |   [9][2400/2905] loss=16.3593 mem=10.7GB
+2026-10-07 23:19:02 | INFO  | src.training.trainer |   [9][2450/2905] loss=17.8132 mem=13.6GB
+2026-10-07 23:20:40 | INFO  | src.training.trainer |   [9][2500/2905] loss=17.9901 mem=13.6GB
+2026-10-07 23:22:20 | INFO  | src.training.trainer |   [9][2550/2905] loss=22.6103 mem=13.6GB
+2026-10-07 23:23:53 | INFO  | src.training.trainer |   [9][2600/2905] loss=17.3524 mem=16.8GB
+2026-10-07 23:25:26 | INFO  | src.training.trainer |   [9][2650/2905] loss=26.3767 mem=16.8GB
+2026-10-07 23:27:00 | INFO  | src.training.trainer |   [9][2700/2905] loss=18.0541 mem=16.8GB
+2026-10-07 23:28:23 | INFO  | src.training.trainer |   [9][2750/2905] loss=14.9503 mem=16.8GB
+2026-10-07 23:29:45 | INFO  | src.training.trainer |   [9][2800/2905] loss=22.9917 mem=16.8GB
+2026-10-07 23:31:05 | INFO  | src.training.trainer |   [9][2850/2905] loss=16.2089 mem=16.8GB
+2026-10-07 23:32:28 | INFO  | src.training.trainer |   [9][2900/2905] loss=13.8504 mem=16.8GB
+2026-10-07 23:36:27 | INFO  | src.training.trainer | Epoch 9: train_loss=17.0053 val_loss=16.9967 lr=4.22e-05
+2026-10-07 23:36:28 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=9, is_best=True)
+2026-10-07 23:36:28 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=9, is_best=True)
+2026-10-07 23:36:28 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/epoch_9.pt (epoch=9, is_best=False)
+2026-10-07 23:36:29 | INFO  | src.training.trainer |   [10][0/2905] loss=18.4659 mem=16.8GB
+2026-10-07 23:37:49 | INFO  | src.training.trainer |   [10][50/2905] loss=11.3430 mem=16.8GB
+2026-10-07 23:39:08 | INFO  | src.training.trainer |   [10][100/2905] loss=17.0375 mem=16.8GB
+2026-10-07 23:40:31 | INFO  | src.training.trainer |   [10][150/2905] loss=24.2924 mem=20.4GB
+2026-10-07 23:41:59 | INFO  | src.training.trainer |   [10][200/2905] loss=15.9035 mem=20.4GB
+2026-10-07 23:43:28 | INFO  | src.training.trainer |   [10][250/2905] loss=13.1184 mem=20.4GB
+2026-10-07 23:44:57 | INFO  | src.training.trainer |   [10][300/2905] loss=12.7127 mem=20.4GB
+2026-10-07 23:46:24 | INFO  | src.training.trainer |   [10][350/2905] loss=20.9150 mem=20.4GB
+2026-10-07 23:47:52 | INFO  | src.training.trainer |   [10][400/2905] loss=11.4822 mem=20.4GB
+2026-10-07 23:49:15 | INFO  | src.training.trainer |   [10][450/2905] loss=19.0973 mem=20.4GB
+2026-10-07 23:50:39 | INFO  | src.training.trainer |   [10][500/2905] loss=16.6631 mem=20.4GB
+2026-10-07 23:52:01 | INFO  | src.training.trainer |   [10][550/2905] loss=15.6673 mem=20.4GB
+2026-10-07 23:53:24 | INFO  | src.training.trainer |   [10][600/2905] loss=15.6390 mem=20.4GB
+2026-10-07 23:54:44 | INFO  | src.training.trainer |   [10][650/2905] loss=20.2631 mem=20.4GB
+2026-10-07 23:56:05 | INFO  | src.training.trainer |   [10][700/2905] loss=22.4777 mem=20.4GB
+2026-10-07 23:57:35 | INFO  | src.training.trainer |   [10][750/2905] loss=16.1761 mem=20.4GB
+2026-10-07 23:59:10 | INFO  | src.training.trainer |   [10][800/2905] loss=17.3074 mem=20.4GB
+2026-10-08 00:00:41 | INFO  | src.training.trainer |   [10][850/2905] loss=14.3039 mem=20.4GB
+2026-10-08 00:02:16 | INFO  | src.training.trainer |   [10][900/2905] loss=18.8331 mem=20.4GB
+2026-10-08 00:03:35 | INFO  | src.training.trainer |   [10][950/2905] loss=16.9138 mem=20.4GB
+2026-10-08 00:04:33 | INFO  | src.training.trainer |   [10][1000/2905] loss=21.2640 mem=20.4GB
+2026-10-08 00:05:32 | INFO  | src.training.trainer |   [10][1050/2905] loss=21.1603 mem=20.4GB
+2026-10-08 00:06:30 | INFO  | src.training.trainer |   [10][1100/2905] loss=14.7179 mem=20.4GB
+2026-10-08 00:07:29 | INFO  | src.training.trainer |   [10][1150/2905] loss=16.9016 mem=20.4GB
+2026-10-08 00:08:28 | INFO  | src.training.trainer |   [10][1200/2905] loss=14.4660 mem=20.4GB
+2026-10-08 00:09:27 | INFO  | src.training.trainer |   [10][1250/2905] loss=18.2852 mem=20.4GB
+2026-10-08 00:10:26 | INFO  | src.training.trainer |   [10][1300/2905] loss=17.4767 mem=20.4GB
+2026-10-08 00:11:24 | INFO  | src.training.trainer |   [10][1350/2905] loss=14.1536 mem=20.4GB
+2026-10-08 00:12:22 | INFO  | src.training.trainer |   [10][1400/2905] loss=15.3746 mem=20.4GB
+2026-10-08 00:13:21 | INFO  | src.training.trainer |   [10][1450/2905] loss=15.1902 mem=20.4GB
+2026-10-08 00:14:20 | INFO  | src.training.trainer |   [10][1500/2905] loss=16.8432 mem=11.7GB
+2026-10-08 00:15:20 | INFO  | src.training.trainer |   [10][1550/2905] loss=20.6551 mem=11.7GB
+2026-10-08 00:16:19 | INFO  | src.training.trainer |   [10][1600/2905] loss=18.0044 mem=11.7GB
+2026-10-08 00:17:20 | INFO  | src.training.trainer |   [10][1650/2905] loss=15.4101 mem=12.7GB
+2026-10-08 00:18:18 | INFO  | src.training.trainer |   [10][1700/2905] loss=16.2502 mem=12.7GB
+2026-10-08 00:19:18 | INFO  | src.training.trainer |   [10][1750/2905] loss=14.5287 mem=12.7GB
+2026-10-08 00:20:17 | INFO  | src.training.trainer |   [10][1800/2905] loss=19.5880 mem=12.7GB
+2026-10-08 00:21:18 | INFO  | src.training.trainer |   [10][1850/2905] loss=21.4322 mem=16.3GB
+2026-10-08 00:22:16 | INFO  | src.training.trainer |   [10][1900/2905] loss=17.1103 mem=16.3GB
+2026-10-08 00:23:14 | INFO  | src.training.trainer |   [10][1950/2905] loss=15.3332 mem=16.3GB
+2026-10-08 00:24:14 | INFO  | src.training.trainer |   [10][2000/2905] loss=25.7454 mem=16.3GB
+2026-10-08 00:25:12 | INFO  | src.training.trainer |   [10][2050/2905] loss=14.7080 mem=16.3GB
+2026-10-08 00:26:11 | INFO  | src.training.trainer |   [10][2100/2905] loss=14.3060 mem=16.3GB
+2026-10-08 00:27:10 | INFO  | src.training.trainer |   [10][2150/2905] loss=13.5016 mem=16.3GB
+2026-10-08 00:28:09 | INFO  | src.training.trainer |   [10][2200/2905] loss=14.0268 mem=16.3GB
+2026-10-08 00:29:07 | INFO  | src.training.trainer |   [10][2250/2905] loss=14.9446 mem=16.3GB
+2026-10-08 00:30:07 | INFO  | src.training.trainer |   [10][2300/2905] loss=25.7108 mem=16.3GB
+2026-10-08 00:31:05 | INFO  | src.training.trainer |   [10][2350/2905] loss=11.6019 mem=16.3GB
+2026-10-08 00:32:04 | INFO  | src.training.trainer |   [10][2400/2905] loss=17.9015 mem=16.3GB
+2026-10-08 00:33:03 | INFO  | src.training.trainer |   [10][2450/2905] loss=13.9777 mem=16.3GB
+2026-10-08 00:34:03 | INFO  | src.training.trainer |   [10][2500/2905] loss=16.9291 mem=16.3GB
+2026-10-08 00:35:01 | INFO  | src.training.trainer |   [10][2550/2905] loss=12.5671 mem=16.3GB
+2026-10-08 00:36:00 | INFO  | src.training.trainer |   [10][2600/2905] loss=20.5859 mem=16.3GB
+2026-10-08 00:37:00 | INFO  | src.training.trainer |   [10][2650/2905] loss=16.8412 mem=16.3GB
+2026-10-08 00:38:00 | INFO  | src.training.trainer |   [10][2700/2905] loss=12.7466 mem=16.3GB
+2026-10-08 00:38:59 | INFO  | src.training.trainer |   [10][2750/2905] loss=13.9154 mem=16.3GB
+2026-10-08 00:39:58 | INFO  | src.training.trainer |   [10][2800/2905] loss=17.3439 mem=16.3GB
+2026-10-08 00:40:58 | INFO  | src.training.trainer |   [10][2850/2905] loss=15.0934 mem=14.0GB
+2026-10-08 00:41:57 | INFO  | src.training.trainer |   [10][2900/2905] loss=14.5602 mem=14.0GB
+2026-10-08 00:44:54 | INFO  | src.training.trainer | Epoch 10: train_loss=16.8354 val_loss=16.7589 lr=3.99e-05
+2026-10-08 00:44:54 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=10, is_best=True)
+2026-10-08 00:44:54 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=10, is_best=True)
+2026-10-08 00:44:56 | INFO  | src.training.trainer |   [11][0/2905] loss=14.4224 mem=14.0GB
+2026-10-08 00:45:55 | INFO  | src.training.trainer |   [11][50/2905] loss=17.9676 mem=14.0GB
+2026-10-08 00:46:56 | INFO  | src.training.trainer |   [11][100/2905] loss=14.6469 mem=14.0GB
+2026-10-08 00:47:54 | INFO  | src.training.trainer |   [11][150/2905] loss=26.7510 mem=14.0GB
+2026-10-08 00:48:53 | INFO  | src.training.trainer |   [11][200/2905] loss=20.8755 mem=14.0GB
+2026-10-08 00:49:51 | INFO  | src.training.trainer |   [11][250/2905] loss=14.4335 mem=14.0GB
+2026-10-08 00:50:49 | INFO  | src.training.trainer |   [11][300/2905] loss=14.5357 mem=14.0GB
+2026-10-08 00:51:48 | INFO  | src.training.trainer |   [11][350/2905] loss=17.4709 mem=14.0GB
+2026-10-08 00:52:47 | INFO  | src.training.trainer |   [11][400/2905] loss=17.6263 mem=14.0GB
+2026-10-08 00:53:47 | INFO  | src.training.trainer |   [11][450/2905] loss=16.0158 mem=14.0GB
+2026-10-08 00:54:46 | INFO  | src.training.trainer |   [11][500/2905] loss=17.5963 mem=14.0GB
+2026-10-08 00:55:44 | INFO  | src.training.trainer |   [11][550/2905] loss=17.3068 mem=14.0GB
+2026-10-08 00:56:43 | INFO  | src.training.trainer |   [11][600/2905] loss=17.8889 mem=14.0GB
+2026-10-08 00:57:42 | INFO  | src.training.trainer |   [11][650/2905] loss=9.8788 mem=14.0GB
+2026-10-08 00:58:40 | INFO  | src.training.trainer |   [11][700/2905] loss=17.5167 mem=14.0GB
+2026-10-08 00:59:40 | INFO  | src.training.trainer |   [11][750/2905] loss=13.2948 mem=14.0GB
+2026-10-08 01:00:41 | INFO  | src.training.trainer |   [11][800/2905] loss=12.2782 mem=14.0GB
+2026-10-08 01:01:40 | INFO  | src.training.trainer |   [11][850/2905] loss=14.2186 mem=14.0GB
+2026-10-08 01:02:38 | INFO  | src.training.trainer |   [11][900/2905] loss=14.1650 mem=14.0GB
+2026-10-08 01:03:39 | INFO  | src.training.trainer |   [11][950/2905] loss=23.4426 mem=15.8GB
+2026-10-08 01:04:38 | INFO  | src.training.trainer |   [11][1000/2905] loss=14.7942 mem=15.8GB
+2026-10-08 01:05:37 | INFO  | src.training.trainer |   [11][1050/2905] loss=13.3575 mem=19.3GB
+2026-10-08 01:06:35 | INFO  | src.training.trainer |   [11][1100/2905] loss=16.0618 mem=19.3GB
+2026-10-08 01:07:34 | INFO  | src.training.trainer |   [11][1150/2905] loss=20.8755 mem=19.3GB
+2026-10-08 01:08:34 | INFO  | src.training.trainer |   [11][1200/2905] loss=18.2372 mem=19.3GB
+2026-10-08 01:09:34 | INFO  | src.training.trainer |   [11][1250/2905] loss=15.0685 mem=19.3GB
+2026-10-08 01:10:33 | INFO  | src.training.trainer |   [11][1300/2905] loss=24.3921 mem=19.3GB
+2026-10-08 01:11:32 | INFO  | src.training.trainer |   [11][1350/2905] loss=13.7248 mem=19.3GB
+2026-10-08 01:12:31 | INFO  | src.training.trainer |   [11][1400/2905] loss=12.7818 mem=19.3GB
+2026-10-08 01:13:28 | INFO  | src.training.trainer |   [11][1450/2905] loss=16.2456 mem=19.3GB
+2026-10-08 01:14:28 | INFO  | src.training.trainer |   [11][1500/2905] loss=37.5913 mem=19.3GB
+2026-10-08 01:15:28 | INFO  | src.training.trainer |   [11][1550/2905] loss=18.1202 mem=19.3GB
+2026-10-08 01:16:26 | INFO  | src.training.trainer |   [11][1600/2905] loss=21.6266 mem=19.3GB
+2026-10-08 01:17:24 | INFO  | src.training.trainer |   [11][1650/2905] loss=16.9505 mem=19.3GB
+2026-10-08 01:18:24 | INFO  | src.training.trainer |   [11][1700/2905] loss=17.2945 mem=19.3GB
+2026-10-08 01:19:23 | INFO  | src.training.trainer |   [11][1750/2905] loss=20.6711 mem=19.3GB
+2026-10-08 01:20:25 | INFO  | src.training.trainer |   [11][1800/2905] loss=16.6468 mem=19.3GB
+2026-10-08 01:21:42 | INFO  | src.training.trainer |   [11][1850/2905] loss=16.2761 mem=19.3GB
+2026-10-08 01:22:57 | INFO  | src.training.trainer |   [11][1900/2905] loss=20.8474 mem=19.3GB
+2026-10-08 01:23:53 | WARNING | src.training.trainer | Received SIGTERM — saving emergency checkpoint before exit
+2026-10-08 01:23:54 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=11, is_best=False)
+2026-10-08 01:23:54 | INFO  | src.training.trainer | Emergency checkpoint saved.
+2026-10-08 01:25:01 | INFO  | run_training | ======================================================================
+2026-10-08 01:25:01 | INFO  | run_training | LODO TRAINING STARTED
+2026-10-08 01:25:01 | INFO  | run_training | ======================================================================
+2026-10-08 01:25:01 | INFO  | run_training | Config: configs/base_config.yaml
+2026-10-08 01:25:01 | INFO  | run_training | Log file: outputs/training.log
+2026-10-08 01:25:01 | INFO  | run_training | Status file: outputs/status.json
+2026-10-08 01:25:02 | INFO  | run_training | GPU: NVIDIA RTX A5000
+2026-10-08 01:25:02 | INFO  | run_training | Free VRAM: 24.6 GB
+2026-10-08 01:25:02 | INFO  | run_training | Folds to train: [0, 1, 2, 3, 4, 5, 6, 7]
+2026-10-08 01:25:03 | INFO  | run_training | 
+######################################################################
+2026-10-08 01:25:03 | INFO  | run_training | FOLD 0 (1/8)
+2026-10-08 01:25:03 | INFO  | run_training | ######################################################################
+2026-10-08 01:25:03 | INFO  | src.training.lodo_runner | 
+============================================================
+Starting fold 0
+============================================================
+2026-10-08 01:25:03 | INFO  | src.training.odvg_dataset | Loaded 23241 samples from data/odvg/fold_0/train.jsonl
+2026-10-08 01:25:03 | INFO  | src.training.odvg_dataset | Loaded 2577 samples from data/odvg/fold_0/val.jsonl
+2026-10-08 01:25:04 | INFO  | src.training.loss_masking | Token spans for 8 classes:
+2026-10-08 01:25:04 | INFO  | src.training.loss_masking |   0 (crack): [1,2) = 'crack'
+2026-10-08 01:25:04 | INFO  | src.training.loss_masking |   1 (dent): [3,4) = 'dent'
+2026-10-08 01:25:04 | INFO  | src.training.loss_masking |   2 (corrosion): [5,6) = 'corrosion'
+2026-10-08 01:25:04 | INFO  | src.training.loss_masking |   3 (scratch): [7,8) = 'scratch'
+2026-10-08 01:25:04 | INFO  | src.training.loss_masking |   4 (paint-off): [9,12) = 'paint - off'
+2026-10-08 01:25:04 | INFO  | src.training.loss_masking |   5 (missing-head): [13,16) = 'missing - head'
+2026-10-08 01:25:04 | INFO  | src.training.loss_masking |   6 (rupture): [17,20) = 'rupture'
+2026-10-08 01:25:04 | INFO  | src.training.loss_masking |   7 (fastener-damage): [21,25) = 'fastener - damage'
+2026-10-08 01:25:06 | INFO  | src.training.model_builder | Loaded pretrained weights: 0 missing, 2 unexpected
+2026-10-08 01:25:06 | INFO  | src.training.model_builder | Model params: 174,319,366 total, 1,479,684 trainable (0.85%)
+2026-10-08 01:25:06 | INFO  | src.training.model_builder | Optimizer: 0 backbone params (lr=1e-05), 162 other params (lr=5e-05)
+2026-10-08 01:25:06 | INFO  | src.training.trainer | Resumed from outputs/fold_0/latest.pt: epoch=11, resuming at 12
+2026-10-08 01:25:06 | INFO  | src.training.trainer | Starting training for 30 epochs
+2026-10-08 01:25:06 | INFO  | src.training.trainer | Output: outputs/fold_0
+2026-10-08 01:25:10 | INFO  | src.training.trainer |   [12][0/2905] loss=17.3393 mem=8.0GB
+2026-10-08 01:28:57 | INFO  | src.training.trainer |   [12][50/2905] loss=14.7691 mem=9.4GB
+2026-10-08 01:32:51 | INFO  | src.training.trainer |   [12][100/2905] loss=15.1247 mem=12.0GB
+2026-10-08 01:35:02 | INFO  | run_training | ======================================================================
+2026-10-08 01:35:02 | INFO  | run_training | LODO TRAINING STARTED
+2026-10-08 01:35:02 | INFO  | run_training | ======================================================================
+2026-10-08 01:35:02 | INFO  | run_training | Config: configs/base_config.yaml
+2026-10-08 01:35:02 | INFO  | run_training | Log file: outputs/training.log
+2026-10-08 01:35:02 | INFO  | run_training | Status file: outputs/status.json
+2026-10-08 01:35:03 | INFO  | run_training | GPU: NVIDIA RTX A5000
+2026-10-08 01:35:03 | INFO  | run_training | Free VRAM: 14.8 GB
+2026-10-08 01:35:03 | INFO  | run_training | Folds to train: [0, 1, 2, 3, 4, 5, 6, 7]
+2026-10-08 01:35:04 | INFO  | run_training | 
+######################################################################
+2026-10-08 01:35:04 | INFO  | run_training | FOLD 0 (1/8)
+2026-10-08 01:35:04 | INFO  | run_training | ######################################################################
+2026-10-08 01:35:04 | INFO  | src.training.lodo_runner | 
+============================================================
+Starting fold 0
+============================================================
+2026-10-08 01:35:04 | INFO  | src.training.odvg_dataset | Loaded 23241 samples from data/odvg/fold_0/train.jsonl
+2026-10-08 01:35:04 | INFO  | src.training.odvg_dataset | Loaded 2577 samples from data/odvg/fold_0/val.jsonl
+2026-10-08 01:35:05 | INFO  | src.training.loss_masking | Token spans for 8 classes:
+2026-10-08 01:35:05 | INFO  | src.training.loss_masking |   0 (crack): [1,2) = 'crack'
+2026-10-08 01:35:05 | INFO  | src.training.loss_masking |   1 (dent): [3,4) = 'dent'
+2026-10-08 01:35:05 | INFO  | src.training.loss_masking |   2 (corrosion): [5,6) = 'corrosion'
+2026-10-08 01:35:05 | INFO  | src.training.loss_masking |   3 (scratch): [7,8) = 'scratch'
+2026-10-08 01:35:05 | INFO  | src.training.loss_masking |   4 (paint-off): [9,12) = 'paint - off'
+2026-10-08 01:35:05 | INFO  | src.training.loss_masking |   5 (missing-head): [13,16) = 'missing - head'
+2026-10-08 01:35:05 | INFO  | src.training.loss_masking |   6 (rupture): [17,20) = 'rupture'
+2026-10-08 01:35:05 | INFO  | src.training.loss_masking |   7 (fastener-damage): [21,25) = 'fastener - damage'
+2026-10-08 01:35:07 | INFO  | src.training.model_builder | Loaded pretrained weights: 0 missing, 2 unexpected
+2026-10-08 01:35:08 | INFO  | src.training.model_builder | Model params: 174,319,366 total, 1,479,684 trainable (0.85%)
+2026-10-08 01:35:08 | INFO  | src.training.model_builder | Optimizer: 0 backbone params (lr=1e-05), 162 other params (lr=5e-05)
+2026-10-08 01:35:09 | INFO  | src.training.trainer | Resumed from outputs/fold_0/latest.pt: epoch=11, resuming at 12
+2026-10-08 01:35:09 | INFO  | src.training.trainer | Starting training for 30 epochs
+2026-10-08 01:35:09 | INFO  | src.training.trainer | Output: outputs/fold_0
+2026-10-08 01:35:17 | INFO  | src.training.trainer |   [12][0/2905] loss=17.0400 mem=8.0GB
+2026-10-08 01:39:15 | INFO  | src.training.trainer |   [12][50/2905] loss=14.8961 mem=9.4GB
+2026-10-08 01:44:04 | INFO  | src.training.trainer |   [12][100/2905] loss=14.9031 mem=12.4GB
+2026-10-08 01:48:41 | INFO  | src.training.trainer |   [12][150/2905] loss=14.6212 mem=12.4GB
+2026-10-08 01:53:34 | INFO  | src.training.trainer |   [12][200/2905] loss=14.0378 mem=12.4GB
+2026-10-08 01:57:48 | INFO  | src.training.trainer |   [12][250/2905] loss=17.4860 mem=12.4GB
+2026-10-08 02:01:45 | INFO  | src.training.trainer |   [12][300/2905] loss=13.9856 mem=11.0GB
+2026-10-08 02:06:31 | INFO  | src.training.trainer |   [12][350/2905] loss=16.9901 mem=11.0GB
+2026-10-08 02:09:39 | INFO  | src.training.trainer |   [12][400/2905] loss=16.0454 mem=12.9GB
+2026-10-08 02:12:38 | INFO  | src.training.trainer |   [12][450/2905] loss=16.2326 mem=10.7GB
+2026-10-08 02:15:38 | INFO  | src.training.trainer |   [12][500/2905] loss=15.6414 mem=12.2GB
+2026-10-08 02:18:34 | INFO  | src.training.trainer |   [12][550/2905] loss=23.1884 mem=12.2GB
+2026-10-08 02:21:34 | INFO  | src.training.trainer |   [12][600/2905] loss=12.3718 mem=12.2GB
+2026-10-08 02:24:31 | INFO  | src.training.trainer |   [12][650/2905] loss=13.8273 mem=12.2GB
+2026-10-08 02:27:30 | INFO  | src.training.trainer |   [12][700/2905] loss=13.9196 mem=13.7GB
+2026-10-08 02:30:32 | INFO  | src.training.trainer |   [12][750/2905] loss=17.3902 mem=9.8GB
+2026-10-08 02:33:31 | INFO  | src.training.trainer |   [12][800/2905] loss=16.1469 mem=12.1GB
+2026-10-08 02:36:31 | INFO  | src.training.trainer |   [12][850/2905] loss=11.9243 mem=12.1GB
+2026-10-08 02:39:32 | INFO  | src.training.trainer |   [12][900/2905] loss=20.4256 mem=12.8GB
+2026-10-08 02:42:35 | INFO  | src.training.trainer |   [12][950/2905] loss=16.3699 mem=14.0GB
+2026-10-08 02:45:33 | INFO  | src.training.trainer |   [12][1000/2905] loss=14.2599 mem=14.0GB
+2026-10-08 02:48:31 | INFO  | src.training.trainer |   [12][1050/2905] loss=17.3154 mem=10.8GB
+2026-10-08 02:51:33 | INFO  | src.training.trainer |   [12][1100/2905] loss=14.6274 mem=13.5GB
+2026-10-08 02:54:33 | INFO  | src.training.trainer |   [12][1150/2905] loss=23.0702 mem=13.5GB
+2026-10-08 02:57:33 | INFO  | src.training.trainer |   [12][1200/2905] loss=14.9307 mem=13.5GB
+2026-10-08 03:00:32 | INFO  | src.training.trainer |   [12][1250/2905] loss=14.3583 mem=13.5GB
+2026-10-08 03:03:30 | INFO  | src.training.trainer |   [12][1300/2905] loss=18.2479 mem=13.5GB
+2026-10-08 03:04:48 | INFO  | src.training.trainer |   [12][1350/2905] loss=14.5359 mem=13.5GB
+2026-10-08 03:05:52 | INFO  | src.training.trainer |   [12][1400/2905] loss=17.7060 mem=10.2GB
+2026-10-08 03:06:51 | INFO  | src.training.trainer |   [12][1450/2905] loss=18.6589 mem=10.2GB
+2026-10-08 03:07:50 | INFO  | src.training.trainer |   [12][1500/2905] loss=26.6817 mem=11.8GB
+2026-10-08 03:08:49 | INFO  | src.training.trainer |   [12][1550/2905] loss=17.4079 mem=11.8GB
+2026-10-08 03:09:50 | INFO  | src.training.trainer |   [12][1600/2905] loss=12.2562 mem=11.4GB
+2026-10-08 03:10:48 | INFO  | src.training.trainer |   [12][1650/2905] loss=12.6117 mem=11.4GB
+2026-10-08 03:11:48 | INFO  | src.training.trainer |   [12][1700/2905] loss=15.7391 mem=11.5GB
+2026-10-08 03:12:47 | INFO  | src.training.trainer |   [12][1750/2905] loss=16.9937 mem=9.0GB
+2026-10-08 03:13:47 | INFO  | src.training.trainer |   [12][1800/2905] loss=18.6765 mem=16.1GB
+2026-10-08 03:14:46 | INFO  | src.training.trainer |   [12][1850/2905] loss=16.9535 mem=13.2GB
+2026-10-08 03:15:44 | INFO  | src.training.trainer |   [12][1900/2905] loss=14.8639 mem=13.2GB
+2026-10-08 03:16:44 | INFO  | src.training.trainer |   [12][1950/2905] loss=15.1732 mem=18.9GB
+2026-10-08 03:17:43 | INFO  | src.training.trainer |   [12][2000/2905] loss=20.2831 mem=21.8GB
+2026-10-08 03:18:44 | INFO  | src.training.trainer |   [12][2050/2905] loss=22.1829 mem=13.1GB
+2026-10-08 03:19:43 | INFO  | src.training.trainer |   [12][2100/2905] loss=18.6927 mem=13.1GB
+2026-10-08 03:20:41 | INFO  | src.training.trainer |   [12][2150/2905] loss=14.2500 mem=11.8GB
+2026-10-08 03:21:41 | INFO  | src.training.trainer |   [12][2200/2905] loss=14.3700 mem=11.8GB
+2026-10-08 03:22:39 | INFO  | src.training.trainer |   [12][2250/2905] loss=22.5086 mem=10.7GB
+2026-10-08 03:23:39 | INFO  | src.training.trainer |   [12][2300/2905] loss=16.9928 mem=10.7GB
+2026-10-08 03:24:38 | INFO  | src.training.trainer |   [12][2350/2905] loss=14.4890 mem=15.1GB
+2026-10-08 03:25:36 | INFO  | src.training.trainer |   [12][2400/2905] loss=27.6439 mem=15.1GB
+2026-10-08 03:26:35 | INFO  | src.training.trainer |   [12][2450/2905] loss=18.7045 mem=20.9GB
+2026-10-08 03:27:34 | INFO  | src.training.trainer |   [12][2500/2905] loss=15.0149 mem=10.2GB
+2026-10-08 03:28:32 | INFO  | src.training.trainer |   [12][2550/2905] loss=15.5050 mem=10.2GB
+2026-10-08 03:29:32 | INFO  | src.training.trainer |   [12][2600/2905] loss=17.4427 mem=10.1GB
+2026-10-08 03:30:31 | INFO  | src.training.trainer |   [12][2650/2905] loss=14.6768 mem=13.1GB
+2026-10-08 03:31:31 | INFO  | src.training.trainer |   [12][2700/2905] loss=21.2241 mem=13.1GB
+2026-10-08 03:32:29 | INFO  | src.training.trainer |   [12][2750/2905] loss=14.4129 mem=13.1GB
+2026-10-08 03:33:28 | INFO  | src.training.trainer |   [12][2800/2905] loss=15.3133 mem=13.1GB
+2026-10-08 03:34:26 | INFO  | src.training.trainer |   [12][2850/2905] loss=18.2929 mem=13.1GB
+2026-10-08 03:35:25 | INFO  | src.training.trainer |   [12][2900/2905] loss=19.5396 mem=13.1GB
+2026-10-08 03:38:24 | INFO  | src.training.trainer | Epoch 12: train_loss=16.6157 val_loss=16.4325 lr=3.58e-05
+2026-10-08 03:38:24 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=12, is_best=True)
+2026-10-08 03:38:25 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=12, is_best=True)
+2026-10-08 03:38:26 | INFO  | src.training.trainer |   [13][0/2905] loss=14.7645 mem=8.5GB
+2026-10-08 03:39:25 | INFO  | src.training.trainer |   [13][50/2905] loss=15.0171 mem=16.3GB
+2026-10-08 03:40:24 | INFO  | src.training.trainer |   [13][100/2905] loss=21.9510 mem=16.3GB
+2026-10-08 03:41:23 | INFO  | src.training.trainer |   [13][150/2905] loss=18.3827 mem=19.0GB
+2026-10-08 03:42:23 | INFO  | src.training.trainer |   [13][200/2905] loss=21.5633 mem=9.8GB
+2026-10-08 03:43:21 | INFO  | src.training.trainer |   [13][250/2905] loss=20.2267 mem=13.1GB
+2026-10-08 03:44:20 | INFO  | src.training.trainer |   [13][300/2905] loss=13.6643 mem=15.8GB
+2026-10-08 03:45:18 | INFO  | src.training.trainer |   [13][350/2905] loss=17.3024 mem=15.8GB
+2026-10-08 03:46:17 | INFO  | src.training.trainer |   [13][400/2905] loss=24.1198 mem=15.8GB
+2026-10-08 03:47:17 | INFO  | src.training.trainer |   [13][450/2905] loss=16.1686 mem=13.8GB
+2026-10-08 03:48:16 | INFO  | src.training.trainer |   [13][500/2905] loss=16.5011 mem=12.1GB
+2026-10-08 03:49:16 | INFO  | src.training.trainer |   [13][550/2905] loss=16.8715 mem=11.6GB
+2026-10-08 03:50:16 | INFO  | src.training.trainer |   [13][600/2905] loss=16.4131 mem=11.6GB
+2026-10-08 03:51:15 | INFO  | src.training.trainer |   [13][650/2905] loss=31.3492 mem=11.6GB
+2026-10-08 03:52:14 | INFO  | src.training.trainer |   [13][700/2905] loss=14.8491 mem=11.6GB
+2026-10-08 03:53:14 | INFO  | src.training.trainer |   [13][750/2905] loss=13.3540 mem=11.6GB
+2026-10-08 03:54:13 | INFO  | src.training.trainer |   [13][800/2905] loss=18.8762 mem=11.6GB
+2026-10-08 03:55:11 | INFO  | src.training.trainer |   [13][850/2905] loss=19.6007 mem=11.6GB
+2026-10-08 03:56:10 | INFO  | src.training.trainer |   [13][900/2905] loss=12.5612 mem=11.6GB
+2026-10-08 03:57:09 | INFO  | src.training.trainer |   [13][950/2905] loss=17.9968 mem=11.6GB
+2026-10-08 03:58:09 | INFO  | src.training.trainer |   [13][1000/2905] loss=24.0801 mem=15.2GB
+2026-10-08 03:59:09 | INFO  | src.training.trainer |   [13][1050/2905] loss=17.3429 mem=11.1GB
+2026-10-08 04:00:08 | INFO  | src.training.trainer |   [13][1100/2905] loss=15.9214 mem=12.6GB
+2026-10-08 04:01:08 | INFO  | src.training.trainer |   [13][1150/2905] loss=17.7896 mem=12.6GB
+2026-10-08 04:02:07 | INFO  | src.training.trainer |   [13][1200/2905] loss=12.0290 mem=16.1GB
+2026-10-08 04:03:05 | INFO  | src.training.trainer |   [13][1250/2905] loss=15.6437 mem=16.1GB
+2026-10-08 04:04:03 | INFO  | src.training.trainer |   [13][1300/2905] loss=17.4355 mem=16.1GB
+2026-10-08 04:05:03 | INFO  | src.training.trainer |   [13][1350/2905] loss=13.7094 mem=16.1GB
+2026-10-08 04:06:03 | INFO  | src.training.trainer |   [13][1400/2905] loss=14.7748 mem=16.1GB
+2026-10-08 04:07:02 | INFO  | src.training.trainer |   [13][1450/2905] loss=16.0545 mem=16.1GB
+2026-10-08 04:07:59 | INFO  | src.training.trainer |   [13][1500/2905] loss=15.3872 mem=16.1GB
+2026-10-08 04:08:59 | INFO  | src.training.trainer |   [13][1550/2905] loss=14.5080 mem=12.2GB
+2026-10-08 04:09:58 | INFO  | src.training.trainer |   [13][1600/2905] loss=19.1554 mem=12.2GB
+2026-10-08 04:10:57 | INFO  | src.training.trainer |   [13][1650/2905] loss=19.8549 mem=12.2GB
+2026-10-08 04:11:56 | INFO  | src.training.trainer |   [13][1700/2905] loss=21.6607 mem=12.2GB
+2026-10-08 04:12:55 | INFO  | src.training.trainer |   [13][1750/2905] loss=17.1454 mem=12.2GB
+2026-10-08 04:13:53 | INFO  | src.training.trainer |   [13][1800/2905] loss=17.8083 mem=12.2GB
+2026-10-08 04:14:51 | INFO  | src.training.trainer |   [13][1850/2905] loss=19.5512 mem=12.2GB
+2026-10-08 04:15:49 | INFO  | src.training.trainer |   [13][1900/2905] loss=17.6766 mem=12.2GB
+2026-10-08 04:16:47 | INFO  | src.training.trainer |   [13][1950/2905] loss=22.0952 mem=12.2GB
+2026-10-08 04:17:45 | INFO  | src.training.trainer |   [13][2000/2905] loss=17.6100 mem=12.2GB
+2026-10-08 04:18:44 | INFO  | src.training.trainer |   [13][2050/2905] loss=19.8413 mem=12.2GB
+2026-10-08 04:19:43 | INFO  | src.training.trainer |   [13][2100/2905] loss=13.3775 mem=12.2GB
+2026-10-08 04:20:43 | INFO  | src.training.trainer |   [13][2150/2905] loss=18.9157 mem=12.6GB
+2026-10-08 04:21:42 | INFO  | src.training.trainer |   [13][2200/2905] loss=18.0148 mem=12.6GB
+2026-10-08 04:22:41 | INFO  | src.training.trainer |   [13][2250/2905] loss=18.3598 mem=12.6GB
+2026-10-08 04:23:40 | INFO  | src.training.trainer |   [13][2300/2905] loss=17.4874 mem=12.6GB
+2026-10-08 04:24:40 | INFO  | src.training.trainer |   [13][2350/2905] loss=16.1007 mem=16.1GB
+2026-10-08 04:25:38 | INFO  | src.training.trainer |   [13][2400/2905] loss=19.2352 mem=16.1GB
+2026-10-08 04:26:37 | INFO  | src.training.trainer |   [13][2450/2905] loss=15.8877 mem=16.1GB
+2026-10-08 04:27:36 | INFO  | src.training.trainer |   [13][2500/2905] loss=12.2148 mem=16.1GB
+2026-10-08 04:28:34 | INFO  | src.training.trainer |   [13][2550/2905] loss=16.5390 mem=16.1GB
+2026-10-08 04:29:32 | INFO  | src.training.trainer |   [13][2600/2905] loss=14.5891 mem=16.1GB
+2026-10-08 04:30:31 | INFO  | src.training.trainer |   [13][2650/2905] loss=22.2645 mem=16.1GB
+2026-10-08 04:31:31 | INFO  | src.training.trainer |   [13][2700/2905] loss=16.4752 mem=16.1GB
+2026-10-08 04:32:30 | INFO  | src.training.trainer |   [13][2750/2905] loss=14.6626 mem=16.1GB
+2026-10-08 04:33:29 | INFO  | src.training.trainer |   [13][2800/2905] loss=16.4804 mem=16.1GB
+2026-10-08 04:34:27 | INFO  | src.training.trainer |   [13][2850/2905] loss=20.2806 mem=16.1GB
+2026-10-08 04:35:27 | INFO  | src.training.trainer |   [13][2900/2905] loss=13.6067 mem=16.1GB
+2026-10-08 04:38:23 | INFO  | src.training.trainer | Epoch 13: train_loss=16.4959 val_loss=16.2809 lr=3.31e-05
+2026-10-08 04:38:23 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=13, is_best=True)
+2026-10-08 04:38:24 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=13, is_best=True)
+2026-10-08 04:38:25 | INFO  | src.training.trainer |   [14][0/2905] loss=16.2777 mem=16.1GB
+2026-10-08 04:39:24 | INFO  | src.training.trainer |   [14][50/2905] loss=12.3868 mem=16.1GB
+2026-10-08 04:40:24 | INFO  | src.training.trainer |   [14][100/2905] loss=14.5543 mem=16.1GB
+2026-10-08 04:41:25 | INFO  | src.training.trainer |   [14][150/2905] loss=12.8701 mem=16.1GB
+2026-10-08 04:42:22 | INFO  | src.training.trainer |   [14][200/2905] loss=19.7459 mem=16.1GB
+2026-10-08 04:43:21 | INFO  | src.training.trainer |   [14][250/2905] loss=23.1220 mem=16.1GB
+2026-10-08 04:44:19 | INFO  | src.training.trainer |   [14][300/2905] loss=14.7228 mem=16.1GB
+2026-10-08 04:45:18 | INFO  | src.training.trainer |   [14][350/2905] loss=12.7987 mem=9.6GB
+2026-10-08 04:46:17 | INFO  | src.training.trainer |   [14][400/2905] loss=16.5134 mem=12.5GB
+2026-10-08 04:47:15 | INFO  | src.training.trainer |   [14][450/2905] loss=20.1661 mem=15.4GB
+2026-10-08 04:48:14 | INFO  | src.training.trainer |   [14][500/2905] loss=15.1997 mem=15.4GB
+2026-10-08 04:49:12 | INFO  | src.training.trainer |   [14][550/2905] loss=18.1476 mem=15.4GB
+2026-10-08 04:50:11 | INFO  | src.training.trainer |   [14][600/2905] loss=22.1583 mem=15.4GB
+2026-10-08 04:51:10 | INFO  | src.training.trainer |   [14][650/2905] loss=11.2253 mem=15.4GB
+2026-10-08 04:52:09 | INFO  | src.training.trainer |   [14][700/2905] loss=17.1019 mem=15.4GB
+2026-10-08 04:53:09 | INFO  | src.training.trainer |   [14][750/2905] loss=14.3545 mem=15.4GB
+2026-10-08 04:54:09 | INFO  | src.training.trainer |   [14][800/2905] loss=19.5032 mem=15.4GB
+2026-10-08 04:55:08 | INFO  | src.training.trainer |   [14][850/2905] loss=16.3670 mem=15.4GB
+2026-10-08 04:56:05 | INFO  | src.training.trainer |   [14][900/2905] loss=13.5992 mem=15.4GB
+2026-10-08 04:57:04 | INFO  | src.training.trainer |   [14][950/2905] loss=17.8249 mem=15.4GB
+2026-10-08 04:58:02 | INFO  | src.training.trainer |   [14][1000/2905] loss=17.6851 mem=15.4GB
+2026-10-08 04:59:02 | INFO  | src.training.trainer |   [14][1050/2905] loss=19.6120 mem=15.4GB
+2026-10-08 05:00:01 | INFO  | src.training.trainer |   [14][1100/2905] loss=18.7426 mem=15.4GB
+2026-10-08 05:01:00 | INFO  | src.training.trainer |   [14][1150/2905] loss=14.4950 mem=15.4GB
+2026-10-08 05:02:00 | INFO  | src.training.trainer |   [14][1200/2905] loss=9.6365 mem=15.4GB
+2026-10-08 05:02:59 | INFO  | src.training.trainer |   [14][1250/2905] loss=14.1213 mem=15.4GB
+2026-10-08 05:03:57 | INFO  | src.training.trainer |   [14][1300/2905] loss=16.0681 mem=15.4GB
+2026-10-08 05:04:56 | INFO  | src.training.trainer |   [14][1350/2905] loss=15.5180 mem=15.4GB
+2026-10-08 05:05:54 | INFO  | src.training.trainer |   [14][1400/2905] loss=13.2044 mem=15.4GB
+2026-10-08 05:06:51 | INFO  | src.training.trainer |   [14][1450/2905] loss=28.5406 mem=15.4GB
+2026-10-08 05:07:50 | INFO  | src.training.trainer |   [14][1500/2905] loss=15.8682 mem=11.3GB
+2026-10-08 05:08:49 | INFO  | src.training.trainer |   [14][1550/2905] loss=14.8258 mem=11.3GB
+2026-10-08 05:09:48 | INFO  | src.training.trainer |   [14][1600/2905] loss=13.4948 mem=12.7GB
+2026-10-08 05:10:45 | INFO  | src.training.trainer |   [14][1650/2905] loss=19.1470 mem=12.7GB
+2026-10-08 05:11:46 | INFO  | src.training.trainer |   [14][1700/2905] loss=17.8974 mem=11.7GB
+2026-10-08 05:12:45 | INFO  | src.training.trainer |   [14][1750/2905] loss=14.0194 mem=16.2GB
+2026-10-08 05:13:43 | INFO  | src.training.trainer |   [14][1800/2905] loss=19.0629 mem=16.2GB
+2026-10-08 05:14:43 | INFO  | src.training.trainer |   [14][1850/2905] loss=17.7958 mem=16.2GB
+2026-10-08 05:15:42 | INFO  | src.training.trainer |   [14][1900/2905] loss=12.3338 mem=16.2GB
+2026-10-08 05:16:41 | INFO  | src.training.trainer |   [14][1950/2905] loss=28.7634 mem=16.2GB
+2026-10-08 05:17:40 | INFO  | src.training.trainer |   [14][2000/2905] loss=15.8876 mem=16.2GB
+2026-10-08 05:18:40 | INFO  | src.training.trainer |   [14][2050/2905] loss=19.1390 mem=16.2GB
+2026-10-08 05:19:38 | INFO  | src.training.trainer |   [14][2100/2905] loss=14.0330 mem=16.2GB
+2026-10-08 05:20:36 | INFO  | src.training.trainer |   [14][2150/2905] loss=13.9232 mem=16.2GB
+2026-10-08 05:21:36 | INFO  | src.training.trainer |   [14][2200/2905] loss=13.4773 mem=16.2GB
+2026-10-08 05:22:36 | INFO  | src.training.trainer |   [14][2250/2905] loss=15.7673 mem=16.2GB
+2026-10-08 05:23:34 | INFO  | src.training.trainer |   [14][2300/2905] loss=14.2390 mem=16.2GB
+2026-10-08 05:24:33 | INFO  | src.training.trainer |   [14][2350/2905] loss=13.3695 mem=16.2GB
+2026-10-08 05:25:33 | INFO  | src.training.trainer |   [14][2400/2905] loss=15.0186 mem=16.2GB
+2026-10-08 05:26:32 | INFO  | src.training.trainer |   [14][2450/2905] loss=14.9740 mem=16.2GB
+2026-10-08 05:27:31 | INFO  | src.training.trainer |   [14][2500/2905] loss=13.1186 mem=16.2GB
+2026-10-08 05:28:30 | INFO  | src.training.trainer |   [14][2550/2905] loss=22.1610 mem=16.2GB
+2026-10-08 05:29:30 | INFO  | src.training.trainer |   [14][2600/2905] loss=17.7518 mem=16.2GB
+2026-10-08 05:30:29 | INFO  | src.training.trainer |   [14][2650/2905] loss=14.4510 mem=16.2GB
+2026-10-08 05:31:28 | INFO  | src.training.trainer |   [14][2700/2905] loss=16.5650 mem=16.2GB
+2026-10-08 05:32:28 | INFO  | src.training.trainer |   [14][2750/2905] loss=14.7065 mem=16.2GB
+2026-10-08 05:33:28 | INFO  | src.training.trainer |   [14][2800/2905] loss=12.1218 mem=16.2GB
+2026-10-08 05:34:28 | INFO  | src.training.trainer |   [14][2850/2905] loss=26.4857 mem=16.2GB
+2026-10-08 05:35:27 | INFO  | src.training.trainer |   [14][2900/2905] loss=17.2147 mem=16.2GB
+2026-10-08 05:38:23 | INFO  | src.training.trainer | Epoch 14: train_loss=16.3418 val_loss=16.1626 lr=3.03e-05
+2026-10-08 05:38:23 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=14, is_best=True)
+2026-10-08 05:38:24 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=14, is_best=True)
+2026-10-08 05:38:24 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/epoch_14.pt (epoch=14, is_best=False)
+2026-10-08 05:38:25 | INFO  | src.training.trainer |   [15][0/2905] loss=18.6538 mem=16.2GB
+2026-10-08 05:39:23 | INFO  | src.training.trainer |   [15][50/2905] loss=16.3086 mem=16.2GB
+2026-10-08 05:40:23 | INFO  | src.training.trainer |   [15][100/2905] loss=20.6208 mem=16.2GB
+2026-10-08 05:41:22 | INFO  | src.training.trainer |   [15][150/2905] loss=12.5356 mem=16.2GB
+2026-10-08 05:42:21 | INFO  | src.training.trainer |   [15][200/2905] loss=12.7736 mem=16.2GB
+2026-10-08 05:43:19 | INFO  | src.training.trainer |   [15][250/2905] loss=16.5398 mem=16.2GB
+2026-10-08 05:44:18 | INFO  | src.training.trainer |   [15][300/2905] loss=12.0093 mem=16.2GB
+2026-10-08 05:45:17 | INFO  | src.training.trainer |   [15][350/2905] loss=19.0018 mem=16.2GB
+2026-10-08 05:46:15 | INFO  | src.training.trainer |   [15][400/2905] loss=15.5332 mem=16.2GB
+2026-10-08 05:47:14 | INFO  | src.training.trainer |   [15][450/2905] loss=13.4622 mem=16.2GB
+2026-10-08 05:48:12 | INFO  | src.training.trainer |   [15][500/2905] loss=14.8331 mem=16.2GB
+2026-10-08 05:49:09 | INFO  | src.training.trainer |   [15][550/2905] loss=15.4643 mem=16.2GB
+2026-10-08 05:50:07 | INFO  | src.training.trainer |   [15][600/2905] loss=23.1982 mem=16.2GB
+2026-10-08 05:51:06 | INFO  | src.training.trainer |   [15][650/2905] loss=19.5767 mem=16.2GB
+2026-10-08 05:52:06 | INFO  | src.training.trainer |   [15][700/2905] loss=12.2571 mem=16.2GB
+2026-10-08 05:53:05 | INFO  | src.training.trainer |   [15][750/2905] loss=16.0241 mem=16.2GB
+2026-10-08 05:54:04 | INFO  | src.training.trainer |   [15][800/2905] loss=14.4077 mem=16.2GB
+2026-10-08 05:55:03 | INFO  | src.training.trainer |   [15][850/2905] loss=14.0806 mem=16.2GB
+2026-10-08 05:56:03 | INFO  | src.training.trainer |   [15][900/2905] loss=15.6225 mem=16.2GB
+2026-10-08 05:57:03 | INFO  | src.training.trainer |   [15][950/2905] loss=18.5400 mem=16.2GB
+2026-10-08 05:58:02 | INFO  | src.training.trainer |   [15][1000/2905] loss=24.5718 mem=16.2GB
+2026-10-08 05:59:00 | INFO  | src.training.trainer |   [15][1050/2905] loss=12.7820 mem=16.2GB
+2026-10-08 05:59:59 | INFO  | src.training.trainer |   [15][1100/2905] loss=15.4379 mem=16.2GB
+2026-10-08 06:00:59 | INFO  | src.training.trainer |   [15][1150/2905] loss=14.9163 mem=16.2GB
+2026-10-08 06:01:58 | INFO  | src.training.trainer |   [15][1200/2905] loss=11.7124 mem=14.1GB
+2026-10-08 06:02:58 | INFO  | src.training.trainer |   [15][1250/2905] loss=20.2518 mem=14.1GB
+2026-10-08 06:03:57 | INFO  | src.training.trainer |   [15][1300/2905] loss=14.4267 mem=14.1GB
+2026-10-08 06:04:55 | INFO  | src.training.trainer |   [15][1350/2905] loss=16.0547 mem=14.1GB
+2026-10-08 06:05:54 | INFO  | src.training.trainer |   [15][1400/2905] loss=15.4417 mem=14.1GB
+2026-10-08 06:06:53 | INFO  | src.training.trainer |   [15][1450/2905] loss=14.9297 mem=14.1GB
+2026-10-08 06:07:52 | INFO  | src.training.trainer |   [15][1500/2905] loss=13.7686 mem=14.1GB
+2026-10-08 06:08:49 | INFO  | src.training.trainer |   [15][1550/2905] loss=18.3058 mem=14.1GB
+2026-10-08 06:09:47 | INFO  | src.training.trainer |   [15][1600/2905] loss=19.1545 mem=14.1GB
+2026-10-08 06:10:48 | INFO  | src.training.trainer |   [15][1650/2905] loss=17.3791 mem=14.1GB
+2026-10-08 06:11:49 | INFO  | src.training.trainer |   [15][1700/2905] loss=16.4047 mem=14.1GB
+2026-10-08 06:12:47 | INFO  | src.training.trainer |   [15][1750/2905] loss=15.7783 mem=14.1GB
+2026-10-08 06:13:47 | INFO  | src.training.trainer |   [15][1800/2905] loss=17.2805 mem=11.8GB
+2026-10-08 06:14:44 | INFO  | src.training.trainer |   [15][1850/2905] loss=14.0962 mem=11.8GB
+2026-10-08 06:15:43 | INFO  | src.training.trainer |   [15][1900/2905] loss=15.5899 mem=14.6GB
+2026-10-08 06:16:41 | INFO  | src.training.trainer |   [15][1950/2905] loss=15.7615 mem=14.6GB
+2026-10-08 06:17:41 | INFO  | src.training.trainer |   [15][2000/2905] loss=15.3454 mem=14.6GB
+2026-10-08 06:18:39 | INFO  | src.training.trainer |   [15][2050/2905] loss=22.2413 mem=14.6GB
+2026-10-08 06:19:39 | INFO  | src.training.trainer |   [15][2100/2905] loss=17.3532 mem=14.6GB
+2026-10-08 06:20:38 | INFO  | src.training.trainer |   [15][2150/2905] loss=12.0950 mem=17.5GB
+2026-10-08 06:21:37 | INFO  | src.training.trainer |   [15][2200/2905] loss=11.6385 mem=17.5GB
+2026-10-08 06:22:36 | INFO  | src.training.trainer |   [15][2250/2905] loss=15.7178 mem=17.5GB
+2026-10-08 06:23:36 | INFO  | src.training.trainer |   [15][2300/2905] loss=14.2619 mem=17.5GB
+2026-10-08 06:24:36 | INFO  | src.training.trainer |   [15][2350/2905] loss=11.7080 mem=12.3GB
+2026-10-08 06:25:34 | INFO  | src.training.trainer |   [15][2400/2905] loss=17.9520 mem=12.3GB
+2026-10-08 06:26:34 | INFO  | src.training.trainer |   [15][2450/2905] loss=15.9586 mem=12.3GB
+2026-10-08 06:27:34 | INFO  | src.training.trainer |   [15][2500/2905] loss=13.2967 mem=12.3GB
+2026-10-08 06:28:33 | INFO  | src.training.trainer |   [15][2550/2905] loss=13.5020 mem=15.9GB
+2026-10-08 06:29:32 | INFO  | src.training.trainer |   [15][2600/2905] loss=14.9869 mem=15.9GB
+2026-10-08 06:30:31 | INFO  | src.training.trainer |   [15][2650/2905] loss=18.2029 mem=15.9GB
+2026-10-08 06:31:30 | INFO  | src.training.trainer |   [15][2700/2905] loss=13.5181 mem=15.9GB
+2026-10-08 06:32:28 | INFO  | src.training.trainer |   [15][2750/2905] loss=19.1143 mem=15.9GB
+2026-10-08 06:33:27 | INFO  | src.training.trainer |   [15][2800/2905] loss=12.6777 mem=15.9GB
+2026-10-08 06:34:26 | INFO  | src.training.trainer |   [15][2850/2905] loss=10.7639 mem=15.9GB
+2026-10-08 06:35:27 | INFO  | src.training.trainer |   [15][2900/2905] loss=20.5642 mem=15.9GB
+2026-10-08 06:38:23 | INFO  | src.training.trainer | Epoch 15: train_loss=16.2343 val_loss=16.0210 lr=2.74e-05
+2026-10-08 06:38:23 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=15, is_best=True)
+2026-10-08 06:38:23 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=15, is_best=True)
+2026-10-08 06:38:25 | INFO  | src.training.trainer |   [16][0/2905] loss=17.1486 mem=15.9GB
+2026-10-08 06:39:23 | INFO  | src.training.trainer |   [16][50/2905] loss=14.4878 mem=15.9GB
+2026-10-08 06:40:21 | INFO  | src.training.trainer |   [16][100/2905] loss=19.9750 mem=15.9GB
+2026-10-08 06:41:21 | INFO  | src.training.trainer |   [16][150/2905] loss=15.0169 mem=15.9GB
+2026-10-08 06:42:21 | INFO  | src.training.trainer |   [16][200/2905] loss=37.0902 mem=15.9GB
+2026-10-08 06:43:19 | INFO  | src.training.trainer |   [16][250/2905] loss=15.1940 mem=15.9GB
+2026-10-08 06:44:18 | INFO  | src.training.trainer |   [16][300/2905] loss=14.4208 mem=15.9GB
+2026-10-08 06:45:17 | INFO  | src.training.trainer |   [16][350/2905] loss=15.9449 mem=15.9GB
+2026-10-08 06:46:15 | INFO  | src.training.trainer |   [16][400/2905] loss=27.1209 mem=15.9GB
+2026-10-08 06:47:15 | INFO  | src.training.trainer |   [16][450/2905] loss=14.2330 mem=15.9GB
+2026-10-08 06:48:15 | INFO  | src.training.trainer |   [16][500/2905] loss=13.2458 mem=15.9GB
+2026-10-08 06:49:16 | INFO  | src.training.trainer |   [16][550/2905] loss=11.5037 mem=15.9GB
+2026-10-08 06:50:14 | INFO  | src.training.trainer |   [16][600/2905] loss=15.6608 mem=15.9GB
+2026-10-08 06:51:13 | INFO  | src.training.trainer |   [16][650/2905] loss=15.3015 mem=15.9GB
+2026-10-08 06:52:11 | INFO  | src.training.trainer |   [16][700/2905] loss=14.4430 mem=15.9GB
+2026-10-08 06:53:11 | INFO  | src.training.trainer |   [16][750/2905] loss=14.7606 mem=15.9GB
+2026-10-08 06:54:11 | INFO  | src.training.trainer |   [16][800/2905] loss=14.9512 mem=15.9GB
+2026-10-08 06:55:09 | INFO  | src.training.trainer |   [16][850/2905] loss=22.4407 mem=15.9GB
+2026-10-08 06:56:07 | INFO  | src.training.trainer |   [16][900/2905] loss=17.2615 mem=15.9GB
+2026-10-08 06:57:05 | INFO  | src.training.trainer |   [16][950/2905] loss=13.4962 mem=15.9GB
+2026-10-08 06:58:04 | INFO  | src.training.trainer |   [16][1000/2905] loss=14.8098 mem=15.9GB
+2026-10-08 06:59:03 | INFO  | src.training.trainer |   [16][1050/2905] loss=18.6583 mem=15.9GB
+2026-10-08 07:00:01 | INFO  | src.training.trainer |   [16][1100/2905] loss=12.1736 mem=15.9GB
+2026-10-08 07:00:59 | INFO  | src.training.trainer |   [16][1150/2905] loss=15.0480 mem=15.9GB
+2026-10-08 07:01:58 | INFO  | src.training.trainer |   [16][1200/2905] loss=17.1924 mem=15.9GB
+2026-10-08 07:02:58 | INFO  | src.training.trainer |   [16][1250/2905] loss=12.1287 mem=15.9GB
+2026-10-08 07:03:58 | INFO  | src.training.trainer |   [16][1300/2905] loss=13.4749 mem=15.9GB
+2026-10-08 07:04:56 | INFO  | src.training.trainer |   [16][1350/2905] loss=15.5695 mem=15.9GB
+2026-10-08 07:05:53 | INFO  | src.training.trainer |   [16][1400/2905] loss=18.5927 mem=15.9GB
+2026-10-08 07:06:53 | INFO  | src.training.trainer |   [16][1450/2905] loss=24.9742 mem=15.9GB
+2026-10-08 07:07:52 | INFO  | src.training.trainer |   [16][1500/2905] loss=14.4575 mem=15.9GB
+2026-10-08 07:08:50 | INFO  | src.training.trainer |   [16][1550/2905] loss=20.5145 mem=15.9GB
+2026-10-08 07:09:50 | INFO  | src.training.trainer |   [16][1600/2905] loss=21.2926 mem=15.9GB
+2026-10-08 07:10:49 | INFO  | src.training.trainer |   [16][1650/2905] loss=14.2890 mem=15.9GB
+2026-10-08 07:11:47 | INFO  | src.training.trainer |   [16][1700/2905] loss=20.5470 mem=15.9GB
+2026-10-08 07:12:46 | INFO  | src.training.trainer |   [16][1750/2905] loss=19.3473 mem=15.9GB
+2026-10-08 07:13:45 | INFO  | src.training.trainer |   [16][1800/2905] loss=11.6593 mem=15.9GB
+2026-10-08 07:14:44 | INFO  | src.training.trainer |   [16][1850/2905] loss=17.2009 mem=15.9GB
+2026-10-08 07:15:44 | INFO  | src.training.trainer |   [16][1900/2905] loss=18.3593 mem=15.9GB
+2026-10-08 07:16:43 | INFO  | src.training.trainer |   [16][1950/2905] loss=14.9020 mem=15.9GB
+2026-10-08 07:17:42 | INFO  | src.training.trainer |   [16][2000/2905] loss=16.0046 mem=15.9GB
+2026-10-08 07:18:42 | INFO  | src.training.trainer |   [16][2050/2905] loss=23.8346 mem=15.9GB
+2026-10-08 07:19:42 | INFO  | src.training.trainer |   [16][2100/2905] loss=16.0014 mem=15.9GB
+2026-10-08 07:20:43 | INFO  | src.training.trainer |   [16][2150/2905] loss=12.2321 mem=15.9GB
+2026-10-08 07:21:42 | INFO  | src.training.trainer |   [16][2200/2905] loss=12.5624 mem=15.9GB
+2026-10-08 07:22:40 | INFO  | src.training.trainer |   [16][2250/2905] loss=15.9558 mem=15.9GB
+2026-10-08 07:23:40 | INFO  | src.training.trainer |   [16][2300/2905] loss=14.7952 mem=11.0GB
+2026-10-08 07:24:38 | INFO  | src.training.trainer |   [16][2350/2905] loss=12.9344 mem=12.4GB
+2026-10-08 07:25:38 | INFO  | src.training.trainer |   [16][2400/2905] loss=15.8268 mem=12.4GB
+2026-10-08 07:26:38 | INFO  | src.training.trainer |   [16][2450/2905] loss=14.3283 mem=12.4GB
+2026-10-08 07:27:36 | INFO  | src.training.trainer |   [16][2500/2905] loss=15.7177 mem=12.4GB
+2026-10-08 07:28:35 | INFO  | src.training.trainer |   [16][2550/2905] loss=11.7130 mem=12.4GB
+2026-10-08 07:29:34 | INFO  | src.training.trainer |   [16][2600/2905] loss=16.2852 mem=12.4GB
+2026-10-08 07:30:34 | INFO  | src.training.trainer |   [16][2650/2905] loss=14.5057 mem=12.4GB
+2026-10-08 07:31:32 | INFO  | src.training.trainer |   [16][2700/2905] loss=16.2800 mem=12.4GB
+2026-10-08 07:32:31 | INFO  | src.training.trainer |   [16][2750/2905] loss=12.4403 mem=12.4GB
+2026-10-08 07:33:29 | INFO  | src.training.trainer |   [16][2800/2905] loss=15.1882 mem=12.4GB
+2026-10-08 07:34:31 | INFO  | src.training.trainer |   [16][2850/2905] loss=13.7213 mem=13.9GB
+2026-10-08 07:35:30 | INFO  | src.training.trainer |   [16][2900/2905] loss=13.5975 mem=13.9GB
+2026-10-08 07:38:25 | INFO  | src.training.trainer | Epoch 16: train_loss=16.1397 val_loss=15.8983 lr=2.45e-05
+2026-10-08 07:38:26 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=16, is_best=True)
+2026-10-08 07:38:26 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=16, is_best=True)
+2026-10-08 07:38:28 | INFO  | src.training.trainer |   [17][0/2905] loss=15.1957 mem=17.5GB
+2026-10-08 07:39:27 | INFO  | src.training.trainer |   [17][50/2905] loss=18.7404 mem=17.5GB
+2026-10-08 07:40:26 | INFO  | src.training.trainer |   [17][100/2905] loss=17.2161 mem=17.5GB
+2026-10-08 07:41:24 | INFO  | src.training.trainer |   [17][150/2905] loss=14.1554 mem=17.5GB
+2026-10-08 07:42:24 | INFO  | src.training.trainer |   [17][200/2905] loss=15.4747 mem=17.5GB
+2026-10-08 07:43:23 | INFO  | src.training.trainer |   [17][250/2905] loss=15.8011 mem=17.5GB
+2026-10-08 07:44:23 | INFO  | src.training.trainer |   [17][300/2905] loss=14.7019 mem=17.5GB
+2026-10-08 07:45:22 | INFO  | src.training.trainer |   [17][350/2905] loss=13.0598 mem=17.5GB
+2026-10-08 07:46:22 | INFO  | src.training.trainer |   [17][400/2905] loss=16.4369 mem=17.5GB
+2026-10-08 07:47:22 | INFO  | src.training.trainer |   [17][450/2905] loss=14.7525 mem=17.5GB
+2026-10-08 07:48:20 | INFO  | src.training.trainer |   [17][500/2905] loss=14.6800 mem=17.5GB
+2026-10-08 07:49:17 | INFO  | src.training.trainer |   [17][550/2905] loss=22.7721 mem=17.5GB
+2026-10-08 07:50:17 | INFO  | src.training.trainer |   [17][600/2905] loss=10.6270 mem=17.5GB
+2026-10-08 07:51:17 | INFO  | src.training.trainer |   [17][650/2905] loss=14.5421 mem=17.5GB
+2026-10-08 07:52:15 | INFO  | src.training.trainer |   [17][700/2905] loss=18.6552 mem=17.5GB
+2026-10-08 07:53:15 | INFO  | src.training.trainer |   [17][750/2905] loss=18.5786 mem=17.5GB
+2026-10-08 07:54:15 | INFO  | src.training.trainer |   [17][800/2905] loss=17.7306 mem=17.5GB
+2026-10-08 07:55:14 | INFO  | src.training.trainer |   [17][850/2905] loss=16.4858 mem=17.5GB
+2026-10-08 07:56:11 | INFO  | src.training.trainer |   [17][900/2905] loss=20.7406 mem=17.5GB
+2026-10-08 07:57:11 | INFO  | src.training.trainer |   [17][950/2905] loss=18.3320 mem=17.5GB
+2026-10-08 07:58:10 | INFO  | src.training.trainer |   [17][1000/2905] loss=13.6965 mem=17.5GB
+2026-10-08 07:59:10 | INFO  | src.training.trainer |   [17][1050/2905] loss=18.7230 mem=9.8GB
+2026-10-08 08:00:08 | INFO  | src.training.trainer |   [17][1100/2905] loss=13.3289 mem=13.2GB
+2026-10-08 08:01:07 | INFO  | src.training.trainer |   [17][1150/2905] loss=16.0720 mem=13.2GB
+2026-10-08 08:02:05 | INFO  | src.training.trainer |   [17][1200/2905] loss=16.9664 mem=13.2GB
+2026-10-08 08:03:04 | INFO  | src.training.trainer |   [17][1250/2905] loss=12.3805 mem=13.2GB
+2026-10-08 08:04:04 | INFO  | src.training.trainer |   [17][1300/2905] loss=11.3984 mem=16.5GB
+2026-10-08 08:05:02 | INFO  | src.training.trainer |   [17][1350/2905] loss=17.0119 mem=16.5GB
+2026-10-08 08:06:01 | INFO  | src.training.trainer |   [17][1400/2905] loss=19.1478 mem=16.5GB
+2026-10-08 08:07:01 | INFO  | src.training.trainer |   [17][1450/2905] loss=16.3441 mem=16.5GB
+2026-10-08 08:08:00 | INFO  | src.training.trainer |   [17][1500/2905] loss=22.2946 mem=16.5GB
+2026-10-08 08:08:59 | INFO  | src.training.trainer |   [17][1550/2905] loss=11.4990 mem=16.5GB
+2026-10-08 08:09:57 | INFO  | src.training.trainer |   [17][1600/2905] loss=12.7667 mem=16.5GB
+2026-10-08 08:10:55 | INFO  | src.training.trainer |   [17][1650/2905] loss=26.1234 mem=16.5GB
+2026-10-08 08:11:55 | INFO  | src.training.trainer |   [17][1700/2905] loss=14.4226 mem=16.5GB
+2026-10-08 08:12:53 | INFO  | src.training.trainer |   [17][1750/2905] loss=17.4062 mem=16.5GB
+2026-10-08 08:13:51 | INFO  | src.training.trainer |   [17][1800/2905] loss=14.6915 mem=16.5GB
+2026-10-08 08:14:50 | INFO  | src.training.trainer |   [17][1850/2905] loss=13.1785 mem=16.5GB
+2026-10-08 08:15:49 | INFO  | src.training.trainer |   [17][1900/2905] loss=21.6578 mem=16.5GB
+2026-10-08 08:16:49 | INFO  | src.training.trainer |   [17][1950/2905] loss=30.4815 mem=16.5GB
+2026-10-08 08:17:47 | INFO  | src.training.trainer |   [17][2000/2905] loss=10.1248 mem=16.5GB
+2026-10-08 08:18:46 | INFO  | src.training.trainer |   [17][2050/2905] loss=15.1205 mem=16.5GB
+2026-10-08 08:19:45 | INFO  | src.training.trainer |   [17][2100/2905] loss=16.1290 mem=16.5GB
+2026-10-08 08:20:45 | INFO  | src.training.trainer |   [17][2150/2905] loss=14.6397 mem=16.5GB
+2026-10-08 08:21:44 | INFO  | src.training.trainer |   [17][2200/2905] loss=17.9354 mem=16.5GB
+2026-10-08 08:22:42 | INFO  | src.training.trainer |   [17][2250/2905] loss=15.0398 mem=16.5GB
+2026-10-08 08:23:41 | INFO  | src.training.trainer |   [17][2300/2905] loss=15.2850 mem=16.5GB
+2026-10-08 08:24:39 | INFO  | src.training.trainer |   [17][2350/2905] loss=15.0699 mem=16.5GB
+2026-10-08 08:25:38 | INFO  | src.training.trainer |   [17][2400/2905] loss=14.1422 mem=16.5GB
+2026-10-08 08:26:37 | INFO  | src.training.trainer |   [17][2450/2905] loss=14.0251 mem=16.5GB
+2026-10-08 08:27:36 | INFO  | src.training.trainer |   [17][2500/2905] loss=20.4316 mem=16.5GB
+2026-10-08 08:28:35 | INFO  | src.training.trainer |   [17][2550/2905] loss=16.6070 mem=16.5GB
+2026-10-08 08:29:32 | INFO  | src.training.trainer |   [17][2600/2905] loss=13.7954 mem=16.5GB
+2026-10-08 08:30:30 | INFO  | src.training.trainer |   [17][2650/2905] loss=13.0434 mem=16.5GB
+2026-10-08 08:31:29 | INFO  | src.training.trainer |   [17][2700/2905] loss=12.9437 mem=16.5GB
+2026-10-08 08:32:28 | INFO  | src.training.trainer |   [17][2750/2905] loss=18.5118 mem=16.5GB
+2026-10-08 08:33:27 | INFO  | src.training.trainer |   [17][2800/2905] loss=23.1281 mem=16.5GB
+2026-10-08 08:34:26 | INFO  | src.training.trainer |   [17][2850/2905] loss=14.2091 mem=20.1GB
+2026-10-08 08:35:26 | INFO  | src.training.trainer |   [17][2900/2905] loss=18.0801 mem=20.1GB
+2026-10-08 08:38:22 | INFO  | src.training.trainer | Epoch 17: train_loss=16.0744 val_loss=15.8097 lr=2.16e-05
+2026-10-08 08:38:22 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=17, is_best=True)
+2026-10-08 08:38:23 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=17, is_best=True)
+2026-10-08 08:38:24 | INFO  | src.training.trainer |   [18][0/2905] loss=15.2575 mem=20.1GB
+2026-10-08 08:39:24 | INFO  | src.training.trainer |   [18][50/2905] loss=18.3944 mem=20.1GB
+2026-10-08 08:40:22 | INFO  | src.training.trainer |   [18][100/2905] loss=15.9428 mem=20.1GB
+2026-10-08 08:41:21 | INFO  | src.training.trainer |   [18][150/2905] loss=14.6578 mem=20.1GB
+2026-10-08 08:42:21 | INFO  | src.training.trainer |   [18][200/2905] loss=15.1370 mem=20.1GB
+2026-10-08 08:43:20 | INFO  | src.training.trainer |   [18][250/2905] loss=16.5540 mem=20.1GB
+2026-10-08 08:44:19 | INFO  | src.training.trainer |   [18][300/2905] loss=22.0455 mem=20.1GB
+2026-10-08 08:45:18 | INFO  | src.training.trainer |   [18][350/2905] loss=19.2033 mem=20.1GB
+2026-10-08 08:46:18 | INFO  | src.training.trainer |   [18][400/2905] loss=14.3070 mem=20.1GB
+2026-10-08 08:47:19 | INFO  | src.training.trainer |   [18][450/2905] loss=14.6319 mem=20.1GB
+2026-10-08 08:48:18 | INFO  | src.training.trainer |   [18][500/2905] loss=10.9580 mem=20.1GB
+2026-10-08 08:49:18 | INFO  | src.training.trainer |   [18][550/2905] loss=12.7808 mem=20.1GB
+2026-10-08 08:50:17 | INFO  | src.training.trainer |   [18][600/2905] loss=12.3907 mem=20.1GB
+2026-10-08 08:51:15 | INFO  | src.training.trainer |   [18][650/2905] loss=13.8109 mem=20.1GB
+2026-10-08 08:52:13 | INFO  | src.training.trainer |   [18][700/2905] loss=13.5812 mem=20.1GB
+2026-10-08 08:53:12 | INFO  | src.training.trainer |   [18][750/2905] loss=12.6343 mem=20.1GB
+2026-10-08 08:54:11 | INFO  | src.training.trainer |   [18][800/2905] loss=19.0477 mem=20.1GB
+2026-10-08 08:55:10 | INFO  | src.training.trainer |   [18][850/2905] loss=13.5653 mem=20.1GB
+2026-10-08 08:56:08 | INFO  | src.training.trainer |   [18][900/2905] loss=15.5527 mem=20.1GB
+2026-10-08 08:57:07 | INFO  | src.training.trainer |   [18][950/2905] loss=11.4300 mem=20.1GB
+2026-10-08 08:58:06 | INFO  | src.training.trainer |   [18][1000/2905] loss=23.4654 mem=20.1GB
+2026-10-08 08:59:06 | INFO  | src.training.trainer |   [18][1050/2905] loss=19.2129 mem=20.1GB
+2026-10-08 09:00:05 | INFO  | src.training.trainer |   [18][1100/2905] loss=15.7104 mem=20.1GB
+2026-10-08 09:01:05 | INFO  | src.training.trainer |   [18][1150/2905] loss=17.5534 mem=20.1GB
+2026-10-08 09:02:03 | INFO  | src.training.trainer |   [18][1200/2905] loss=13.6494 mem=20.1GB
+2026-10-08 09:03:03 | INFO  | src.training.trainer |   [18][1250/2905] loss=15.6506 mem=20.1GB
+2026-10-08 09:04:03 | INFO  | src.training.trainer |   [18][1300/2905] loss=12.1807 mem=20.1GB
+2026-10-08 09:05:03 | INFO  | src.training.trainer |   [18][1350/2905] loss=18.8393 mem=20.1GB
+2026-10-08 09:06:03 | INFO  | src.training.trainer |   [18][1400/2905] loss=15.1975 mem=20.1GB
+2026-10-08 09:07:02 | INFO  | src.training.trainer |   [18][1450/2905] loss=13.4480 mem=20.1GB
+2026-10-08 09:08:02 | INFO  | src.training.trainer |   [18][1500/2905] loss=12.8678 mem=20.1GB
+2026-10-08 09:09:01 | INFO  | src.training.trainer |   [18][1550/2905] loss=13.2544 mem=20.1GB
+2026-10-08 09:09:59 | INFO  | src.training.trainer |   [18][1600/2905] loss=16.2482 mem=20.1GB
+2026-10-08 09:10:57 | INFO  | src.training.trainer |   [18][1650/2905] loss=22.0061 mem=20.1GB
+2026-10-08 09:11:55 | INFO  | src.training.trainer |   [18][1700/2905] loss=19.4923 mem=20.1GB
+2026-10-08 09:12:54 | INFO  | src.training.trainer |   [18][1750/2905] loss=11.5682 mem=20.1GB
+2026-10-08 09:13:53 | INFO  | src.training.trainer |   [18][1800/2905] loss=14.2293 mem=20.1GB
+2026-10-08 09:14:50 | INFO  | src.training.trainer |   [18][1850/2905] loss=17.0225 mem=20.1GB
+2026-10-08 09:15:51 | INFO  | src.training.trainer |   [18][1900/2905] loss=14.1328 mem=20.1GB
+2026-10-08 09:16:49 | INFO  | src.training.trainer |   [18][1950/2905] loss=15.9953 mem=20.1GB
+2026-10-08 09:17:49 | INFO  | src.training.trainer |   [18][2000/2905] loss=14.6811 mem=20.1GB
+2026-10-08 09:18:46 | INFO  | src.training.trainer |   [18][2050/2905] loss=23.7750 mem=20.1GB
+2026-10-08 09:19:47 | INFO  | src.training.trainer |   [18][2100/2905] loss=12.1493 mem=20.1GB
+2026-10-08 09:20:45 | INFO  | src.training.trainer |   [18][2150/2905] loss=14.0864 mem=20.1GB
+2026-10-08 09:21:45 | INFO  | src.training.trainer |   [18][2200/2905] loss=18.7556 mem=20.1GB
+2026-10-08 09:22:43 | INFO  | src.training.trainer |   [18][2250/2905] loss=15.1557 mem=20.1GB
+2026-10-08 09:23:41 | INFO  | src.training.trainer |   [18][2300/2905] loss=16.3910 mem=20.1GB
+2026-10-08 09:24:41 | INFO  | src.training.trainer |   [18][2350/2905] loss=11.5486 mem=20.1GB
+2026-10-08 09:25:40 | INFO  | src.training.trainer |   [18][2400/2905] loss=14.8934 mem=20.1GB
+2026-10-08 09:26:38 | INFO  | src.training.trainer |   [18][2450/2905] loss=15.0879 mem=20.1GB
+2026-10-08 09:27:35 | INFO  | src.training.trainer |   [18][2500/2905] loss=15.5719 mem=20.1GB
+2026-10-08 09:28:34 | INFO  | src.training.trainer |   [18][2550/2905] loss=15.2340 mem=20.1GB
+2026-10-08 09:29:33 | INFO  | src.training.trainer |   [18][2600/2905] loss=12.7576 mem=20.1GB
+2026-10-08 09:30:31 | INFO  | src.training.trainer |   [18][2650/2905] loss=18.5541 mem=20.1GB
+2026-10-08 09:31:29 | INFO  | src.training.trainer |   [18][2700/2905] loss=17.7831 mem=20.1GB
+2026-10-08 09:32:28 | INFO  | src.training.trainer |   [18][2750/2905] loss=15.8059 mem=20.1GB
+2026-10-08 09:33:27 | INFO  | src.training.trainer |   [18][2800/2905] loss=10.7310 mem=20.1GB
+2026-10-08 09:34:26 | INFO  | src.training.trainer |   [18][2850/2905] loss=13.7920 mem=20.1GB
+2026-10-08 09:35:25 | INFO  | src.training.trainer |   [18][2900/2905] loss=13.0139 mem=20.1GB
+2026-10-08 09:38:21 | INFO  | src.training.trainer | Epoch 18: train_loss=15.9586 val_loss=15.7108 lr=1.88e-05
+2026-10-08 09:38:21 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/latest.pt (epoch=18, is_best=True)
+2026-10-08 09:38:22 | INFO  | src.training.trainer | Saved checkpoint: outputs/fold_0/best.pt (epoch=18, is_best=True)
+2026-10-08 09:38:23 | INFO  | src.training.trainer |   [19][0/2905] loss=14.3101 mem=20.1GB
+2026-10-08 09:39:23 | INFO  | src.training.trainer |   [19][50/2905] loss=15.2904 mem=20.1GB
+2026-10-08 09:40:23 | INFO  | src.training.trainer |   [19][100/2905] loss=12.9371 mem=20.1GB
+2026-10-08 09:41:22 | INFO  | src.training.trainer |   [19][150/2905] loss=9.6326 mem=20.1GB
+2026-10-08 09:42:22 | INFO  | src.training.trainer |   [19][200/2905] loss=13.8755 mem=20.1GB
+2026-10-08 09:43:22 | INFO  | src.training.trainer |   [19][250/2905] loss=21.2688 mem=20.1GB
+2026-10-08 09:44:21 | INFO  | src.training.trainer |   [19][300/2905] loss=13.4388 mem=20.1GB
+2026-10-08 09:45:20 | INFO  | src.training.trainer |   [19][350/2905] loss=14.0960 mem=20.1GB
+2026-10-08 09:46:19 | INFO  | src.training.trainer |   [19][400/2905] loss=13.9235 mem=20.1GB
+2026-10-08 09:47:20 | INFO  | src.training.trainer |   [19][450/2905] loss=11.5046 mem=20.1GB
+2026-10-08 09:48:20 | INFO  | src.training.trainer |   [19][500/2905] loss=11.9483 mem=20.1GB
+2026-10-08 09:49:17 | INFO  | src.training.trainer |   [19][550/2905] loss=12.6338 mem=20.1GB
+2026-10-08 09:50:17 | INFO  | src.training.trainer |   [19][600/2905] loss=17.6918 mem=20.1GB
+2026-10-08 09:51:16 | INFO  | src.training.trainer |   [19][650/2905] loss=20.9298 mem=20.1GB
+2026-10-08 09:52:15 | INFO  | src.training.trainer |   [19][700/2905] loss=15.0037 mem=20.1GB
+2026-10-08 09:53:13 | INFO  | src.training.trainer |   [19][750/2905] loss=12.5780 mem=20.1GB
+2026-10-08 09:54:14 | INFO  | src.training.trainer |   [19][800/2905] loss=13.8666 mem=20.1GB
+2026-10-08 09:55:12 | INFO  | src.training.trainer |   [19][850/2905] loss=13.9913 mem=20.1GB
+2026-10-08 09:56:13 | INFO  | src.training.trainer |   [19][900/2905] loss=13.8242 mem=20.1GB
+2026-10-08 09:57:11 | INFO  | src.training.trainer |   [19][950/2905] loss=17.7015 mem=20.1GB
+2026-10-08 09:58:10 | INFO  | src.training.trainer |   [19][1000/2905] loss=11.9071 mem=20.1GB
+2026-10-08 09:59:09 | INFO  | src.training.trainer |   [19][1050/2905] loss=14.8680 mem=20.1GB
+2026-10-08 10:00:08 | INFO  | src.training.trainer |   [19][1100/2905] loss=13.7458 mem=20.1GB
+2026-10-08 10:01:08 | INFO  | src.training.trainer |   [19][1150/2905] loss=14.4916 mem=20.1GB
+2026-10-08 10:02:07 | INFO  | src.training.trainer |   [19][1200/2905] loss=16.8830 mem=20.1GB
+2026-10-08 10:03:06 | INFO  | src.training.trainer |   [19][1250/2905] loss=15.5920 mem=20.1GB
+2026-10-08 10:04:04 | INFO  | src.training.trainer |   [19][1300/2905] loss=18.2764 mem=20.1GB
+2026-10-08 10:05:03 | INFO  | src.training.trainer |   [19][1350/2905] loss=15.6709 mem=20.1GB
+2026-10-08 10:06:03 | INFO  | src.training.trainer |   [19][1400/2905] loss=13.2617 mem=20.1GB
+2026-10-08 10:07:01 | INFO  | src.training.trainer |   [19][1450/2905] loss=17.3972 mem=20.1GB
+2026-10-08 10:08:01 | INFO  | src.training.trainer |   [19][1500/2905] loss=20.5245 mem=20.1GB
+2026-10-08 10:09:00 | INFO  | src.training.trainer |   [19][1550/2905] loss=16.5795 mem=20.1GB
+2026-10-08 10:09:59 | INFO  | src.training.trainer |   [19][1600/2905] loss=13.4660 mem=20.1GB
+2026-10-08 10:10:59 | INFO  | src.training.trainer |   [19][1650/2905] loss=15.1337 mem=20.1GB
+2026-10-08 10:11:59 | INFO  | src.training.trainer |   [19][1700/2905] loss=13.3229 mem=20.1GB
+2026-10-08 10:12:58 | INFO  | src.training.trainer |   [19][1750/2905] loss=16.3659 mem=20.1GB
+2026-10-08 10:13:57 | INFO  | src.training.trainer |   [19][1800/2905] loss=16.0479 mem=20.1GB
+2026-10-08 10:14:55 | INFO  | src.training.trainer |   [19][1850/2905] loss=13.0573 mem=20.1GB
+2026-10-08 10:15:55 | INFO  | src.training.trainer |   [19][1900/2905] loss=14.3760 mem=20.1GB
+2026-10-08 10:16:54 | INFO  | src.training.trainer |   [19][1950/2905] loss=18.0419 mem=20.1GB
+2026-10-08 10:17:52 | INFO  | src.training.trainer |   [19][2000/2905] loss=13.9611 mem=20.1GB
+2026-10-08 10:18:51 | INFO  | src.training.trainer |   [19][2050/2905] loss=15.5786 mem=20.1GB
+2026-10-08 10:19:49 | INFO  | src.training.trainer |   [19][2100/2905] loss=15.6951 mem=20.1GB
+2026-10-08 10:20:47 | INFO  | src.training.trainer |   [19][2150/2905] loss=15.7222 mem=20.1GB
