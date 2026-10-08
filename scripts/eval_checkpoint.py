@@ -29,6 +29,10 @@ def main():
     ap.add_argument("--config", default="configs/base_config.yaml")
     ap.add_argument("--no-ema", action="store_true", help="use raw LoRA weights instead of EMA")
     ap.add_argument("--max-images", type=int, default=None)
+    ap.add_argument("--zero-shot", action="store_true",
+                    help="evaluate the pretrained Grounding DINO with no fine-tuning (baseline)")
+    ap.add_argument("--on-train", type=int, default=None, metavar="N",
+                    help="evaluate on N random annotated TRAIN images instead of the held-out test set")
     args = ap.parse_args()
 
     from src.data.prompt_builder import PromptBuilder
@@ -48,9 +52,14 @@ def main():
     spans = compute_class_token_spans(caption, cat_list, tok)
     model, _, _ = build_model_and_criterion(cfg, device, class_to_token_spans=spans)
 
-    ckpt = torch.load(ckpt_path, map_location=device, weights_only=False)
-    set_peft_model_state_dict(model, ckpt["lora_state_dict"])
-    if not args.no_ema and "ema_state_dict" in ckpt:
+    if args.zero_shot:
+        ckpt, ckpt_path = {"epoch": None}, Path(f"outputs/fold_{args.fold}/zero_shot.pt")
+    else:
+        ckpt = torch.load(ckpt_path, map_location=device, weights_only=False)
+        set_peft_model_state_dict(model, ckpt["lora_state_dict"])
+    if args.zero_shot:
+        weights = "pretrained (no LoRA)"
+    elif not args.no_ema and "ema_state_dict" in ckpt:
         shadow = ckpt["ema_state_dict"]["shadow"]
         with torch.no_grad():
             for n, p in model.named_parameters():
@@ -62,11 +71,30 @@ def main():
     print(f"Evaluating {ckpt_path} (epoch {ckpt.get('epoch')}, {weights} weights)")
 
     fold_dir = Path(cfg["data"]["odvg_dir"]) / f"fold_{args.fold}"
-    res = evaluate_fold(model, str(fold_dir / "test_annotations.json"), pb, cfg, device,
-                        max_images=args.max_images)
+    if args.on_train:
+        import random
+        from src.data.taxonomy import ID_TO_CLASS
+        lines = [json.loads(l) for l in open(fold_dir / "train.jsonl")]
+        random.Random(1).shuffle(lines)
+        lines = [d for d in lines if d["detection"]["instances"]][:args.on_train]
+        images, anns = [], []
+        for i, d in enumerate(lines):
+            images.append({"id": i, "file_name": d["filename"], "width": d["width"], "height": d["height"]})
+            for b in d["detection"]["instances"]:
+                x1, y1, x2, y2 = b["bbox"]
+                anns.append({"id": len(anns), "image_id": i, "category_id": b["label"],
+                             "bbox": [x1, y1, x2 - x1, y2 - y1], "area": (x2 - x1) * (y2 - y1), "iscrowd": 0})
+        import tempfile
+        tmp = Path(tempfile.mkdtemp()) / "train_coco.json"   # no annotated_classes.json next to it -> no class masking
+        json.dump({"images": images, "annotations": anns,
+                   "categories": [{"id": i, "name": n} for i, n in ID_TO_CLASS.items()]}, open(tmp, "w"))
+        ann_path, split = str(tmp), "train"
+    else:
+        ann_path, split = str(fold_dir / "test_annotations.json"), "test"
+    res = evaluate_fold(model, ann_path, pb, cfg, device, max_images=args.max_images)
 
-    out = ckpt_path.parent / f"eval_{ckpt_path.stem}.json"
-    res.update({"checkpoint": str(ckpt_path), "epoch": ckpt.get("epoch"), "weights": weights})
+    out = ckpt_path.parent / f"eval_{ckpt_path.stem}_{split}.json"
+    res.update({"split": split, "n_images": args.on_train or args.max_images, "checkpoint": str(ckpt_path), "epoch": ckpt.get("epoch"), "weights": weights})
     json.dump(res, open(out, "w"), indent=2, default=float)
     print({k: round(v, 4) for k, v in res.items() if k.startswith("mAP")})
     print("saved", out)
