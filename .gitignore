@@ -6,12 +6,12 @@ __pycache__/
 .ipynb_checkpoints/
 
 # large / generated artifacts
-data/
+/data/
 outputs/.training.lock
 outputs/.training.pid
 outputs/crontab.backup
-weights/
-wheels/
+/weights/
+/wheels/
 *.zip
 /*.pt
 !outputs/**/*.pt
