@@ -1,0 +1,103 @@
+unified_classes:
+  - crack
+  - dent
+  - corrosion
+  - scratch
+  - paint-off
+  - missing-head
+  - rupture
+  - fastener-damage
+
+datasets:
+  - name: RFDETR_DATASET
+    base_dir: /DATA/air_force_object_detection/DATASET/RFDETR_DATASET
+    format: coco_roboflow
+    splits: [train, valid, test]
+    annotated_classes: [crack, dent, corrosion, scratch, paint-off, missing-head]
+    class_map:
+      crack: crack
+      dent: dent
+      corrosion: corrosion
+      scratch: scratch
+      paint-peel-off: paint-off
+      missing-head: missing-head
+
+  - name: korean-aerospace
+    base_dir: /DATA/air_force_object_detection/Aircraft-Defect-Detection-korean-aerospace
+    format: coco_roboflow
+    splits: [train, valid]
+    annotated_classes: [crack, dent]
+    class_map:
+      crack: crack
+      dent: dent
+
+  - name: Aircraft-AI-Dataset-4
+    base_dir: /DATA/air_force_object_detection/Aircraft-AI-Dataset-4
+    format: coco_roboflow
+    splits: [train, valid, test]
+    annotated_classes: [corrosion, scratch, missing-head]
+    class_map:
+      rust: corrosion
+      scractch: scratch
+      missing-rivet: missing-head
+
+  - name: Aircraft-Defect-Detection-6
+    base_dir: /DATA/air_force_object_detection/Aircraft-Defect-Detection-6
+    format: coco_roboflow
+    splits: [train, valid, test]
+    annotated_classes: [paint-off, scratch, corrosion, missing-head]
+    class_map:
+      paint_peel: paint-off
+      scratch: scratch
+      rust: corrosion
+      rivet_damage: missing-head
+
+  - name: sydney
+    base_dir: /DATA/air_force_object_detection/Aircraft-Defect-Detection-sydney
+    format: coco_roboflow
+    splits: [train, valid, test]
+    annotated_classes: [dent, fastener-damage, rupture]
+    class_map:
+      Dent: dent
+      "Fastener Damage": fastener-damage
+      Rupture: rupture
+
+  - name: closeup
+    base_dir: /DATA/air_force_object_detection/Aircraft-Defect-Detection-closeup
+    format: coco_roboflow
+    splits: [train, valid, test]
+    annotated_classes: [crack, dent, rupture, corrosion, scratch, paint-off, missing-head]
+    class_map:
+      Crack: crack
+      Dent: dent
+      Hole: rupture
+      Rust: corrosion
+      Scratch: scratch
+      paint_peel: paint-off
+      rivet_damage: missing-head
+
+  - name: AGDD
+    base_dir: /DATA/air_force_object_detection/AGDD/data
+    format: yolo
+    splits: [train, val]
+    annotated_classes: [scratch, crack]
+    yolo_classes:
+      0: contusion
+      1: scratches
+      2: crack
+      3: spot
+    class_map:
+      contusion: scratch
+      scratches: scratch
+      crack: crack
+
+  - name: fuselage
+    base_dir: /DATA/air_force_object_detection/Aircraft-Defect-Detection-fuselage/Aircraft_Fuselage_DET2023/aircraft_fuselage_coco
+    format: fuselage_json
+    splits: [all]
+    annotated_classes: [scratch, paint-off, corrosion, missing-head]
+    class_map:
+      scratch: scratch
+      paint_peel: paint-off
+      rust: corrosion
+      rivet_damage: missing-head

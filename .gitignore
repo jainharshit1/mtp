@@ -1,0 +1,30 @@
+# environments / caches
+.venv/
+.nvm/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# large / generated artifacts
+data/
+outputs/
+weights/
+wheels/
+*.zip
+*.pt
+*.pth
+*.whl
+
+# raw datasets
+AGDD/
+Aircraft-AI-Dataset-4/
+aircraft-dataset/
+Aircraft-Defect-Detection-*/
+DATASET/
+
+# third-party repo (local changes kept in vendor_patches/)
+vendor/Open-GroundingDino/
+
+# contain hardcoded Roboflow API key
+pre_processing/gpt.py
+install_datasets.ipynb

@@ -1,0 +1,55 @@
+diff --git a/models/GroundingDINO/bertwarper.py b/models/GroundingDINO/bertwarper.py
+index f0cf977..abea0f9 100644
+--- a/models/GroundingDINO/bertwarper.py
++++ b/models/GroundingDINO/bertwarper.py
+@@ -24,9 +24,47 @@ class BertModelWarper(nn.Module):
+         self.encoder = bert_model.encoder
+         self.pooler = bert_model.pooler
+ 
+-        self.get_extended_attention_mask = bert_model.get_extended_attention_mask
+-        self.invert_attention_mask = bert_model.invert_attention_mask
+-        self.get_head_mask = bert_model.get_head_mask
++        # Compatibility: transformers 5.x moved these methods
++        if hasattr(bert_model, 'get_extended_attention_mask'):
++            self.get_extended_attention_mask = bert_model.get_extended_attention_mask
++        else:
++            self.get_extended_attention_mask = self._get_extended_attention_mask
++        if hasattr(bert_model, 'invert_attention_mask'):
++            self.invert_attention_mask = bert_model.invert_attention_mask
++        else:
++            self.invert_attention_mask = self._invert_attention_mask
++        if hasattr(bert_model, 'get_head_mask'):
++            self.get_head_mask = bert_model.get_head_mask
++        else:
++            self.get_head_mask = self._get_head_mask
++
++    @staticmethod
++    def _get_extended_attention_mask(attention_mask, input_shape, device=None):
++        if attention_mask.dim() == 3:
++            extended = attention_mask[:, None, :, :]
++        elif attention_mask.dim() == 2:
++            extended = attention_mask[:, None, None, :]
++        else:
++            raise ValueError(f"Wrong shape for attention_mask: {attention_mask.shape}")
++        extended = (1.0 - extended.float()) * torch.finfo(torch.float32).min
++        return extended
++
++    @staticmethod
++    def _invert_attention_mask(encoder_attention_mask):
++        if encoder_attention_mask.dim() == 2:
++            inverted = encoder_attention_mask[:, None, None, :]
++        elif encoder_attention_mask.dim() == 3:
++            inverted = encoder_attention_mask[:, None, :, :]
++        else:
++            raise ValueError(f"Wrong shape: {encoder_attention_mask.shape}")
++        inverted = (1.0 - inverted.float()) * torch.finfo(torch.float32).min
++        return inverted
++
++    @staticmethod
++    def _get_head_mask(head_mask, num_hidden_layers, is_attention_chunked=False):
++        if head_mask is not None:
++            raise NotImplementedError
++        return [None] * num_hidden_layers
+ 
+     def forward(
+         self,

@@ -1,0 +1,22 @@
+# Text prompt strategies for Grounding DINO
+# Start with bare_class_names; others are future ablations
+
+bare_class_names:
+  crack: "crack"
+  dent: "dent"
+  corrosion: "corrosion"
+  scratch: "scratch"
+  paint-off: "paint-off"
+  missing-head: "missing-head"
+  rupture: "rupture"
+  fastener-damage: "fastener-damage"
+
+template_descriptions:
+  crack: "a crack defect on aircraft surface showing linear fracture pattern"
+  dent: "a dent defect on aircraft surface showing concave deformation"
+  corrosion: "corrosion damage on aircraft surface showing oxidation and material degradation"
+  scratch: "a scratch defect on aircraft surface showing linear surface abrasion"
+  paint-off: "paint peeling off aircraft surface exposing underlying material"
+  missing-head: "a missing rivet head on aircraft surface leaving an empty fastener hole"
+  rupture: "a rupture or hole in aircraft surface showing material breach"
+  fastener-damage: "damaged fastener on aircraft surface showing deformed or broken hardware"

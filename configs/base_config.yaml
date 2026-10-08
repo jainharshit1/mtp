@@ -1,0 +1,72 @@
+# Phase 2 Training Configuration
+# Grounding DINO Swin-T + LoRA for aircraft defect detection
+
+model:
+  config_path: vendor/Open-GroundingDino/config/cfg_odvg.py
+  pretrained_weights: weights/groundingdino_swint_ogc.pth
+  bert_model: bert-base-uncased
+
+lora:
+  rank: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - cross_attn.sampling_offsets
+    - cross_attn.attention_weights
+    - cross_attn.value_proj
+    - cross_attn.output_proj
+    - ca_text.out_proj
+    - self_attn.out_proj
+    - linear1
+    - linear2
+    - bbox_embed.0.layers.0
+    - bbox_embed.0.layers.1
+  modules_to_save:
+    - bbox_embed.0.layers.2
+
+training:
+  batch_size: 8
+  gradient_accumulation_steps: 2
+  max_epochs: 30
+  early_stopping_patience: 7
+  grad_clip_max_norm: 0.1
+
+optimizer:
+  type: AdamW
+  lr: 5.0e-5
+  backbone_lr: 1.0e-5
+  weight_decay: 0.01
+  betas: [0.9, 0.999]
+
+scheduler:
+  type: cosine
+  warmup_epochs: 3
+  min_lr: 1.0e-6
+
+ema:
+  enabled: true
+  decay: 0.9997
+
+mixed_precision:
+  enabled: true
+  dtype: float16
+
+data:
+  odvg_dir: data/odvg
+  num_workers: 8
+  pin_memory: true
+  max_text_len: 256
+  image_size: 800
+
+evaluation:
+  box_threshold: 0.3
+  text_threshold: 0.25
+  nms_threshold: 0.5
+
+output:
+  base_dir: outputs
+  save_every_n_epochs: 5
+
+seed: 42
+
+prompt_strategy: bare_class_names
