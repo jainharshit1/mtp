@@ -319,16 +319,22 @@ Folds are now 6 instead of 8 (AGDD and fuselage are trained on only), see `fold_
   datasets / classes); a WeightedRandomSampler draws len(train) images per epoch with these weights
   (same epoch length). Every draw of an image with factor > 1 gets fresh light/colour changes
   (`PhotometricJitter`, RandAugment-style): every draw applies 3-6 changes chosen at random from 16:
-  brightness 0.3-2.0, contrast 0.3-2.0, saturation 0-2.5, gamma 0.4-2.5, hue +-0.5 of the colour wheel,
-  warm/cool tint +-0.4, blur radius / sharpen up to 3, motion blur up to 15 px, sensor noise up to std 30,
-  JPEG quality down to 10, posterize down to 2 bits, shadow gradient up to 70%, haze up to 50%, and on/off
-  greyscale, histogram equalisation, colour-channel swap. No geometric changes (user: rotation would
-  spoil the boxes); the left-right flip stays. Strength (user, after three sample sheets: too mild, then
-  "not a bell curve around no change", then "more aggressive, more augmentations"): direction by coin
-  flip, strength u ~ Beta(3, 1) of the way to the limit (strong changes most likely). Safeguard: inside
-  every box the fine detail (grey minus blurred grey) must still correlate >= 0.4 with the original's,
-  else redraw (up to 5 times, then the original): a plain contrast check had let a shadow pass that
-  erased an AGDD scratch. Fold 3, 300 images: 1.9 draws per image, original kept for 5%, ~86 ms per image
-  in a data worker incl. loading (8 workers: far faster than the GPU).
+  brightness 0.3-2.0, contrast 0.3-1.6, saturation 0-1.8, gamma 0.4-2.5, hue +-0.5 of the colour wheel,
+  warm/cool tint +-0.4, blur radius / sharpen up to 3, motion blur up to 15 px, sensor noise up to std 12,
+  JPEG quality down to 10, posterize down to 3 bits, shadow gradient up to 70%, haze up to 50%,
+  histogram equalisation blended in up to 30%, and on/off greyscale and colour-channel swap. Light and
+  colour changes run first, image-quality changes last (noise is never amplified afterwards). No
+  geometric changes (user: rotation would spoil the boxes); the left-right flip stays. Strength (user,
+  after the sample sheets: too mild; "not a bell curve around no change"; "more aggressive, more
+  augmentations"; then "draws 3 and 6 destroy the image, the noise should not be this much"): direction
+  by coin flip, strength u ~ Beta(3, 1) of the way to the limit (strong changes most likely).
+  Safeguards, else redraw (up to 5 times, then the original): inside every box the fine detail (grey
+  minus blurred grey) must correlate >= 0.4 with the original's; the whole image's detail >= 0.5; and
+  each defect must still stand out from the background (box detail spread / image detail spread >= 60%
+  of the original ratio). History: a plain contrast check let a shadow erase an AGDD scratch; noise 30 +
+  full equalisation turned a flat fuselage panel into blotches; then contrast/saturation/equalisation
+  amplified its faint texture until it drowned the scratches (pattern checks passed) - fixed by the
+  stand-out check and the lower limits above. 300 training images: 1.8-2.0 draws per image, original
+  kept for 3-5%, ~110-125 ms per image in a data worker incl. loading (8 workers: faster than the GPU).
   Sheets: build/final_review/aug_each_change.jpg (each change alone at its limits) and
   build/final_review/light_colour_samples.jpg (random draws as in training).

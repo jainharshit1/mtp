@@ -82,20 +82,20 @@ class PhotometricJitter:
         "strength_beta": 3.0,
         "ops": {
             "brightness": [1.0, 0.3, 2.0],
-            "contrast": [1.0, 0.3, 2.0],
-            "saturation": [1.0, 0.0, 2.5],
+            "contrast": [1.0, 0.3, 1.6],
+            "saturation": [1.0, 0.0, 1.8],
             "gamma": [1.0, 0.4, 2.5],
             "hue": [0.0, -0.5, 0.5],           # share of the colour wheel
             "tint": [0.0, -0.4, 0.4],          # > 0 warmer (red up, blue down), < 0 cooler
             "blur_sharpen": [0.0, -3.0, 3.0],  # < 0 Gaussian blur radius, > 0 sharpen amount
             "motion_blur": [0, 0, 15],         # camera shake: streak length in pixels
-            "noise": [0, 0, 30],               # sensor noise: std in grey levels
+            "noise": [0, 0, 12],               # sensor noise: std in grey levels
             "jpeg": [100, 10, 100],            # compression quality
-            "posterize": [8, 2, 8],            # bits per colour channel
+            "posterize": [8, 3, 8],            # bits per colour channel
             "shadow": [0.0, 0.0, 0.7],         # light-to-dark gradient: darkest side loses this share
             "haze": [0.0, 0.0, 0.5],           # blend with a light grey veil
             "greyscale": True,
-            "equalize": True,                  # histogram equalisation (strong local contrast)
+            "equalize": [0.0, 0.0, 0.3],       # histogram equalisation, blended in up to this share
             "channel_shuffle": True,           # swap the colour channels
         },
     }
@@ -105,7 +105,17 @@ class PhotometricJitter:
     # original's detail by at least MIN_DETAIL_CORR. A draw that fails (defect washed out, drowned in
     # noise or posterized away) is redrawn, up to TRIES times; then the original image is used.
     # (A plain contrast check let a strong shadow pass that had erased an AGDD scratch, 2026-10-30.)
-    MIN_DETAIL_CORR, TRIES = 0.4, 5
+    # The whole image must keep its texture too (MIN_IMAGE_CORR): equalisation of a flat panel plus noise
+    # had turned a fuselage image into blotches while its tiny boxes still passed (user, 2026-10-30).
+    # And every defect must still stand out from the background: (detail spread in the box / detail
+    # spread of the whole image) must keep MIN_STANDOUT of its original value. Contrast, saturation and
+    # equalisation of a flat panel amplified its faint texture until it drowned the scratches, while the
+    # pattern checks above still passed (fuselage 196.jpg, 2026-10-30).
+    MIN_DETAIL_CORR, MIN_IMAGE_CORR, MIN_STANDOUT, TRIES = 0.4, 0.5, 0.6, 5
+    # Light/colour changes first, image-quality changes last: noise is never amplified by a later
+    # contrast or equalisation step.
+    ORDER = ("brightness", "contrast", "gamma", "equalize", "shadow", "haze", "saturation", "hue", "tint",
+             "greyscale", "channel_shuffle", "blur_sharpen", "motion_blur", "posterize", "jpeg", "noise")
 
     def __init__(self, cfg: dict | None = None):
         cfg = cfg or {}
@@ -130,30 +140,42 @@ class PhotometricJitter:
         return [a[int(y0):max(int(y0) + 2, int(round(y1))), int(x0):max(int(x0) + 2, int(round(x1)))]
                 for x0, y0, x1, y1 in boxes]
 
-    def _visible(self, before: list, out: Image.Image, boxes) -> bool:
-        for a, b in zip(before, self._crops(self._detail(out), boxes)):
-            a, b = a - a.mean(), b - b.mean()
-            na, nb = float(np.sqrt((a * a).sum())), float(np.sqrt((b * b).sum()))
-            if na < 1e-3:
-                continue  # no detail in the original box to lose
-            if nb < 1e-3 or float((a * b).sum()) / (na * nb) < self.MIN_DETAIL_CORR:
+    @staticmethod
+    def _corr(a: np.ndarray, b: np.ndarray):
+        a, b = a - a.mean(), b - b.mean()
+        na, nb = float(np.sqrt((a * a).sum())), float(np.sqrt((b * b).sum()))
+        if na < 1e-3:
+            return None  # no detail in the original to lose
+        return 0.0 if nb < 1e-3 else float((a * b).sum()) / (na * nb)
+
+    def _visible(self, before: list, before_img: np.ndarray, out: Image.Image, boxes) -> bool:
+        detail = self._detail(out)
+        c = self._corr(before_img, detail)
+        if c is not None and c < self.MIN_IMAGE_CORR:
+            return False
+        s0, s1 = float(before_img.std()) + 1e-3, float(detail.std()) + 1e-3
+        for a, b in zip(before, self._crops(detail, boxes)):
+            c = self._corr(a, b)
+            if c is not None and c < self.MIN_DETAIL_CORR:
+                return False
+            if c is not None and (float(b.std()) / s1) < self.MIN_STANDOUT * (float(a.std()) / s0):
                 return False
         return True
 
     def __call__(self, img: Image.Image, boxes=()) -> Image.Image:
-        if not boxes:
-            return self._jitter(img)
-        before = self._crops(self._detail(img), boxes)
+        detail = self._detail(img)
+        before = self._crops(detail, boxes)
         for _ in range(self.TRIES):
             out = self._jitter(img)
-            if self._visible(before, out, boxes):
+            if self._visible(before, detail, out, boxes):
                 return out
         return img
 
     def _jitter(self, img: Image.Image) -> Image.Image:
         lo, hi = self.cfg["ops_per_image"]
         names = list(self.ops)
-        for name in random.sample(names, min(len(names), random.randint(lo, hi))):
+        chosen = set(random.sample(names, min(len(names), random.randint(lo, hi))))
+        for name in sorted(chosen, key=lambda n: self.ORDER.index(n) if n in self.ORDER else len(self.ORDER)):
             img = getattr(self, "_" + name)(img, None if self.ops[name] is True else self._draw(name))
         return img.convert("RGB")
 
@@ -223,8 +245,8 @@ class PhotometricJitter:
     def _greyscale(self, img, _):
         return img.convert("L").convert("RGB")
 
-    def _equalize(self, img, _):
-        return ImageOps.equalize(img)
+    def _equalize(self, img, v):
+        return Image.blend(img, ImageOps.equalize(img), 1.0 if v is None else v)
 
     def _channel_shuffle(self, img, _):
         bands = list(img.split())
