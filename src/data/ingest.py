@@ -182,14 +182,10 @@ def _ingest_yolo(ds_cfg: dict) -> dict:
                     if cls_id not in yolo_id_to_unified:
                         continue
                     cx, cy, bw, bh = float(parts[1]), float(parts[2]), float(parts[3]), float(parts[4])
-                    x1 = (cx - bw / 2) * w
-                    y1 = (cy - bh / 2) * h
-                    box_w = bw * w
-                    box_h = bh * h
-                    x1 = max(0, x1)
-                    y1 = max(0, y1)
-                    box_w = min(box_w, w - x1)
-                    box_h = min(box_h, h - y1)
+                    # Crop to the image (keep the far edges; do not shift the box).
+                    x1, x2 = max(0, (cx - bw / 2) * w), min(w, (cx + bw / 2) * w)
+                    y1, y2 = max(0, (cy - bh / 2) * h), min(h, (cy + bh / 2) * h)
+                    box_w, box_h = x2 - x1, y2 - y1
                     if box_w <= 0 or box_h <= 0:
                         continue
                     all_annotations.append({
@@ -271,13 +267,10 @@ def _ingest_fuselage(ds_cfg: dict) -> dict:
             unified_name = class_map[label]
             coords = ann["coordinates"]
             cx, cy = coords["x"], coords["y"]
-            bw, bh = coords["width"], coords["height"]
-            x1 = cx - bw / 2
-            y1 = cy - bh / 2
-            x1 = max(0, x1)
-            y1 = max(0, y1)
-            bw = min(bw, w - x1)
-            bh = min(bh, h - y1)
+            # Crop to the image (keep the far edges; do not shift the box).
+            x1, x2 = max(0, cx - coords["width"] / 2), min(w, cx + coords["width"] / 2)
+            y1, y2 = max(0, cy - coords["height"] / 2), min(h, cy + coords["height"] / 2)
+            bw, bh = x2 - x1, y2 - y1
             if bw <= 0 or bh <= 0:
                 continue
             all_annotations.append({

@@ -56,8 +56,12 @@ def check_data():
     from src.data.taxonomy import UNIFIED_CLASSES, NUM_CLASSES
     logger.info(f"  Taxonomy: {NUM_CLASSES} classes: {UNIFIED_CLASSES}")
 
-    odvg_dir = Path(PROJECT_ROOT) / "data" / "odvg"
-    for fold_id in range(8):
+    import yaml
+    from src.training.lodo_runner import discover_fold_ids
+    with open(Path(PROJECT_ROOT) / "configs" / "base_config.yaml") as f:
+        odvg_dir = Path(PROJECT_ROOT) / yaml.safe_load(f).get("data", {}).get("odvg_dir", "data/odvg")
+    fold_ids = discover_fold_ids(odvg_dir)
+    for fold_id in fold_ids:
         fold_dir = odvg_dir / f"fold_{fold_id}"
         for fname in ["train.jsonl", "val.jsonl", "test_annotations.json", "label_map.json"]:
             fpath = fold_dir / fname
@@ -72,7 +76,7 @@ def check_data():
             logger.error(f"Fold {fold_id} label_map has {len(lm)} classes, expected {NUM_CLASSES}")
             return False
 
-    logger.info(f"  All 8 folds present with {NUM_CLASSES}-class label maps")
+    logger.info(f"  All {len(fold_ids)} folds present with {NUM_CLASSES}-class label maps")
     return True
 
 

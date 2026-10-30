@@ -24,7 +24,7 @@ def main():
     parser = argparse.ArgumentParser(description="Run all LODO folds")
     parser.add_argument("--config", type=str, default="configs/base_config.yaml")
     parser.add_argument("--folds", type=int, nargs="+", default=None,
-                        help="Subset of folds to run (default: all 8)")
+                        help="Subset of folds to run (default: every fold_* in the ODVG dir)")
     parser.add_argument("--resume", action="store_true", help="Resume crashed folds")
     parser.add_argument("--prompt-strategy", type=str, default=None)
     args = parser.parse_args()

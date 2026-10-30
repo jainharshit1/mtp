@@ -1,5 +1,7 @@
 """COCO mAP evaluation for Grounding DINO predictions."""
 
+import contextlib
+import io
 import json
 import logging
 from pathlib import Path
@@ -9,7 +11,7 @@ import torch
 import numpy as np
 
 from src.data.taxonomy import UNIFIED_CLASSES, NUM_CLASSES
-from src.training.odvg_dataset import box_cxcywh_to_xyxy
+from src.training.odvg_dataset import box_cxcywh_to_xyxy, box_frame, make_nested
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +28,8 @@ def evaluate_fold(
     """Run evaluation on a COCO-format test set.
 
     Matches the training setup: images are resized exactly like the val transform
-    (short side = data.image_size), scores are kept down to `score_threshold`
+    (data.fixed_square: padded to a square and resized to image_size x image_size; otherwise
+    short side = data.image_size), scores are kept down to `score_threshold`
     (default 0.001, top `max_dets` per image) so the PR curve isn't truncated, and
     predictions for classes the held-out dataset does not annotate are dropped
     (training masks those classes too), using annotated_classes.json next to the
@@ -35,10 +38,6 @@ def evaluate_fold(
     Returns dict with mAP, mAP_50, mAP_75, per-class AP.
     """
     from pycocotools.coco import COCO
-    from pycocotools.cocoeval import COCOeval
-    from PIL import Image
-    import torchvision.transforms.functional as F
-    from src.training.odvg_dataset import resize
 
     if device is None:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -47,6 +46,8 @@ def evaluate_fold(
     score_threshold = eval_cfg.get("score_threshold", 0.001)
     max_dets = eval_cfg.get("max_dets_per_image", 100)
     image_size = config.get("data", {}).get("image_size", 800)
+    fixed_square = config.get("data", {}).get("fixed_square", False)
+    pad_mask = fixed_square and config.get("data", {}).get("pad_mask", False)
 
     if annotated_classes_path is None:
         annotated_classes_path = str(Path(test_annotations_path).parent / "annotated_classes.json")
@@ -59,6 +60,8 @@ def evaluate_fold(
 
     coco_gt = COCO(test_annotations_path)
     image_ids = coco_gt.getImgIds()
+    # Relative image paths are relative to the folder holding fold_*/ (a self-contained build).
+    image_root = Path(test_annotations_path).resolve().parent.parent
     if max_images and max_images < len(image_ids):
         import random
         image_ids = random.Random(0).sample(image_ids, max_images)  # fixed seed: comparable across checkpoints
@@ -74,61 +77,149 @@ def evaluate_fold(
         config.get("model", {}).get("bert_model", "bert-base-uncased")
     )
     class_to_spans = compute_class_token_spans(caption, cat_list, tokenizer)
+
+    # With fixed_square every image is image_size x image_size, so images can be batched; with
+    # varying shapes they run one at a time (batching would pad them and change the results).
+    batch_size = eval_cfg.get("batch_size", 16) if fixed_square else 1
+    files = [(img_id, str(image_root / coco_gt.loadImgs(img_id)[0]["file_name"])) for img_id in image_ids]
+    loader = torch.utils.data.DataLoader(
+        _EvalImages(files, image_size, fixed_square, pad_mask), batch_size=batch_size, shuffle=False,
+        num_workers=eval_cfg.get("num_workers", config.get("data", {}).get("num_workers", 0)),
+        collate_fn=_collate_eval, pin_memory=device.type == "cuda",
+    )
+
+    for ids, sizes, valid, batch in loader:
+        # Mask = True on padding (the square padding too, with pad_mask), as in training.
+        samples = make_nested(list(batch), valid).to(device)
+        with torch.no_grad(), torch.cuda.amp.autocast(enabled=device.type == "cuda"):
+            outputs = model(samples, captions=[caption] * len(ids))
+
+        for k, (img_id, (w_orig, h_orig)) in enumerate(zip(ids, sizes)):
+            results.extend(detections_from_outputs(
+                outputs["pred_logits"][k], outputs["pred_boxes"][k], class_to_spans, img_id,
+                w_orig, h_orig, fixed_square=fixed_square, pad_mask=pad_mask,
+                annotated=annotated.get(img_id) if annotated is not None else None,
+                score_threshold=score_threshold, max_dets=max_dets,
+            ))
+
+    return coco_map(coco_gt, results, per_class=True)
+
+
+class _EvalImages(torch.utils.data.Dataset):
+    """Test images preprocessed exactly like the val transform.
+
+    Returns (id, (w, h), [h, w] of the real image inside the input or None, tensor).
+    """
+
+    def __init__(self, files: list, image_size: int, fixed_square: bool, pad_mask: bool = False):
+        self.files, self.image_size = files, image_size
+        self.fixed_square, self.pad_mask = fixed_square, pad_mask
+
+    def __len__(self):
+        return len(self.files)
+
+    def __getitem__(self, i):
+        from PIL import Image
+        import torchvision.transforms.functional as F
+        from src.training.odvg_dataset import prepare_eval_image, square_valid_size
+
+        img_id, path = self.files[i]
+        img = Image.open(path).convert("RGB")
+        size = img.size
+        valid = square_valid_size(*size, self.image_size) if self.pad_mask else None
+        img = prepare_eval_image(img, self.image_size, self.fixed_square)
+        return img_id, size, valid, F.normalize(F.to_tensor(img), [0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+
+
+def _collate_eval(items):
+    ids, sizes, valid, tensors = zip(*items)
+    return list(ids), list(sizes), list(valid), torch.stack(tensors)
+
+
+def detections_from_outputs(pred_logits, pred_boxes, class_to_spans: dict, image_id: int,
+                            width: int, height: int, fixed_square: bool = False, annotated=None,
+                            score_threshold: float = 0.001, max_dets: int = 100,
+                            pad_mask: bool = False) -> list[dict]:
+    """COCO detections for one image from the model's raw outputs ([Q, text_len], [Q, 4]).
+
+    Boxes are normalised to the network input: with fixed_square and no pad mask that is the image
+    padded on the right/bottom to a square of side max(width, height), so scaling by that side
+    gives original pixel coordinates; with a pad mask (or without fixed_square) it is the real
+    image area, so scaling by (width, height) does. Classes not in `annotated` score 0.
+    """
     class_ids = sorted(class_to_spans)
+    logits = pred_logits.sigmoid().float()
+    boxes_n = pred_boxes.float()
 
-    for img_id in image_ids:
-        img_info = coco_gt.loadImgs(img_id)[0]
-        img = Image.open(img_info["file_name"]).convert("RGB")
-        w_orig, h_orig = img.size
+    # Score of a class for a query = max over that class's tokens.
+    scores = torch.stack(
+        [logits[:, class_to_spans[c][0]:class_to_spans[c][1]].max(dim=1).values
+         for c in class_ids], dim=1)                                # [Q, C]
 
-        # Same preprocessing as training/val: resize short side to image_size, then normalise.
-        img, _ = resize(img, {}, image_size, 1333)
-        img_tensor = F.normalize(F.to_tensor(img), [0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        img_tensor = img_tensor.unsqueeze(0).to(device)
+    if annotated is not None:
+        keep = torch.tensor([c in annotated for c in class_ids], device=scores.device)
+        scores = scores.masked_fill(~keep.unsqueeze(0), 0.0)
 
-        with torch.no_grad(), torch.cuda.amp.autocast(enabled=True):
-            outputs = model(img_tensor, captions=[caption])
+    top_scores, top_idx = scores.flatten().topk(min(max_dets, scores.numel()))
+    sel = top_scores >= score_threshold
+    top_scores, top_idx = top_scores[sel], top_idx[sel]
+    if top_idx.numel() == 0:
+        return []
+    q_idx = top_idx // len(class_ids)
+    c_idx = top_idx % len(class_ids)
 
-        pred_logits = outputs["pred_logits"].sigmoid()[0].float()  # [Q, max_text_len]
-        pred_boxes = outputs["pred_boxes"][0].float()              # [Q, 4] cxcywh normalised
+    sx, sy = box_frame(width, height, fixed_square, pad_mask)
+    boxes = box_cxcywh_to_xyxy(boxes_n[q_idx]) * torch.tensor([sx, sy, sx, sy], device=boxes_n.device)
+    boxes[:, 0::2] = boxes[:, 0::2].clamp(0, width)
+    boxes[:, 1::2] = boxes[:, 1::2].clamp(0, height)
+    return [
+        {"image_id": image_id, "category_id": class_ids[c],
+         "bbox": [x1, y1, x2 - x1, y2 - y1], "score": sc}
+        for (x1, y1, x2, y2), c, sc in zip(boxes.tolist(), c_idx.tolist(), top_scores.tolist())
+    ]
 
-        # Score of a class for a query = max over that class's tokens.
-        scores = torch.stack(
-            [pred_logits[:, class_to_spans[c][0]:class_to_spans[c][1]].max(dim=1).values
-             for c in class_ids], dim=1)                            # [Q, C]
 
-        if annotated is not None and img_id in annotated:
-            keep = torch.tensor([c in annotated[img_id] for c in class_ids], device=scores.device)
-            scores = scores.masked_fill(~keep.unsqueeze(0), 0.0)
+def coco_from_odvg_lines(lines: list[str]):
+    """COCO ground truth from ODVG jsonl lines; image id = line index (as in MaskedODVGDataset)."""
+    from pycocotools.coco import COCO
 
-        top_scores, top_idx = scores.flatten().topk(min(max_dets, scores.numel()))
-        sel = top_scores >= score_threshold
-        top_scores, top_idx = top_scores[sel], top_idx[sel]
-        if top_idx.numel() == 0:
-            continue
-        q_idx = top_idx // len(class_ids)
-        c_idx = top_idx % len(class_ids)
+    images, annotations = [], []
+    for idx, line in enumerate(lines):
+        data = json.loads(line)
+        images.append({"id": idx, "width": data["width"], "height": data["height"],
+                       "file_name": data["filename"]})
+        for inst in data["detection"]["instances"]:
+            if inst["label"] >= NUM_CLASSES:
+                continue
+            x1, y1, x2, y2 = inst["bbox"]
+            annotations.append({"id": len(annotations) + 1, "image_id": idx, "category_id": inst["label"],
+                                "bbox": [x1, y1, x2 - x1, y2 - y1], "area": (x2 - x1) * (y2 - y1),
+                                "iscrowd": 0})
+    coco = COCO()
+    coco.dataset = {"images": images, "annotations": annotations,
+                    "categories": [{"id": i, "name": n} for i, n in enumerate(UNIFIED_CLASSES)]}
+    with contextlib.redirect_stdout(io.StringIO()):
+        coco.createIndex()
+    return coco
 
-        boxes = box_cxcywh_to_xyxy(pred_boxes[q_idx]) * torch.tensor(
-            [w_orig, h_orig, w_orig, h_orig], device=pred_boxes.device)
-        for box, c, sc in zip(boxes.tolist(), c_idx.tolist(), top_scores.tolist()):
-            x1, y1, x2, y2 = box
-            results.append({
-                "image_id": img_id,
-                "category_id": class_ids[c],
-                "bbox": [x1, y1, x2 - x1, y2 - y1],
-                "score": sc,
-            })
+
+def coco_map(coco_gt, results: list[dict], per_class: bool = False, quiet: bool = False) -> dict:
+    """COCO bbox mAP of `results` against `coco_gt`; per-class AP if asked."""
+    from pycocotools.cocoeval import COCOeval
 
     if not results:
         logger.warning("No predictions generated")
         return {"mAP": 0.0, "mAP_50": 0.0, "mAP_75": 0.0, "per_class": {}}
 
-    coco_dt = coco_gt.loadRes(results)
-    coco_eval = COCOeval(coco_gt, coco_dt, "bbox")
-    coco_eval.evaluate()
-    coco_eval.accumulate()
-    coco_eval.summarize()
+    out = io.StringIO() if quiet else None
+    with contextlib.redirect_stdout(out) if quiet else contextlib.nullcontext():
+        coco_dt = coco_gt.loadRes(results)
+        coco_eval = COCOeval(coco_gt, coco_dt, "bbox")
+        coco_eval.evaluate()
+        coco_eval.accumulate()
+        coco_eval.summarize()
+    if not per_class:
+        return {"mAP": coco_eval.stats[0], "mAP_50": coco_eval.stats[1], "mAP_75": coco_eval.stats[2]}
 
     # Per-class AP
     per_class = {}

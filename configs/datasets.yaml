@@ -4,23 +4,28 @@ unified_classes:
   - corrosion
   - scratch
   - paint-off
-  - missing-head
-  - rupture
-  - fastener-damage
+  - missing-fastener
 
+# 2026-10-28 class review (sheets: mtp-data/lodo_v3/build/class_review), 6 classes:
+# - missing-fastener = RFDETR missing-head + sydney "Fastener Damage" (both mark empty fastener holes).
+# - AI-4 missing-rivet (row-sized boxes along rivet seams), closeup rivet_damage (painted-over dimples,
+#   intact screws), D6 and fuselage rivet_damage (many intact screws / unclear) are dropped.
+# - rupture removed: sydney Rupture (mostly cracks and tears) -> crack; closeup Hole (small pits) dropped.
+# - closeup Crack and Dent dropped (Crack boxes mostly along panel seams and edges; Dent boxes mostly tiny
+#   specks on flat panels, some on seams).
 datasets:
   - name: RFDETR_DATASET
     base_dir: /DATA/air_force_object_detection/DATASET/RFDETR_DATASET
     format: coco_roboflow
     splits: [train, valid, test]
-    annotated_classes: [crack, dent, corrosion, scratch, paint-off, missing-head]
+    annotated_classes: [crack, dent, corrosion, scratch, paint-off, missing-fastener]
     class_map:
       crack: crack
       dent: dent
       corrosion: corrosion
       scratch: scratch
       paint-peel-off: paint-off
-      missing-head: missing-head
+      missing-head: missing-fastener
 
   - name: korean-aerospace
     base_dir: /DATA/air_force_object_detection/Aircraft-Defect-Detection-korean-aerospace
@@ -35,46 +40,40 @@ datasets:
     base_dir: /DATA/air_force_object_detection/Aircraft-AI-Dataset-4
     format: coco_roboflow
     splits: [train, valid, test]
-    annotated_classes: [corrosion, scratch, missing-head]
+    annotated_classes: [corrosion, scratch]
     class_map:
       rust: corrosion
       scractch: scratch
-      missing-rivet: missing-head
 
   - name: Aircraft-Defect-Detection-6
     base_dir: /DATA/air_force_object_detection/Aircraft-Defect-Detection-6
     format: coco_roboflow
     splits: [train, valid, test]
-    annotated_classes: [paint-off, scratch, corrosion, missing-head]
+    annotated_classes: [paint-off, scratch, corrosion]
     class_map:
       paint_peel: paint-off
       scratch: scratch
       rust: corrosion
-      rivet_damage: missing-head
 
   - name: sydney
     base_dir: /DATA/air_force_object_detection/Aircraft-Defect-Detection-sydney
     format: coco_roboflow
     splits: [train, valid, test]
-    annotated_classes: [dent, fastener-damage, rupture]
+    annotated_classes: [dent, missing-fastener, crack]
     class_map:
       Dent: dent
-      "Fastener Damage": fastener-damage
-      Rupture: rupture
+      "Fastener Damage": missing-fastener
+      Rupture: crack
 
   - name: closeup
     base_dir: /DATA/air_force_object_detection/Aircraft-Defect-Detection-closeup
     format: coco_roboflow
     splits: [train, valid, test]
-    annotated_classes: [crack, dent, rupture, corrosion, scratch, paint-off, missing-head]
+    annotated_classes: [corrosion, scratch, paint-off]
     class_map:
-      Crack: crack
-      Dent: dent
-      Hole: rupture
       Rust: corrosion
       Scratch: scratch
       paint_peel: paint-off
-      rivet_damage: missing-head
 
   - name: AGDD
     base_dir: /DATA/air_force_object_detection/AGDD/data
@@ -95,9 +94,45 @@ datasets:
     base_dir: /DATA/air_force_object_detection/Aircraft-Defect-Detection-fuselage/Aircraft_Fuselage_DET2023/aircraft_fuselage_coco
     format: fuselage_json
     splits: [all]
-    annotated_classes: [scratch, paint-off, corrosion, missing-head]
+    annotated_classes: [scratch, paint-off, corrosion]
     class_map:
       scratch: scratch
       paint_peel: paint-off
       rust: corrosion
-      rivet_damage: missing-head
+
+# LODO folds. Only test_datasets are held out (one fold each, in this order); AGDD (193 labelled
+# images, 29 crack boxes) and fuselage (389 images, 630 boxes) are too small to test on and are
+# always trained on. Val (2026-10-29): ~10% of every training dataset's images, in whole scene
+# groups (01_ingest_and_unify.py --val-fraction), so val covers every class; groups linked by a
+# DINOv2 >= 0.80 near-copy go to val or train together (isolated groups first). A whole val dataset
+# per fold (val_dataset_for) scored only the 2 classes that dataset annotates, in 4 of 6 folds none
+# of the classes the test set measures.
+lodo:
+  test_datasets:
+    - RFDETR_DATASET
+    - korean-aerospace
+    - Aircraft-AI-Dataset-4
+    - Aircraft-Defect-Detection-6
+    - sydney
+    - closeup
+  # Datasets exported from the same photo pool: the same Roboflow source name in any of them is the same
+  # photo (Defect-Detection-6 holds false-coloured versions of closeup photos: 289 shared names, 98% with
+  # DINOv2 cosine > 0.5, median 0.76; other cross-dataset name matches are coincidental, median 0.14-0.20).
+  shared_source_names:
+    - [Aircraft-Defect-Detection-6, closeup]
+  # Same photo session (lodo_v3 check 2026-10-28): matched D6/closeup pairs are mostly consecutive frames
+  # (87.5% of pairs with >= 60 matching points have file numbers within 10), and neighbouring frames
+  # also occur below the matching threshold. When one is the test set, the other is not used in the fold.
+  # fuselage (Aircraft_Fuselage_DET2023) shows the same aircraft surfaces as closeup and D6 (2026-10-30: 202/389
+  # fuselage images have a closeup image at DINOv2 >= 0.80; same paint chips, rivets and holes, other shots).
+  hold_out_together:
+    - [Aircraft-Defect-Detection-6, closeup, fuselage]
+  # Datasets that name their own variants of one photo: {dataset: regex}, group 1 of the Roboflow source
+  # name is the photo. korean-aerospace `105_14` = photo 105, variant 14 (158 photos, 3362 files; variants
+  # are recoloured, darkened or inverted copies: visual check 2026-10-30).
+  # Copies of one photo in these datasets are all kept in training (capped per dataset), not only the
+  # best-labelled dataset's: korean holds more augmented variants of its photos than RFDETR (user, 2026-10-30).
+  keep_copies_together:
+    - [korean-aerospace, RFDETR_DATASET]
+  source_name_photo:
+    korean-aerospace: '^(\d+)_\d+$'

@@ -13,13 +13,51 @@ import numpy as np
 
 from src.data.prompt_builder import PromptBuilder
 from src.data.taxonomy import UNIFIED_CLASSES, NUM_CLASSES
-from src.training.odvg_dataset import MaskedODVGDataset, make_odvg_transforms, collate_fn
+from src.training.odvg_dataset import (MaskedODVGDataset, PhotometricJitter, balance_report, collate_fn,
+                                       make_odvg_transforms, repeat_factors)
 from src.training.model_builder import build_model_and_criterion, build_optimizer, build_scheduler
 from src.training.trainer import Trainer
 from src.training.loss_masking import compute_class_token_spans
 from src.evaluation.evaluate import evaluate_fold
 
 logger = logging.getLogger(__name__)
+
+
+class StopRun(RuntimeError):
+    """A failure that would repeat on every remaining fold (GPU held by another process, out of
+    memory, user interrupt): stop the whole run instead of moving on to the next fold."""
+
+
+def check_gpu_free(min_free_gb: float) -> None:
+    """Refuse to start when another process holds the GPU (2026-10-14: a leftover training
+    process with 17 GB made folds 2-7 fail one after another)."""
+    if not torch.cuda.is_available() or not min_free_gb:
+        return
+    free, total = (x / 1e9 for x in torch.cuda.mem_get_info())
+    if free >= min_free_gb:
+        return
+    import subprocess
+    try:
+        apps = subprocess.run(
+            ["nvidia-smi", "--query-compute-apps=pid,process_name,used_memory", "--format=csv,noheader"],
+            capture_output=True, text=True, timeout=20).stdout.strip()
+    except Exception as e:
+        apps = f"(nvidia-smi failed: {e})"
+    raise StopRun(f"Only {free:.1f} of {total:.1f} GB GPU memory free (need {min_free_gb} GB, "
+                  f"training.min_free_gpu_gb). Processes on the GPU:\n{apps or '(none listed)'}")
+
+
+def is_cuda_oom(exc: BaseException) -> bool:
+    return isinstance(exc, torch.cuda.OutOfMemoryError) or "out of memory" in str(exc).lower()
+
+
+def discover_fold_ids(odvg_dir) -> list[int]:
+    """Fold ids present as odvg_dir/fold_<k> (the build decides how many folds there are)."""
+    ids = sorted(int(p.name.split("_", 1)[1]) for p in Path(odvg_dir).glob("fold_*")
+                 if p.is_dir() and p.name.split("_", 1)[1].isdigit())
+    if not ids:
+        raise FileNotFoundError(f"No fold_* directories in {odvg_dir}")
+    return ids
 
 
 class LODORunner:
@@ -39,7 +77,15 @@ class LODORunner:
         output_dir.mkdir(parents=True, exist_ok=True)
 
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        torch.backends.cudnn.benchmark = True
+        check_gpu_free(self.config.get("training", {}).get("min_free_gpu_gb", 16))
+
+        # Datasets
+        image_size = self.config.get("data", {}).get("image_size", 800)
+        fixed_square = self.config.get("data", {}).get("fixed_square", False)
+        pad_mask = fixed_square and self.config.get("data", {}).get("pad_mask", False)
+        # cuDNN autotuning pays off only when input shapes repeat (one shape with fixed_square);
+        # with varying shapes it re-tunes for every new one.
+        torch.backends.cudnn.benchmark = fixed_square
 
         # Set seed
         seed = self.config.get("seed", 42) + fold_id
@@ -49,10 +95,8 @@ class LODORunner:
         strategy = self.config.get("prompt_strategy", "bare_class_names")
         prompt_builder = PromptBuilder(strategy_name=strategy)
 
-        # Datasets
-        image_size = self.config.get("data", {}).get("image_size", 800)
-        train_transforms = make_odvg_transforms("train", image_size)
-        val_transforms = make_odvg_transforms("val", image_size)
+        train_transforms = make_odvg_transforms("train", image_size, fixed_square, pad_mask)
+        val_transforms = make_odvg_transforms("val", image_size, fixed_square, pad_mask)
 
         train_ds = MaskedODVGDataset(
             str(fold_dir / "train.jsonl"), prompt_builder, transforms=train_transforms,
@@ -64,9 +108,21 @@ class LODORunner:
         data_cfg = self.config.get("data", {})
         batch_size = self.config.get("training", {}).get("batch_size", 4)
 
+        # Balancing: images of small datasets or with rare classes are drawn up to `cap` times as
+        # often (same number of draws per epoch), each draw with fresh light/colour changes.
+        bal_cfg = data_cfg.get("balance", {})
+        sampler = None
+        if bal_cfg.get("enabled", False):
+            factors = repeat_factors(train_ds.lines, cap=bal_cfg.get("cap", 3.0))
+            train_ds.set_jitter(PhotometricJitter(bal_cfg.get("photometric")),
+                                [i for i, r in enumerate(factors) if r > 1])
+            sampler = torch.utils.data.WeightedRandomSampler(factors, num_samples=len(train_ds), replacement=True)
+            logger.info(f"Balanced sampling (cap {bal_cfg.get('cap', 3.0)}): "
+                        f"{balance_report(train_ds.lines, factors, UNIFIED_CLASSES)}")
+
         num_workers = data_cfg.get("num_workers", 4)
         train_loader = torch.utils.data.DataLoader(
-            train_ds, batch_size=batch_size, shuffle=True,
+            train_ds, batch_size=batch_size, shuffle=sampler is None, sampler=sampler,
             num_workers=num_workers,
             pin_memory=data_cfg.get("pin_memory", True),
             collate_fn=collate_fn, drop_last=True,
@@ -115,7 +171,17 @@ class LODORunner:
             trainer.load_checkpoint(str(checkpoint_path))
 
         # Train
-        train_results = trainer.train()
+        try:
+            train_results = trainer.train()
+        except Exception as e:
+            if is_cuda_oom(e):
+                raise StopRun(f"Fold {fold_id}: CUDA out of memory ({e})") from e
+            raise
+        except KeyboardInterrupt as e:
+            raise StopRun(f"Fold {fold_id}: interrupted") from e
+        if train_results.get("interrupted"):
+            # The checkpoint is saved; evaluating a half-trained model would only mislead.
+            raise StopRun(f"Fold {fold_id}: training interrupted; rerun with resume to continue")
 
         # Load best checkpoint for evaluation
         best_path = output_dir / "best.pt"
@@ -157,7 +223,7 @@ class LODORunner:
     def run_all(self, fold_ids: list = None, resume: bool = True) -> dict:
         """Run all LODO folds sequentially."""
         if fold_ids is None:
-            fold_ids = list(range(8))
+            fold_ids = discover_fold_ids(self.odvg_dir)
 
         results = {}
         for fold_id in fold_ids:

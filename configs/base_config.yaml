@@ -27,9 +27,15 @@ lora:
 training:
   batch_size: 8
   gradient_accumulation_steps: 2
-  max_epochs: 30
-  early_stopping_patience: 7
+  # Old runs: held-out mAP flat from epoch 4 while all 30 epochs ran (docs/improvement_steps.md B1)
+  max_epochs: 12
+  early_stopping_patience: 3
+  # best.pt and early stopping on val mAP (the fold's val slice: ~10% of the training datasets'
+  # scene groups, never trained on); the test set is evaluated once, after training, with best.pt
+  early_stopping_metric: mAP
   grad_clip_max_norm: 0.1
+  # Refuse to start a fold when less GPU memory is free (another process on the GPU)
+  min_free_gpu_gb: 16
 
 optimizer:
   type: AdamW
@@ -40,31 +46,75 @@ optimizer:
 
 scheduler:
   type: cosine
-  warmup_epochs: 3
+  warmup_epochs: 1
   min_lr: 1.0e-6
 
 ema:
   enabled: true
-  decay: 0.9997
+  # Averages over ~1/(1-decay) optimizer steps: 0.999 = ~1,000 steps, about 2 epochs of the
+  # largest new fold (~540 steps/epoch). 0.9997 would average over ~6 of only 12 epochs.
+  decay: 0.999
 
 mixed_precision:
   enabled: true
   dtype: float16
 
 data:
-  odvg_dir: data/odvg
+  # The frozen lodo_v3 build (fold_*/ and images/ side by side); adjust to where it is copied
+  odvg_dir: ../mtp-data/lodo_v3
   num_workers: 8
   pin_memory: true
   max_text_len: 256
   image_size: 800
+  # Pad every image (right/bottom) to a square and resize to image_size x image_size: one input
+  # shape for train, val and test; boxes keep their pixel coordinates through the padding
+  fixed_square: true
+  # Mark the square padding as padding in the model's mask (as in pretraining): position encodings,
+  # attention and query selection ignore it; boxes are relative to the real image area
+  pad_mask: true
+  # Dataset/class balancing (2026-10-30): images of small datasets or with rare classes are drawn
+  # up to `cap` times as often (repeat-factor sampling, same number of draws per epoch), and each
+  # such draw gets fresh random light/colour/image-quality changes (no geometry, boxes unchanged):
+  # `ops_per_image` [min, max] changes chosen at random from `ops`. A graded change is
+  # [no change, low, high]: direction by coin flip, strength u ~ Beta(strength_beta, 1) of the way to
+  # the limit (strong changes most likely, near no change least); `true` = on/off change, `false`
+  # disables one. A draw that leaves less than half the contrast inside a box is redrawn.
+  # Val and test are never changed.
+  balance:
+    enabled: true
+    cap: 3.0
+    # Aggressive (user, 2026-10-30: first setting too mild; then "more aggressive, more augmentations")
+    photometric:
+      ops_per_image: [3, 6]
+      strength_beta: 3.0
+      ops:
+        brightness: [1.0, 0.3, 2.0]
+        contrast: [1.0, 0.3, 2.0]
+        saturation: [1.0, 0.0, 2.5]
+        gamma: [1.0, 0.4, 2.5]
+        hue: [0.0, -0.5, 0.5]          # share of the colour wheel
+        tint: [0.0, -0.4, 0.4]         # > 0 warmer, < 0 cooler
+        blur_sharpen: [0.0, -3.0, 3.0] # < 0 blur radius, > 0 sharpen amount
+        motion_blur: [0, 0, 15]        # camera shake, streak length in pixels
+        noise: [0, 0, 30]              # sensor noise, std in grey levels
+        jpeg: [100, 10, 100]           # compression quality
+        posterize: [8, 2, 8]           # bits per colour channel
+        shadow: [0.0, 0.0, 0.7]        # light-to-dark gradient across the image
+        haze: [0.0, 0.0, 0.5]          # light grey veil
+        greyscale: true
+        equalize: true
+        channel_shuffle: true
 
 evaluation:
+  # Test images per forward pass (only with data.fixed_square, where all inputs are one shape)
+  batch_size: 16
   box_threshold: 0.3
   text_threshold: 0.25
   nms_threshold: 0.5
 
 output:
-  base_dir: outputs
+  # New folder for lodo_v3: outputs/fold_* hold old-data checkpoints (resume refuses them anyway)
+  base_dir: outputs/lodo_v3
   save_every_n_epochs: 5
 
 seed: 42

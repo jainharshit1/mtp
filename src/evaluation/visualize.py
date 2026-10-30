@@ -16,9 +16,7 @@ COLORS = [
     (255, 165, 0),   # corrosion - orange
     (0, 255, 0),     # scratch - green
     (255, 255, 0),   # paint-off - yellow
-    (128, 0, 128),   # missing-head - purple
-    (0, 255, 255),   # rupture - cyan
-    (255, 0, 255),   # fastener-damage - magenta
+    (128, 0, 128),   # missing-fastener - purple
 ]
 
 

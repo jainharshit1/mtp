@@ -65,7 +65,7 @@ def main():
     parser = argparse.ArgumentParser(description="Run LODO training")
     parser.add_argument("--config", default="configs/base_config.yaml")
     parser.add_argument("--folds", type=str, default=None,
-                        help="Comma-separated fold IDs, e.g. '0' or '0,1,2'. Default: all 8")
+                        help="Comma-separated fold IDs, e.g. '0' or '0,1,2'. Default: every fold_* in the ODVG dir")
     parser.add_argument("--no-resume", action="store_true")
     args = parser.parse_args()
 
@@ -88,7 +88,11 @@ def main():
     logger.info(f"GPU: {torch.cuda.get_device_name(0)}")
     logger.info(f"Free VRAM: {torch.cuda.mem_get_info()[0] / 1e9:.1f} GB")
 
-    fold_ids = list(range(8))
+    import yaml
+    from src.training.lodo_runner import discover_fold_ids
+    with open(args.config) as f:
+        odvg_dir = yaml.safe_load(f).get("data", {}).get("odvg_dir", "data/odvg")
+    fold_ids = discover_fold_ids(odvg_dir)
     if args.folds:
         fold_ids = [int(x.strip()) for x in args.folds.split(",")]
     logger.info(f"Folds to train: {fold_ids}")
@@ -100,7 +104,7 @@ def main():
                  started_at=datetime.now().isoformat(),
                  pid=os.getpid())
 
-    from src.training.lodo_runner import LODORunner
+    from src.training.lodo_runner import LODORunner, StopRun, is_cuda_oom
     runner = LODORunner(args.config)
 
     # Monkey-patch the trainer to write status updates
@@ -129,7 +133,7 @@ def main():
                      last_train_loss=result["loss"],
                      last_cls_loss=result["cls_loss"],
                      last_box_loss=result["box_loss"],
-                     vram_gb=round(torch.cuda.memory_reserved() / 1e9, 2))
+                     peak_vram_gb=round(result["peak_mem_gb"], 2))
         return result
 
     _orig_validate = Trainer.validate
@@ -139,6 +143,7 @@ def main():
         result = _orig_validate(self, epoch)
         write_status(status_file,
                      last_val_loss=result["loss"],
+                     last_val_mAP=result.get("mAP"),
                      state="training")
         return result
 
@@ -186,11 +191,18 @@ def main():
                          eta=str(eta))
 
         except Exception as e:
-            logger.error(f"Fold {fold_id} FAILED: {e}", exc_info=True)
+            # GPU held by another process, out of memory or an interrupt would fail every
+            # remaining fold the same way (2026-10-14: folds 2-7 lost in one minute): stop the run.
+            stop = isinstance(e, StopRun) or is_cuda_oom(e)
+            logger.error(f"Fold {fold_id} FAILED: {e}", exc_info=not isinstance(e, StopRun))
             write_status(status_file,
-                         state="error",
+                         state="stopped" if stop else "error",
                          error=str(e),
                          failed_fold=fold_id)
+            if stop:
+                logger.error("Stopping the run: this failure would repeat on the remaining folds. "
+                             "Fix it, then rerun (training resumes from the checkpoints).")
+                break
             continue
 
     total_time = time.time() - start_time

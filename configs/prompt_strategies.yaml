@@ -7,9 +7,7 @@ bare_class_names:
   corrosion: "corrosion"
   scratch: "scratch"
   paint-off: "paint-off"
-  missing-head: "missing-head"
-  rupture: "rupture"
-  fastener-damage: "fastener-damage"
+  missing-fastener: "missing-fastener"
 
 template_descriptions:
   crack: "a crack defect on aircraft surface showing linear fracture pattern"
@@ -17,6 +15,4 @@ template_descriptions:
   corrosion: "corrosion damage on aircraft surface showing oxidation and material degradation"
   scratch: "a scratch defect on aircraft surface showing linear surface abrasion"
   paint-off: "paint peeling off aircraft surface exposing underlying material"
-  missing-head: "a missing rivet head on aircraft surface leaving an empty fastener hole"
-  rupture: "a rupture or hole in aircraft surface showing material breach"
-  fastener-damage: "damaged fastener on aircraft surface showing deformed or broken hardware"
+  missing-fastener: "an empty fastener hole on aircraft surface where the rivet or screw is missing"

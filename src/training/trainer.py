@@ -55,7 +55,20 @@ class Trainer:
         self.grad_accum_steps = train_cfg.get("gradient_accumulation_steps", 4)
         self.grad_clip_max_norm = train_cfg.get("grad_clip_max_norm", 0.1)
         self.patience = train_cfg.get("early_stopping_patience", 7)
+        # "mAP" (val mAP, higher is better) or "loss" (val loss, lower is better). Picks best.pt
+        # and drives early stopping; the test set is never looked at during training.
+        self.monitor = train_cfg.get("early_stopping_metric", "mAP")
+        assert self.monitor in ("mAP", "loss"), f"early_stopping_metric must be mAP or loss, got {self.monitor}"
         self.save_every_n = config.get("output", {}).get("save_every_n_epochs", 5)
+        self.fixed_square = config.get("data", {}).get("fixed_square", False)
+        self.pad_mask = self.fixed_square and config.get("data", {}).get("pad_mask", False)
+        eval_cfg = config.get("evaluation", {})
+        self.score_threshold = eval_cfg.get("score_threshold", 0.001)
+        self.max_dets = eval_cfg.get("max_dets_per_image", 100)
+        self.val_gt = None
+        if self.monitor == "mAP":
+            from src.evaluation.evaluate import coco_from_odvg_lines
+            self.val_gt = coco_from_odvg_lines(val_loader.dataset.lines)
 
         # Mixed precision
         mp_cfg = config.get("mixed_precision", {})
@@ -68,13 +81,15 @@ class Trainer:
         if ema_cfg.get("enabled", True):
             self.ema = LoRAModelEma(model, decay=ema_cfg.get("decay", 0.9997))
 
-        # State
+        # State. best_metric is a score (val mAP, or -val loss): higher is better, None = no epoch yet.
         self.start_epoch = 0
+        self.resume_batches = 0      # batches of start_epoch already trained (interrupted epoch)
         self.global_step = 0
-        self.best_metric = -1.0
+        self.best_metric = None
         self.epochs_without_improvement = 0
+        self.finished = False        # training ran to the end or stopped early; resume does nothing
         self._interrupted = False
-        self._current_epoch = 0
+        self._batches_done = 0
 
         # Fingerprint of the validation set, so a changed val split on resume
         # resets best-checkpoint tracking (val losses on different sets aren't comparable).
@@ -82,90 +97,106 @@ class Trainer:
             "\n".join(getattr(getattr(val_loader, "dataset", None), "lines", [])).encode()
         ).hexdigest()[:12]
 
+        # Fingerprint of the training data (train + val files and the prompt): a checkpoint from other
+        # data (e.g. an old run in the same output dir) must not be resumed.
+        self.data_fingerprint = hashlib.md5("\n".join(
+            getattr(getattr(train_loader, "dataset", None), "lines", [])
+            + getattr(getattr(val_loader, "dataset", None), "lines", [])
+            + [str(getattr(getattr(train_loader, "dataset", None), "caption", ""))]
+        ).encode()).hexdigest()[:12]
+
         # Config hash for resume verification
         self.config_hash = hashlib.md5(
             json.dumps(config, sort_keys=True).encode()
         ).hexdigest()[:12]
 
     def _handle_signal(self, signum, frame):
+        # Only set a flag: the loop stops at the next optimizer-step boundary and saves a
+        # consistent checkpoint there. A second signal exits at once.
         signame = signal.Signals(signum).name
-        logger.warning(f"Received {signame} — saving emergency checkpoint before exit")
+        if self._interrupted:
+            raise KeyboardInterrupt(f"second {signame}")
+        logger.warning(f"Received {signame}: stopping at the next optimizer step and saving a checkpoint")
         self._interrupted = True
-        try:
-            self._save_checkpoint(
-                self._current_epoch,
-                {"signal": signame},
-                is_best=False,
-                label="latest",
-            )
-            logger.info("Emergency checkpoint saved.")
-        except Exception as e:
-            logger.error(f"Failed to save emergency checkpoint: {e}")
 
     def train(self) -> dict:
-        """Full training loop with early stopping."""
-        logger.info(f"Starting training for {self.max_epochs} epochs")
+        """Full training loop with early stopping on the validation set."""
+        if self.finished or self.start_epoch >= self.max_epochs:
+            logger.info(f"Training already complete (last epoch {self.start_epoch - 1}); nothing to resume")
+            return {"best_metric": self.best_metric, "monitor": self.monitor,
+                    "final_epoch": self.start_epoch - 1, "all_metrics": [], "interrupted": False}
+
+        logger.info(f"Starting training for {self.max_epochs} epochs "
+                    f"(best checkpoint and early stopping on val {self.monitor}, patience {self.patience})")
         logger.info(f"Output: {self.output_dir}")
 
         prev_sigterm = signal.signal(signal.SIGTERM, self._handle_signal)
         prev_sigint = signal.signal(signal.SIGINT, self._handle_signal)
 
         all_metrics = []
+        epoch = self.start_epoch - 1
 
-        for epoch in range(self.start_epoch, self.max_epochs):
-            if self._interrupted:
-                logger.info("Training interrupted, stopping gracefully.")
-                break
-            self._current_epoch = epoch
-            train_metrics = self.train_one_epoch(epoch)
-            val_metrics = self.validate(epoch)
+        try:
+            for epoch in range(self.start_epoch, self.max_epochs):
+                if self._interrupted:
+                    break
+                train_metrics = self.train_one_epoch(epoch)
 
-            metrics = {
-                "epoch": epoch,
-                "train": train_metrics,
-                "val": val_metrics,
-            }
-            all_metrics.append(metrics)
+                if self._interrupted and self._batches_done < len(self.train_loader):
+                    # Mid-epoch stop: save where this epoch got to; resume finishes it.
+                    self._save_checkpoint(epoch, {"interrupted_at_batch": self._batches_done},
+                                          is_best=False, label="latest", epoch_complete=False)
+                    logger.info(f"Interrupted in epoch {epoch} after {self._batches_done}/"
+                                f"{len(self.train_loader)} batches; checkpoint saved, resume continues this epoch")
+                    break
 
-            # Log
-            logger.info(
-                f"Epoch {epoch}: train_loss={train_metrics['loss']:.4f} "
-                f"val_loss={val_metrics['loss']:.4f} "
-                f"lr={self.optimizer.param_groups[0]['lr']:.2e}"
-            )
+                val_metrics = self.validate(epoch)
+                metrics = {"epoch": epoch, "train": train_metrics, "val": val_metrics}
+                all_metrics.append(metrics)
 
-            # Check improvement
-            val_loss = val_metrics["loss"]
-            is_best = False
-            if self.best_metric < 0 or val_loss < self.best_metric:
-                self.best_metric = val_loss
-                self.epochs_without_improvement = 0
-                is_best = True
-            else:
-                self.epochs_without_improvement += 1
-
-            # Save checkpoints
-            self._save_checkpoint(epoch, metrics, is_best=is_best, label="latest")
-            if is_best:
-                self._save_checkpoint(epoch, metrics, is_best=True, label="best")
-            if (epoch + 1) % self.save_every_n == 0:
-                self._save_checkpoint(epoch, metrics, is_best=False, label=f"epoch_{epoch}")
-
-            # Early stopping
-            if self.epochs_without_improvement >= self.patience:
                 logger.info(
-                    f"Early stopping at epoch {epoch} "
-                    f"(no improvement for {self.patience} epochs)"
+                    f"Epoch {epoch}: train_loss={train_metrics['loss']:.4f} "
+                    f"val_loss={val_metrics['loss']:.4f} "
+                    + (f"val_mAP={val_metrics['mAP']:.4f} val_mAP50={val_metrics['mAP_50']:.4f} "
+                       if "mAP" in val_metrics else "")
+                    + f"lr={self.optimizer.param_groups[0]['lr']:.2e} "
+                    f"peak_mem={train_metrics['peak_mem_gb']:.1f}GB"
                 )
-                break
 
-        signal.signal(signal.SIGTERM, prev_sigterm)
-        signal.signal(signal.SIGINT, prev_sigint)
+                score = val_metrics["mAP"] if self.monitor == "mAP" else -val_metrics["loss"]
+                is_best = self.best_metric is None or score > self.best_metric
+                if is_best:
+                    self.best_metric = score
+                    self.epochs_without_improvement = 0
+                else:
+                    self.epochs_without_improvement += 1
 
+                stop = self.epochs_without_improvement >= self.patience
+                if stop:
+                    logger.info(f"Early stopping at epoch {epoch} (no val {self.monitor} improvement "
+                                f"for {self.patience} epochs)")
+                self.finished = stop or epoch + 1 >= self.max_epochs
+
+                # Save checkpoints
+                self._save_checkpoint(epoch, metrics, is_best=is_best, label="latest")
+                if is_best:
+                    self._save_checkpoint(epoch, metrics, is_best=True, label="best")
+                if (epoch + 1) % self.save_every_n == 0:
+                    self._save_checkpoint(epoch, metrics, is_best=False, label=f"epoch_{epoch}")
+                if stop:
+                    break
+        finally:
+            signal.signal(signal.SIGTERM, prev_sigterm)
+            signal.signal(signal.SIGINT, prev_sigint)
+
+        if self._interrupted and not self.finished:
+            logger.info("Training interrupted, stopping gracefully.")
         return {
             "best_metric": self.best_metric,
+            "monitor": self.monitor,
             "final_epoch": epoch,
             "all_metrics": all_metrics,
+            "interrupted": self._interrupted and not self.finished,
         }
 
     def train_one_epoch(self, epoch: int) -> dict:
@@ -178,11 +209,26 @@ class Trainer:
         total_giou_loss = 0.0
         num_batches = 0
         self.optimizer.zero_grad()
+        if torch.cuda.is_available():
+            torch.cuda.reset_peak_memory_stats()
 
         oom_count = 0
 
-        for batch_idx, (images, targets) in enumerate(self.train_loader):
-            if self._interrupted:
+        # Resuming an interrupted epoch: train only the batches it had left. The shuffle order
+        # differs from the interrupted run, so this is the right number of steps, not the same images.
+        skip, self.resume_batches = self.resume_batches, 0
+        n_batches = len(self.train_loader)
+        self._batches_done = n_batches
+        if skip:
+            logger.info(f"  Resuming epoch {epoch} at batch {skip}/{n_batches}")
+
+        for i, (images, targets) in enumerate(self.train_loader):
+            batch_idx = skip + i
+            if batch_idx >= n_batches:
+                break
+            if self._interrupted and batch_idx % self.grad_accum_steps == 0:
+                # At an optimizer-step boundary, so no half-accumulated gradients are lost.
+                self._batches_done = batch_idx
                 break
 
             try:
@@ -192,7 +238,7 @@ class Trainer:
                             for k, v in t.items()} for t in targets]
 
                 # Build NestedTensor-style input
-                samples = self._nest_images(images)
+                samples = self._nest_images(images, targets)
 
                 # Extract captions
                 captions = [t["caption"] for t in targets]
@@ -232,7 +278,7 @@ class Trainer:
                 torch.cuda.empty_cache()
                 gc.collect()
                 if oom_count > 10:
-                    raise RuntimeError(f"Too many OOM errors ({oom_count}) in epoch {epoch}")
+                    raise RuntimeError(f"CUDA out of memory: too many OOM errors ({oom_count}) in epoch {epoch}")
                 continue
 
             total_loss += loss.item() * self.grad_accum_steps
@@ -243,9 +289,9 @@ class Trainer:
 
             if batch_idx % 50 == 0:
                 logger.info(
-                    f"  [{epoch}][{batch_idx}/{len(self.train_loader)}] "
+                    f"  [{epoch}][{batch_idx}/{n_batches}] "
                     f"loss={loss.item() * self.grad_accum_steps:.4f} "
-                    f"mem={torch.cuda.memory_reserved() / 1e9:.1f}GB"
+                    f"{_gpu_mem()}"
                 )
 
         return {
@@ -253,10 +299,14 @@ class Trainer:
             "cls_loss": total_cls_loss / max(num_batches, 1),
             "box_loss": total_box_loss / max(num_batches, 1),
             "giou_loss": total_giou_loss / max(num_batches, 1),
+            "peak_mem_gb": torch.cuda.max_memory_allocated() / 1e9 if torch.cuda.is_available() else 0.0,
         }
 
     @torch.no_grad()
     def validate(self, epoch: int) -> dict:
+        """Val loss, and val COCO mAP (same scoring as the test evaluation) when monitoring mAP."""
+        from src.evaluation.evaluate import coco_map, detections_from_outputs
+
         if self.ema is not None:
             self.ema.apply_shadow(self.model)
 
@@ -265,13 +315,14 @@ class Trainer:
 
         total_loss = 0.0
         num_batches = 0
+        detections = []
 
         for images, targets in self.val_loader:
             images = [img.to(self.device) for img in images]
             targets = [{k: v.to(self.device) if isinstance(v, torch.Tensor) else v
                         for k, v in t.items()} for t in targets]
 
-            samples = self._nest_images(images)
+            samples = self._nest_images(images, targets)
             captions = [t["caption"] for t in targets]
 
             with autocast(enabled=self.use_amp):
@@ -282,10 +333,24 @@ class Trainer:
             total_loss += loss.item()
             num_batches += 1
 
+            if self.val_gt is not None:
+                for k, t in enumerate(targets):
+                    h, w = t["orig_size"].tolist()
+                    detections.extend(detections_from_outputs(
+                        outputs["pred_logits"][k], outputs["pred_boxes"][k], self.class_to_token_spans,
+                        int(t["image_id"]), w, h, fixed_square=self.fixed_square, pad_mask=self.pad_mask,
+                        annotated=set(t["annotated_classes"].nonzero().flatten().tolist()),
+                        score_threshold=self.score_threshold, max_dets=self.max_dets,
+                    ))
+
         if self.ema is not None:
             self.ema.restore(self.model)
 
-        return {"loss": total_loss / max(num_batches, 1)}
+        result = {"loss": total_loss / max(num_batches, 1)}
+        if self.val_gt is not None:
+            stats = coco_map(self.val_gt, detections, quiet=True)
+            result.update(mAP=float(stats["mAP"]), mAP_50=float(stats["mAP_50"]))
+        return result
 
     def _compute_losses(self, outputs, targets):
         """Compute losses via the vendor SetCriterion (wrapped with masking)."""
@@ -311,35 +376,14 @@ class Trainer:
             return weighted
         return loss_dict
 
-    def _nest_images(self, images: list[torch.Tensor]):
-        """Create a NestedTensor from a list of images (pad to max size)."""
-        try:
-            from util.misc import NestedTensor, nested_tensor_from_tensor_list
-            return nested_tensor_from_tensor_list(images)
-        except ImportError:
-            max_h = max(img.shape[1] for img in images)
-            max_w = max(img.shape[2] for img in images)
-            batch = torch.zeros(len(images), 3, max_h, max_w, device=images[0].device)
-            mask = torch.ones(len(images), max_h, max_w, dtype=torch.bool, device=images[0].device)
-            for i, img in enumerate(images):
-                batch[i, :, :img.shape[1], :img.shape[2]] = img
-                mask[i, :img.shape[1], :img.shape[2]] = False
-            # Simple wrapper
-            class _NT:
-                def __init__(self, tensors, m):
-                    self.tensors = tensors
-                    self.mask = m
-                    self.device = tensors.device
-                def to(self, device):
-                    self.tensors = self.tensors.to(device)
-                    self.mask = self.mask.to(device)
-                    self.device = self.tensors.device
-                    return self
-                def decompose(self):
-                    return self.tensors, self.mask
-            return _NT(batch, mask)
+    def _nest_images(self, images: list[torch.Tensor], targets: list[dict] = None):
+        """NestedTensor of the batch; the mask covers batch padding and, with data.pad_mask, the
+        square padding inside each image (target["valid_size"])."""
+        from src.training.odvg_dataset import make_nested
+        return make_nested(images, [t.get("valid_size") for t in targets] if targets else None)
 
-    def _save_checkpoint(self, epoch: int, metrics: dict, is_best: bool, label: str):
+    def _save_checkpoint(self, epoch: int, metrics: dict, is_best: bool, label: str,
+                         epoch_complete: bool = True):
         path = self.output_dir / f"{label}.pt"
 
         # Gather random states for exact resume
@@ -358,9 +402,14 @@ class Trainer:
             "scheduler_state_dict": self.scheduler.state_dict(),
             "scaler_state_dict": self.scaler.state_dict(),
             "best_metric": self.best_metric,
+            "monitor": self.monitor,
             "epochs_without_improvement": self.epochs_without_improvement,
+            "epoch_complete": epoch_complete,
+            "batches_done": len(self.train_loader) if epoch_complete else self._batches_done,
+            "finished": self.finished,
             "config_hash": self.config_hash,
             "val_fingerprint": self.val_fingerprint,
+            "data_fingerprint": self.data_fingerprint,
             "metrics": metrics,
             "rng_state": rng_state,
         }
@@ -379,7 +428,7 @@ class Trainer:
 
         tmp_path = path.with_suffix(".pt.tmp")
         torch.save(checkpoint, tmp_path)
-        tmp_path.rename(path)
+        tmp_path.replace(path)  # atomic overwrite (rename fails on Windows if path exists)
         logger.info(f"Saved checkpoint: {path} (epoch={epoch}, is_best={is_best})")
 
     def load_checkpoint(self, path: str) -> int:
@@ -394,6 +443,12 @@ class Trainer:
                 checkpoint = torch.load(str(best_path), map_location=self.device, weights_only=False)
             else:
                 raise
+
+        if checkpoint.get("data_fingerprint") != self.data_fingerprint:
+            raise ValueError(
+                f"{path} was trained on other data (data fingerprint {checkpoint.get('data_fingerprint')}, "
+                f"current {self.data_fingerprint}; checkpoints from before 2026-10-29 have none). Use a new "
+                f"output.base_dir, or --no-resume to start this fold from scratch.")
 
         # Verify config match
         saved_hash = checkpoint.get("config_hash", "")
@@ -413,18 +468,20 @@ class Trainer:
         self.optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
         self.scheduler.load_state_dict(checkpoint["scheduler_state_dict"])
         self.scaler.load_state_dict(checkpoint["scaler_state_dict"])
-        self.best_metric = checkpoint.get("best_metric", -1.0)
+        self.best_metric = checkpoint.get("best_metric")
         self.epochs_without_improvement = checkpoint.get("epochs_without_improvement", 0)
         self.global_step = checkpoint.get("global_step", 0)
+        self.finished = checkpoint.get("finished", False)
 
-        if checkpoint.get("val_fingerprint") != self.val_fingerprint:
+        if checkpoint.get("val_fingerprint") != self.val_fingerprint or checkpoint.get("monitor") != self.monitor:
             logger.warning(
-                "Validation set differs from the one in the checkpoint "
-                f"({checkpoint.get('val_fingerprint')} -> {self.val_fingerprint}): "
-                "resetting best_metric and early-stopping counter."
+                "Validation set or monitored metric differs from the checkpoint "
+                f"({checkpoint.get('val_fingerprint')}/{checkpoint.get('monitor')} -> "
+                f"{self.val_fingerprint}/{self.monitor}): resetting best_metric and early-stopping counter."
             )
-            self.best_metric = -1.0
+            self.best_metric = None
             self.epochs_without_improvement = 0
+            self.finished = False
 
         if self.ema is not None and "ema_state_dict" in checkpoint:
             self.ema.load_state_dict(checkpoint["ema_state_dict"])
@@ -453,7 +510,23 @@ class Trainer:
         except Exception as e:
             logger.warning(f"Could not restore RNG state, training will continue without exact reproducibility: {e}")
 
-        resume_epoch = checkpoint["epoch"] + 1
+        if checkpoint.get("epoch_complete", True):
+            resume_epoch = checkpoint["epoch"] + 1
+            self.resume_batches = 0
+        else:
+            # Saved mid-epoch: finish that epoch rather than skipping the rest of it.
+            resume_epoch = checkpoint["epoch"]
+            self.resume_batches = checkpoint.get("batches_done", 0)
         self.start_epoch = resume_epoch
-        logger.info(f"Resumed from {path}: epoch={checkpoint['epoch']}, resuming at {resume_epoch}")
+        logger.info(f"Resumed from {path}: epoch={checkpoint['epoch']}, resuming at {resume_epoch}"
+                    + (f" batch {self.resume_batches}" if self.resume_batches else "")
+                    + (" (training already finished)" if self.finished else ""))
         return resume_epoch
+
+
+def _gpu_mem() -> str:
+    """Peak memory this process allocated (what limits batch size) and what it holds reserved."""
+    if not torch.cuda.is_available():
+        return ""
+    return (f"peak_alloc={torch.cuda.max_memory_allocated() / 1e9:.1f}GB "
+            f"reserved={torch.cuda.memory_reserved() / 1e9:.1f}GB")
