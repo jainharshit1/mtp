@@ -88,7 +88,7 @@ data:
       ops_per_image: [3, 6]
       strength_beta: 3.0
       ops:
-        brightness: [1.0, 0.3, 2.0]
+        brightness: [1.0, 0.3, 1.6]
         contrast: [1.0, 0.3, 1.6]
         saturation: [1.0, 0.0, 1.8]
         gamma: [1.0, 0.4, 2.5]
@@ -98,7 +98,6 @@ data:
         motion_blur: [0, 0, 15]        # camera shake, streak length in pixels
         noise: [0, 0, 12]              # sensor noise, std in grey levels (30 destroyed flat panels)
         jpeg: [100, 10, 100]           # compression quality
-        posterize: [8, 3, 8]           # bits per colour channel
         shadow: [0.0, 0.0, 0.7]        # light-to-dark gradient across the image
         haze: [0.0, 0.0, 0.5]          # light grey veil
         greyscale: true

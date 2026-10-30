@@ -81,7 +81,7 @@ class PhotometricJitter:
         "ops_per_image": [3, 6],
         "strength_beta": 3.0,
         "ops": {
-            "brightness": [1.0, 0.3, 2.0],
+            "brightness": [1.0, 0.3, 1.6],
             "contrast": [1.0, 0.3, 1.6],
             "saturation": [1.0, 0.0, 1.8],
             "gamma": [1.0, 0.4, 2.5],
@@ -91,7 +91,6 @@ class PhotometricJitter:
             "motion_blur": [0, 0, 15],         # camera shake: streak length in pixels
             "noise": [0, 0, 12],               # sensor noise: std in grey levels
             "jpeg": [100, 10, 100],            # compression quality
-            "posterize": [8, 3, 8],            # bits per colour channel
             "shadow": [0.0, 0.0, 0.7],         # light-to-dark gradient: darkest side loses this share
             "haze": [0.0, 0.0, 0.5],           # blend with a light grey veil
             "greyscale": True,
@@ -102,8 +101,8 @@ class PhotometricJitter:
 
     # The defect must stay visible: inside every box, the fine detail (grey image minus a blurred copy,
     # which removes slow gradients such as shadow, haze or brightness) must still correlate with the
-    # original's detail by at least MIN_DETAIL_CORR. A draw that fails (defect washed out, drowned in
-    # noise or posterized away) is redrawn, up to TRIES times; then the original image is used.
+    # original's detail by at least MIN_DETAIL_CORR. A draw that fails (defect washed out or
+    # drowned in noise) is redrawn, up to TRIES times; then the original image is used.
     # (A plain contrast check let a strong shadow pass that had erased an AGDD scratch, 2026-10-30.)
     # The whole image must keep its texture too (MIN_IMAGE_CORR): equalisation of a flat panel plus noise
     # had turned a fuselage image into blotches while its tiny boxes still passed (user, 2026-10-30).
@@ -115,7 +114,7 @@ class PhotometricJitter:
     # Light/colour changes first, image-quality changes last: noise is never amplified by a later
     # contrast or equalisation step.
     ORDER = ("brightness", "contrast", "gamma", "equalize", "shadow", "haze", "saturation", "hue", "tint",
-             "greyscale", "channel_shuffle", "blur_sharpen", "motion_blur", "posterize", "jpeg", "noise")
+             "greyscale", "channel_shuffle", "blur_sharpen", "motion_blur", "jpeg", "noise")
 
     def __init__(self, cfg: dict | None = None):
         cfg = cfg or {}
@@ -226,9 +225,6 @@ class PhotometricJitter:
         buf = io.BytesIO()
         img.save(buf, format="JPEG", quality=int(round(v)))
         return Image.open(io.BytesIO(buf.getvalue())).convert("RGB")
-
-    def _posterize(self, img, v):
-        return ImageOps.posterize(img, max(1, int(round(v))))
 
     def _shadow(self, img, v):
         w, h = img.size

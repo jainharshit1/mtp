@@ -318,10 +318,10 @@ Folds are now 6 instead of 8 (AGDD and fuselage are trained on only), see `fold_
   max(1, sqrt(t_ds/f_ds), sqrt(t_c/f_c) per class in the image), capped at 3 (t = equal share of the
   datasets / classes); a WeightedRandomSampler draws len(train) images per epoch with these weights
   (same epoch length). Every draw of an image with factor > 1 gets fresh light/colour changes
-  (`PhotometricJitter`, RandAugment-style): every draw applies 3-6 changes chosen at random from 16:
-  brightness 0.3-2.0, contrast 0.3-1.6, saturation 0-1.8, gamma 0.4-2.5, hue +-0.5 of the colour wheel,
+  (`PhotometricJitter`, RandAugment-style): every draw applies 3-6 changes chosen at random from 15:
+  brightness 0.3-1.6, contrast 0.3-1.6, saturation 0-1.8, gamma 0.4-2.5, hue +-0.5 of the colour wheel,
   warm/cool tint +-0.4, blur radius / sharpen up to 3, motion blur up to 15 px, sensor noise up to std 12,
-  JPEG quality down to 10, posterize down to 3 bits, shadow gradient up to 70%, haze up to 50%,
+  JPEG quality down to 10, shadow gradient up to 70%, haze up to 50%,
   histogram equalisation blended in up to 30%, and on/off greyscale and colour-channel swap. Light and
   colour changes run first, image-quality changes last (noise is never amplified afterwards). No
   geometric changes (user: rotation would spoil the boxes); the left-right flip stays. Strength (user,
@@ -334,7 +334,9 @@ Folds are now 6 instead of 8 (AGDD and fuselage are trained on only), see `fold_
   of the original ratio). History: a plain contrast check let a shadow erase an AGDD scratch; noise 30 +
   full equalisation turned a flat fuselage panel into blotches; then contrast/saturation/equalisation
   amplified its faint texture until it drowned the scratches (pattern checks passed) - fixed by the
-  stand-out check and the lower limits above. 300 training images: 1.8-2.0 draws per image, original
+  stand-out check and the lower limits above. Posterize was removed and brightness capped at 1.6
+  (user, after the per-fold preview: posterize after a shadow gave hard stripes, bright + posterize
+  washed images out). 300 training images: 1.8-2.0 draws per image, original
   kept for 3-5%, ~110-125 ms per image in a data worker incl. loading (8 workers: faster than the GPU).
   Sheets: build/final_review/aug_each_change.jpg (each change alone at its limits) and
   build/final_review/light_colour_samples.jpg (random draws as in training).
